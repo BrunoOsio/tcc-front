@@ -1,0 +1,1 @@
+export type NonTechnicalSpecialization = "marketing" | "workshops" | "awards";

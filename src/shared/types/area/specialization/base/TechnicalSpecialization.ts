@@ -1,0 +1,1 @@
+export type TechnicalSpecialization = "programming" | "mechanics" | "project" | "electrical" | "pneumatics" | "strategy";
