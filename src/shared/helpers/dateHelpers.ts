@@ -1,11 +1,29 @@
-import { Moment } from "moment"
+import moment, { Moment } from "moment"
 
 const DEFAULT_DATE_FORMAT = "DD-MM-YYYY";
 
-export const setDaysLimit = (date: Moment, days: number) => {
-  return date.add(days, "months");
+export const createDateOfNow = () => {
+  return moment().toDate();
 }
 
-export const formatDate = (date: Moment): string => {
-  return date.format(DEFAULT_DATE_FORMAT);
+const setDaysLimit = (days: number): Moment => {
+  return setDefaultTime(moment().add(days, "days"));
+}
+
+const setDefaultTime = (momentDate: Moment): Moment => {
+  momentDate.set("hour", 23);
+  momentDate.set("minute", 59);
+  momentDate.set("second", 59);
+
+  return momentDate;
+}
+
+export const createLimitDate = (daysLimit: number) => {
+  const limitDate = setDaysLimit(daysLimit);
+
+  return setDefaultTime(limitDate).toDate();
+}
+
+export const formatDate = (date: Date): string => {
+  return moment(date).format(DEFAULT_DATE_FORMAT);
 }
