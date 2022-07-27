@@ -1,7 +1,9 @@
+import { teamMock } from "./shared/services/mock/team/teamMock";
+
 export const App = () => {
 
   return (
-    <>Hi</>
+    <>{console.log(teamMock[0])}</>
   );
 }
 

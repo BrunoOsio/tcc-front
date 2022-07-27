@@ -1,11 +1,12 @@
 import { Area, Modality, User } from "..";
+import { TeamPhoto } from "./teamPhoto/TeamPhoto";
 
-export type Team = () => {
+export type Team = {
   id: number;
   name: string;
   modality: Modality;
   number: number;
-  logo: string; //TODO: how to do that
+  photo: TeamPhoto;
   areas: Area[];
   leader: User;
   joinRequests: User[];
