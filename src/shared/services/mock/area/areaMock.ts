@@ -8,6 +8,7 @@ export const areaMock: Area[] = [
     title: "titulo1",
     columns: [
       columnMock[0],
+      columnMock[1],
     ],
     specialization: "programming",
     leader: userMock[0]

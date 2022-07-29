@@ -14,6 +14,11 @@ export const teamMock: Team[] = [
     areas: [
       areaMock[0]
     ],
+    members: [
+      userMock[0],
+      userMock[1],
+      userMock[2],
+    ],
     joinRequests: [
       userMock[3],
       userMock[4]

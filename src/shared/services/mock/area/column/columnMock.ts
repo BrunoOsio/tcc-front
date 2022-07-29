@@ -9,5 +9,13 @@ export const columnMock: Column[] = [
       taskMock[0],
       taskMock[1]
     ]
+  },
+  {
+    id: 2,
+    title: "titulo2",
+    tasks: [
+      taskMock[2],
+      taskMock[3]
+    ]
   }
 ];

@@ -18,7 +18,7 @@ const setDefaultTime = (momentDate: Moment): Moment => {
   return momentDate;
 }
 
-export const createLimitDate = (daysLimit: number) => {
+export const createDaysLimitOf = (daysLimit: number) => {
   const limitDate = setDaysLimit(daysLimit);
 
   return setDefaultTime(limitDate).toDate();
