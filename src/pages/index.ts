@@ -1,1 +1,1 @@
-export * from "./teamAreaKanban/TeamAreaKanban";
+export * from "./teamAreaBoard/TeamAreaBoard";

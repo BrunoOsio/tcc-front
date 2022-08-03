@@ -14,7 +14,7 @@ type ColumnContainerProps = {
 
 export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column }) => {
   return (
-    <Container>
+    <Container isDone={column.isDone}>
       <Header>
         <ColumnName>{column.title}</ColumnName>
         <Button>+</Button>
@@ -22,7 +22,7 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column }) => {
 
       <TasksContainer>
         {column.tasks.map((task) => {
-          return <TaskCard task={task} />;
+          return <TaskCard key={task.id} task={task} />;
         })}
       </TasksContainer>
     </Container>

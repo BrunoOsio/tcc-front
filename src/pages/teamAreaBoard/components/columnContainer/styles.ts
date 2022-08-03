@@ -2,7 +2,11 @@ import styled from "styled-components";
 
 const NAVBAR_HEIGHT = "80px";
 
-export const Container = styled.section`
+type ContainerProps = {
+  isDone: boolean;
+}
+
+export const Container = styled.section<ContainerProps>`
   background-color: greenyellow;
   display: flex;
   flex-direction: column;
@@ -16,6 +20,8 @@ export const Container = styled.section`
   }
 
   border: 1px solid black;
+
+  opacity: ${({isDone}) => isDone && "0.5"};
 `;
 
 export const Header = styled.article`

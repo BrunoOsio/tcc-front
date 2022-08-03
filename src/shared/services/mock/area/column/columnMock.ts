@@ -8,14 +8,16 @@ export const columnMock: Column[] = [
     tasks: [
       taskMock[0],
       taskMock[1]
-    ]
+    ],
+    isDone: false,
   },
   {
     id: 2,
-    title: "titulo2",
+    title: "titulo done",
     tasks: [
       taskMock[2],
       taskMock[3]
-    ]
+    ],
+    isDone: true
   }
 ];

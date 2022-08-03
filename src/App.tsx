@@ -1,11 +1,11 @@
-import { TeamAreaKanban } from "./pages";
+import { TeamAreaBoard } from "./pages";
 import { GlobalStyle } from "./shared/globalStyles/globalStyles";
 export const App = () => {
 
   return (
     <div>
       <GlobalStyle />
-      <TeamAreaKanban />
+      <TeamAreaBoard />
     </div>
   );
 }

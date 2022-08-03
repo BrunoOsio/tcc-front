@@ -3,5 +3,6 @@ import { Task } from "../..";
 export type Column = {
   id: number;
   title: string;
-  tasks: Task[]
+  tasks: Task[];
+  isDone: boolean;
 }
