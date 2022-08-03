@@ -6,6 +6,7 @@ type TaskCardProps = {
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({task}) => {
+
   return (
     <Container>
       <span>{task.title}</span>

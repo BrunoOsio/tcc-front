@@ -8,6 +8,7 @@ type ContainerProps = {
 
 export const Container = styled.section<ContainerProps>`
   background-color: greenyellow;
+  
   display: flex;
   flex-direction: column;
   
