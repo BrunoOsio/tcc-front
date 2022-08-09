@@ -1,18 +1,20 @@
 import { Container } from "./styles";
 import { teamMock } from "../../shared/services/mock/team/teamMock";
 import { ColumnContainer } from "./components/columnContainer/ColumnContainer";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 const programmingArea = teamMock[0].areas[0];
 
 export const TeamAreaBoard = () => {
 
-  // const onDragEnd = (result) => {
+  const onDragEnd = (result: DropResult) => {
+    const {source, destination} = result;
 
-  // }
+    if (!destination) return;
+  }
 
   return (
-    // <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <Container>
         {programmingArea.columns.map((column) => {
           return (
@@ -20,6 +22,6 @@ export const TeamAreaBoard = () => {
           );
         })}
       </Container>
-    // </DragDropContext>
+    </DragDropContext>
   );
 };
