@@ -20,17 +20,20 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column }) => {
         <ColumnName>{column.title}</ColumnName>
         <Button>+</Button>
       </Header>
-      <Droppable droppableId={"todo"}>
+      <Droppable droppableId={String(column.id)}>
         {(provided) => (
-          <TasksList key={"oi"} {...provided.droppableProps} ref={provided.innerRef}>
+          <TasksList {...provided.droppableProps} ref={provided.innerRef}>
             {column.tasks.map((task, index) => {
               return (
                 <>
                   <TaskCard key={task.id} index={index} task={task} />
-                  {provided.placeholder}
+                  
                 </>
               );
             })}
+
+            {provided.placeholder}
+            
           </TasksList>
         )}
       </Droppable>
