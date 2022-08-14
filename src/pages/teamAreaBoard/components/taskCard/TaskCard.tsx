@@ -1,4 +1,4 @@
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable } from "@hello-pangea/dnd";
 import { Task } from "../../../../shared/types";
 import { Container } from "./styles";
 

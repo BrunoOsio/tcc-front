@@ -39,7 +39,7 @@ export const Button = styled.button`
   padding: 0px 20px;
 `;
 
-export const TasksContainer = styled.div`
+export const TasksList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
