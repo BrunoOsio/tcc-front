@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { colors } from "./globalColors";
+import { colors, sizes } from "./globalValues";
 export const GlobalStyle = createGlobalStyle`
   * {
     @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Roboto:wght@100;300;400&display=swap');
@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html, body, #root {
-    height: 100%;
+    height: calc(100% - ${sizes.navbar});
   }
 
   body {

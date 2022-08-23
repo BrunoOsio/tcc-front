@@ -13,7 +13,8 @@ export const taskMock: Task[] = [
     owner: userMock[0],
     members: [
       userMock[0],
-      userMock[1]
+      userMock[1],
+      userMock[2],
     ]
   },
   {

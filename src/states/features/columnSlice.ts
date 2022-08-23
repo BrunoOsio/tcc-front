@@ -11,7 +11,14 @@ const tempAreaMock = teamMock[0].areas[0];
 type ColumnState = BaseState<Column>;
 
 const initialState: ColumnState = {
-  value: [tempAreaMock.columns[0], tempAreaMock.columns[1], tempAreaMock.columns[2]],
+  value: [
+    tempAreaMock.columns[0], 
+    tempAreaMock.columns[1], 
+    tempAreaMock.columns[2],
+    tempAreaMock.columns[3],
+    tempAreaMock.columns[4],
+    tempAreaMock.columns[5]
+  ],
   isSuccess: false,
   isLoading: false,
   isError: false,
