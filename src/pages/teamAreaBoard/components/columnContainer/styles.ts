@@ -43,4 +43,6 @@ export const TasksList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-height: 50px;
+  width: 270px;
 `;

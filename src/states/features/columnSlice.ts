@@ -4,13 +4,14 @@ import { BaseState } from "./types/BaseState";
 import { teamMock } from "../../shared/services/mock/team/teamMock";
 import { DropResult } from "@hello-pangea/dnd";
 import { findTaskById } from "../../shared/services/task/findTaskById";
+import { debugDropResult, getNumberId } from "../../shared/helpers/beautifulDndIdHelpers";
 
 const tempAreaMock = teamMock[0].areas[0];
 
 type ColumnState = BaseState<Column>;
 
 const initialState: ColumnState = {
-  value: [tempAreaMock.columns[0]],
+  value: [tempAreaMock.columns[0], tempAreaMock.columns[1], tempAreaMock.columns[2]],
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -39,21 +40,29 @@ export const columnSlice = createSlice({
     reorder(state, action: PayloadAction<DropResult>) {
       const {source, destination} = action.payload;
 
-      const draggableId = Number(action.payload.draggableId);
-      const targetTask = findTaskById(Number(draggableId));
+      debugDropResult(action.payload);
 
-      
+      //task
+      const draggableId = getNumberId(action.payload.draggableId);
+      const targetTask = findTaskById(draggableId);
+
       const sourceTaskIndex = source.index;
-      const destinationTaskIndex = destination?.index || -1;
+      const destinationTaskIndex = destination?.index || 0;
+
+      //droppableId
+      const sourceDroppableId = getNumberId(source.droppableId);
+      const destinationDroppableId = getNumberId(destination?.droppableId);
       
-      const columnIndex = Number(source.droppableId) - 1;
-      const column = state.value[columnIndex];
+      //column
+      const sourceColumnIndex = sourceDroppableId - 1;
+      const sourceColumn = state.value[sourceColumnIndex];
 
-      const newTasks = Array.from(column.tasks);
-      newTasks.splice(sourceTaskIndex, 1);
-      newTasks.splice(destinationTaskIndex, 0, targetTask);      
-
-      state.value[columnIndex].tasks = newTasks;
+      //reorder
+      let sourceNewTasks = Array.from(sourceColumn.tasks);
+      sourceNewTasks.splice(sourceTaskIndex, 1);
+      sourceNewTasks.splice(destinationTaskIndex, 0, targetTask);
+            
+      state.value[sourceColumnIndex].tasks = sourceNewTasks;
     } 
   }
 });

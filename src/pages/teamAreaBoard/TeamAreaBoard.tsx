@@ -12,7 +12,7 @@ export const TeamAreaBoard = () => {
   const dispatch = useAppDispatch();
 
   const onDragEnd = (result: DropResult) => {
-    const {source, destination, draggableId } = result;
+    const {source, destination} = result;
 
     if (!destination) return;
 
@@ -20,12 +20,6 @@ export const TeamAreaBoard = () => {
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) return;
-
-    // console.log("source index: ", source.index); //0
-    // console.log("destination index: ", destination.index); //1
-    // console.log("source droppableId", source.droppableId); //0
-    // console.log("destination droppableId", destination.droppableId) //0
-    // console.log("draggable id", draggableId);
     
     dispatch(reorder(result));
   }

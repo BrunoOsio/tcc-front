@@ -1,4 +1,5 @@
 import { Draggable } from "@hello-pangea/dnd";
+import { draggableId } from "../../../../shared/helpers/beautifulDndIdHelpers";
 import { Task } from "../../../../shared/types";
 import { Container } from "./styles";
 
@@ -10,7 +11,7 @@ type TaskCardProps = {
 export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
 
   return (
-    <Draggable draggableId={String(task.id)} index={index}>
+    <Draggable key={task.id} draggableId={draggableId(task.id)} index={index}>
       {
         (provided) => (
           <Container {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
