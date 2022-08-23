@@ -4,6 +4,7 @@ import { Task } from "../../../../shared/types";
 import { Container, Informations, LimitAt, LimitDateLabel, MemberPhoto, Members } from "./styles";
 import { RiTimer2Fill } from "react-icons/ri";
 import { getFrom } from "./helpers/formatLimitDate";
+import { draggingStyle } from "./css/draggingStyle";
 
 type TaskCardProps = {
   index: number
@@ -20,8 +21,13 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
   return (
     <Draggable key={task.id} draggableId={draggableId(task.id)} index={index}>
       {
-        (provided) => (
-          <Container {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+        (provided, snapshot) => (
+          <Container 
+            {...provided.draggableProps} 
+            {...provided.dragHandleProps} 
+            ref={provided.innerRef}
+            style={draggingStyle(snapshot.isDragging, provided.draggableProps.style)}
+          >
             <Informations>
               <span>{task.title}</span>
 

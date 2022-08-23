@@ -1,5 +1,6 @@
 export const colors = {
   background: "#E4EBFF",
+  taskHover: "#DAE4FF",
   blue: "#1688FF",
   lightGreyOne: "#EFEFEF",
   lightGreyTwo: "#DBDBDB",
