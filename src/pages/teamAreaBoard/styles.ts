@@ -8,6 +8,8 @@ export const Container = styled.main`
   margin-left: ${sizes.navbar};
   overflow-x: scroll;
   margin-right: 50px;
+  height: calc(100vh - ${sizes.navbar});
+  max-height: 1200px;
 
   ::-webkit-scrollbar {
     width: 15px;

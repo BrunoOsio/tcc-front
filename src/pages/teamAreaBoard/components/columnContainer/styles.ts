@@ -13,7 +13,6 @@ export const Container = styled.section<ContainerProps>`
   flex-direction: column;
 
   padding: 0px 0px;
-  height: calc(100% - ${sizes.navbar});
 
   margin-right: 10px;
   &:last-child {
