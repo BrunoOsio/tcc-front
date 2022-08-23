@@ -4,8 +4,8 @@ export type Task = {
   id: number;
   title: string;
   description?: string;
-  createdAt: Date;
-  limitAt?: Date;
+  createdAt: string; //temp string
+  limitAt?: string;
   isFinished: boolean;
   owner: User;
   members: User[];

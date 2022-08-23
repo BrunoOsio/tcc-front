@@ -27,7 +27,6 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column }) => {
               return (
                 <>
                   <TaskCard key={task.id} index={index} task={task} />
-                  
                 </>
               );
             })}

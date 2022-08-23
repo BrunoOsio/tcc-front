@@ -3,7 +3,7 @@ import moment, { Moment } from "moment"
 const DEFAULT_DATE_FORMAT = "DD-MM-YYYY";
 
 export const createDateOfNow = () => {
-  return moment().toDate();
+  return formatDate(moment().toDate());
 }
 
 const setDaysLimit = (days: number): Moment => {
@@ -21,7 +21,7 @@ const setDefaultTime = (momentDate: Moment): Moment => {
 export const createDaysLimitOf = (daysLimit: number) => {
   const limitDate = setDaysLimit(daysLimit);
 
-  return setDefaultTime(limitDate).toDate();
+  return formatDate(setDefaultTime(limitDate).toDate());
 }
 
 export const formatDate = (date: Date): string => {

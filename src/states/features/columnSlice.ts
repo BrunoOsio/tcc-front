@@ -9,9 +9,8 @@ const tempAreaMock = teamMock[0].areas[0];
 
 type ColumnState = BaseState<Column>;
 
-//TODO: set INITIAL STATE 
 const initialState: ColumnState = {
-  value: [],
+  value: [tempAreaMock.columns[0]],
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -38,16 +37,23 @@ export const columnSlice = createSlice({
 
   reducers: {
     reorder(state, action: PayloadAction<DropResult>) {
-      // const {source, destination} = action.payload;
-      // const draggableId = Number(action.payload.draggableId);
+      const {source, destination} = action.payload;
 
-      // const sourceColumnIndex = Number(source.droppableId);
-      // const targetTask = findTaskById(Number(draggableId));
+      const draggableId = Number(action.payload.draggableId);
+      const targetTask = findTaskById(Number(draggableId));
 
-      // state.value[sourceColumnIndex].tasks = [];
-
-      console.log("tasks: ", state.value[0]);
       
+      const sourceTaskIndex = source.index;
+      const destinationTaskIndex = destination?.index || -1;
+      
+      const columnIndex = Number(source.droppableId) - 1;
+      const column = state.value[columnIndex];
+
+      const newTasks = Array.from(column.tasks);
+      newTasks.splice(sourceTaskIndex, 1);
+      newTasks.splice(destinationTaskIndex, 0, targetTask);      
+
+      state.value[columnIndex].tasks = newTasks;
     } 
   }
 });

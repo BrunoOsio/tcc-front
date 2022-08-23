@@ -1,13 +1,13 @@
 import { Container } from "./styles";
-import { teamMock } from "../../shared/services/mock/team/teamMock";
 import { ColumnContainer } from "./components/columnContainer/ColumnContainer";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
-import { useAppDispatch } from "../../states/app/hooks";
+import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { reorder } from "../../states/features/columnSlice";
 
-const programmingArea = teamMock[0].areas[0];
-
 export const TeamAreaBoard = () => {
+  const {
+    value: columns,
+  } = useAppSelector((state) => state.column);
 
   const dispatch = useAppDispatch();
 
@@ -33,7 +33,7 @@ export const TeamAreaBoard = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Container>
-        {programmingArea.columns.map((column) => {
+        {columns.map((column) => {
           return (
             <ColumnContainer key={column.id} column={column} />
           );
