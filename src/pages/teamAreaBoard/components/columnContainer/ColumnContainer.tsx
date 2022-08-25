@@ -1,8 +1,7 @@
 import {
   AddTaskButton,
   Body,
-  Button,
-  ColumnName,
+  ColumnTitleInput,
   Container,
   Header,
   Scrollable,
@@ -13,27 +12,37 @@ import { TaskCard } from "../taskCard/TaskCard";
 import { Droppable } from "@hello-pangea/dnd";
 import { droppableId } from "../../../../shared/helpers/beautifulDndIdHelpers";
 import { GoPlus } from "react-icons/go";
+import { ChangeEvent, useState } from "react";
+import { useAppDispatch } from "../../../../states/app/hooks";
+import { changeColumnTitle } from "../../../../states/features/columnSlice";
+import { dragOverStyle } from "./snapshot/dragOverStyle";
 
 type ColumnContainerProps = {
   column: Column;
 };
 
 export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column }) => {
+  const dispatch = useAppDispatch();
+
   return (
-    <Container isDone={column.isDone}>
+    <Container isDone={column.isForDoneTasks}>
       <Header>
-        <ColumnName>{column.title}</ColumnName>
+        <ColumnTitleInput defaultValue={column.title} />
       </Header>
       <Scrollable>
         <Body>
           
-          { !column.isDone &&
+          { !column.isForDoneTasks &&
             <AddTaskButton><span><GoPlus /></span></AddTaskButton>
           }
 
           <Droppable droppableId={droppableId(column.id)}>
-            {(provided) => (
-              <TasksList {...provided.droppableProps} ref={provided.innerRef}>
+            {(provided, snapshot) => (
+              <TasksList 
+                {...provided.droppableProps} 
+                ref={provided.innerRef}
+                // style={dragOverStyle(snapshot.isDraggingOver)}
+              >
                 {column.tasks.map((task, index) => {
                   return <TaskCard key={task.id} index={index} task={task} />;
                 })}

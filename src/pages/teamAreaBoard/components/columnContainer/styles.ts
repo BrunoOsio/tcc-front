@@ -13,32 +13,48 @@ export const Container = styled.section<ContainerProps>`
   flex-direction: column;
 
   padding: 0px 0px;
-
   margin-right: 10px;
+
   &:last-child {
     margin-right: 0px;
   }
 
   opacity: ${({ isDone }) => isDone && "0.5"};
+
+  @media (max-width: 400px) {
+    max-height: calc(100vh - ${sizes.navbarMobile});
+  }
 `;
 
 export const Header = styled.article`
   width: 100%;
   background-color: ${colors.blue};
   text-align: center;
-  font-size: 1.3rem;
-  padding: 10px 0px;
-  color: white;
   text-transform: capitalize;
   border-radius: 10px 10px 0px 0px;
 `;
 
-export const ColumnName = styled.span``;
+export const ColumnTitleInput = styled.input`
+  width: 50%;
+  height: 100%;
+
+  font-size: 1.3rem;
+  padding: 10px 0px;
+  background-color: transparent;
+  color: ${colors.white};
+  outline: none;
+  border: none;
+  text-align: center;
+
+  &:focus {
+    color: ${colors.lightGreyBackgroundAddButton}
+  }
+`;
 
 export const Scrollable = styled.div`
   margin-top: 10px;
 
-  overflow-y: scroll;
+  overflow: auto;
 
   ::-webkit-scrollbar {
     width: 5px;
@@ -112,8 +128,7 @@ export const Button = styled.button`
 export const TasksList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  min-height: 50px;
   width: ${sizes.column};
   margin-top: 10px;
+  min-height: 340px;
 `;

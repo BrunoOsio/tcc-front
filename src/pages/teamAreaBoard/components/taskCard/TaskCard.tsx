@@ -4,7 +4,7 @@ import { Task } from "../../../../shared/types";
 import { Container, Informations, LimitAt, LimitDateLabel, MemberPhoto, Members } from "./styles";
 import { RiTimer2Fill } from "react-icons/ri";
 import { getFrom } from "./helpers/formatLimitDate";
-import { draggingStyle } from "./css/draggingStyle";
+import { draggingStyle } from "./snapshot/draggingStyle";
 
 type TaskCardProps = {
   index: number

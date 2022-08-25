@@ -8,11 +8,11 @@ type MemberPhotoProps = {
 export const Container = styled.article`
   padding: 12px 12px;
   height: ${sizes.taskHeight};
-  width: 100%;
   background-color: ${colors.background};
   cursor: grab;
   user-select: none;
   display: flex;
+  margin-bottom: 10px;
 
   border: 4px solid ${colors.white};
   border-radius: 12px;
@@ -45,7 +45,6 @@ export const Members = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  /* justify-content: ; */
   width: 20%;
 `;
 

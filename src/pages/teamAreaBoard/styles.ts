@@ -6,10 +6,16 @@ export const Container = styled.main`
   flex-direction: row;
   margin-top: ${sizes.navbar};
   margin-left: ${sizes.navbar};
-  overflow-x: scroll;
+  overflow: auto;
   margin-right: 50px;
   height: calc(100vh - ${sizes.navbar});
   max-height: 1200px;
+
+  @media (max-width: 400px){
+    margin: 0px 10px;
+    margin-top: ${sizes.navbarMobile};
+    height: calc(100vh - ${sizes.navbarMobile});
+  }
 
   ::-webkit-scrollbar {
     width: 15px;

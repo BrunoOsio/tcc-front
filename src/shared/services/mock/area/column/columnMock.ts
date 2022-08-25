@@ -11,50 +11,59 @@ export const columnMock: Column[] = [
       taskMock[2],
       taskMock[3]
     ],
-    isDone: false,
+    isForDoneTasks: false,
   },
   {
     id: 2,
     title: "A fazer",
     tasks: [
-      taskMock[5],
       taskMock[4],
+      taskMock[5],
     ],
-    isDone: false,
+    isForDoneTasks: false,
   },
   {
     id: 3,
     title: "A fazer",
     tasks: [
-      taskMock[5],
-      taskMock[4],
+
     ],
-    isDone: false,
+    isForDoneTasks: false,
   },
   {
     id: 4,
     title: "A fazer",
     tasks: [
-      taskMock[5],
-      taskMock[4],
+      taskMock[6],
     ],
-    isDone: false,
+    isForDoneTasks: false,
   },
   {
     id: 5,
     title: "A fazer",
     tasks: [
-      taskMock[5],
-      taskMock[4],
+      taskMock[7],
+      taskMock[8],
+      taskMock[9],
+      taskMock[10],
+      taskMock[11],
+      taskMock[12],
+      taskMock[13],
+      taskMock[14],
+      taskMock[15],
+      taskMock[16],
+      taskMock[17],
+      taskMock[18]
+
     ],
-    isDone: false,
+    isForDoneTasks: false,
   },
   {
     id: 6,
     title: "Concluído",
     tasks: [
-      
+
     ],
-    isDone: true
+    isForDoneTasks: true
   }
 ];

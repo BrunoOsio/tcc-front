@@ -44,6 +44,7 @@ export const columnSlice = createSlice({
   initialState,
 
   reducers: {
+    //TODO: Refactor multi reorder
     reorder(state, action: PayloadAction<DropResult>) {
       const {source, destination} = action.payload;
 
@@ -57,24 +58,48 @@ export const columnSlice = createSlice({
       const destinationTaskIndex = destination?.index || 0;
 
       //droppableId
-      const sourceDroppableId = getNumberId(source.droppableId);
-      const destinationDroppableId = getNumberId(destination?.droppableId);
+      const sourceColumn = getNumberId(source.droppableId);
+      const destinationColumn = getNumberId(destination?.droppableId);
       
       //column
-      const sourceColumnIndex = sourceDroppableId - 1;
-      const sourceColumn = state.value[sourceColumnIndex];
+      const sourceColumnIndex = sourceColumn - 1;
+      const sourceColumnState = state.value[sourceColumnIndex];
 
-      //reorder
-      let sourceNewTasks = Array.from(sourceColumn.tasks);
-      sourceNewTasks.splice(sourceTaskIndex, 1);
-      sourceNewTasks.splice(destinationTaskIndex, 0, targetTask);
-            
-      state.value[sourceColumnIndex].tasks = sourceNewTasks;
-    } 
+      const destinationColumnIndex = destinationColumn - 1;
+      const destinationColumnState = state.value[destinationColumnIndex];
+
+      if (sourceColumn === destinationColumn) {
+        //reorder
+        let sourceNewTasks = Array.from(sourceColumnState.tasks);
+        sourceNewTasks.splice(sourceTaskIndex, 1);
+        sourceNewTasks.splice(destinationTaskIndex, 0, targetTask);
+              
+        state.value[sourceColumnIndex].tasks = sourceNewTasks;
+
+      } else {
+        //reorder multiple
+        let sourceNewTasks = Array.from(sourceColumnState.tasks);
+        sourceNewTasks.splice(sourceTaskIndex, 1);
+
+        state.value[sourceColumnIndex].tasks = sourceNewTasks
+
+        let destinationNewTasks = Array.from(destinationColumnState.tasks);
+        destinationNewTasks.splice(destinationTaskIndex, 0, targetTask);
+
+        state.value[destinationColumnIndex].tasks = destinationNewTasks
+      }
+
+    },
+
+    changeColumnTitle(state, action: PayloadAction<Column>) {
+      const {id: columnId, title: newTitle} = action.payload;
+
+      state.value[columnId].title = newTitle
+    }
   }
 });
 
-export const { reorder } = columnSlice.actions;
+export const { reorder, changeColumnTitle } = columnSlice.actions;
 export { };
 
 export default columnSlice.reducer;
