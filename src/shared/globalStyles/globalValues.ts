@@ -2,8 +2,6 @@ export const colors = {
   background: "#E4EBFF",
   taskHover: "#DAE4FF",
   blue: "#1688FF",
-  lightGreyOne: "#EFEFEF",
-  lightGreyTwo: "#DBDBDB",
   lightGreyBackgroundColumn: "#EFEFEF",
   lightGreyBackgroundAddButton: "#E4E4E4",
   greyBorderAddButton: "#A2A2A2",

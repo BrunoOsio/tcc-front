@@ -8,7 +8,7 @@ type ContainerProps = {
 export const Container = styled.section<ContainerProps>`
   background-color: ${colors.lightGreyBackgroundColumn};
 
-  max-height: calc(100vh - ${sizes.navbar} - 25px);
+  max-height: calc(100vh - ${sizes.navbar} - 20px);
   display: flex;
   flex-direction: column;
 
