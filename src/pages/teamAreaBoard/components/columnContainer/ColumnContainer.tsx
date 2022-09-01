@@ -12,10 +12,7 @@ import { TaskCard } from "../taskCard/TaskCard";
 import { Droppable } from "@hello-pangea/dnd";
 import { droppableId } from "../../../../shared/helpers/beautifulDndIdHelpers";
 import { GoPlus } from "react-icons/go";
-import { ChangeEvent, useState } from "react";
 import { useAppDispatch } from "../../../../states/app/hooks";
-import { changeColumnTitle } from "../../../../states/features/columnSlice";
-import { dragOverStyle } from "./snapshot/dragOverStyle";
 
 type ColumnContainerProps = {
   column: Column;

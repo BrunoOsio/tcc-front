@@ -125,6 +125,7 @@ export const Button = styled.button`
   padding: 0px 20px;
 `;
 
+//TODO Fix droppable zone
 export const TasksList = styled.div`
   display: flex;
   flex-direction: column;

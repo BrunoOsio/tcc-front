@@ -5,6 +5,8 @@ import { teamMock } from "../../shared/services/mock/team/teamMock";
 import { DropResult } from "@hello-pangea/dnd";
 import { findTaskById } from "../../shared/services/task/findTaskById";
 import { debugDropResult, getNumberId } from "../../shared/helpers/beautifulDndIdHelpers";
+import { ColumnsOrderResult } from "./types/column/ColumnsOrderResult";
+import { createColumnOrder } from "../../shared/helpers/column/createColumnOrder";
 
 const tempAreaMock = teamMock[0].areas[0];
 
@@ -48,7 +50,7 @@ export const columnSlice = createSlice({
     reorder(state, action: PayloadAction<DropResult>) {
       const {source, destination} = action.payload;
 
-      debugDropResult(action.payload);
+      debugDropResult(action.payload);     
 
       //task
       const draggableId = getNumberId(action.payload.draggableId);
@@ -89,17 +91,25 @@ export const columnSlice = createSlice({
         state.value[destinationColumnIndex].tasks = destinationNewTasks
       }
 
+      const sourceTasksIdOrder: number[] = state.value[sourceColumnIndex].tasks
+        .map(task => task.id);
+
+      const destinationTasksIdOrder: number[] = state.value[destinationColumnIndex].tasks
+        .map(task => task.id);
+      
+      //TODO: update on database columnsOrder
+      const columnsOrderResult: ColumnsOrderResult = {
+        sourceColumn: createColumnOrder(sourceColumnIndex, sourceTasksIdOrder),
+        destinationColumn: createColumnOrder(destinationColumnIndex, destinationTasksIdOrder)
+      }
+
+      state.value[sourceColumnIndex].tasksIdOrder = columnsOrderResult.sourceColumn.taskIds;
+      state.value[destinationColumnIndex].tasksIdOrder = columnsOrderResult.destinationColumn.taskIds;
     },
-
-    changeColumnTitle(state, action: PayloadAction<Column>) {
-      const {id: columnId, title: newTitle} = action.payload;
-
-      state.value[columnId].title = newTitle
-    }
   }
 });
 
-export const { reorder, changeColumnTitle } = columnSlice.actions;
+export const { reorder } = columnSlice.actions;
 export { };
 
 export default columnSlice.reducer;
