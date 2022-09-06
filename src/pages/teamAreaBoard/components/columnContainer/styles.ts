@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, sizes } from "../../../../shared/globalStyles/globalValues";
+import { colors, responsivity, sizes } from "../../../../shared/globalStyles/globalValues";
 
 type ContainerProps = {
   isDone: boolean;
@@ -21,7 +21,7 @@ export const Container = styled.section<ContainerProps>`
 
   opacity: ${({ isDone }) => isDone && "0.5"};
 
-  @media (max-width: 400px) {
+  @media (max-width: ${responsivity.mobile}) {
     max-height: calc(100vh - ${sizes.navbarMobile});
   }
 `;
@@ -129,7 +129,7 @@ export const Button = styled.button`
 export const TasksList = styled.div`
   display: flex;
   flex-direction: column;
-  width: ${sizes.column};
+  width: 100%;
   margin-top: 10px;
   min-height: 340px;
 `;
