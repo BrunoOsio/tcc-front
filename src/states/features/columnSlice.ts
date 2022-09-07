@@ -91,11 +91,17 @@ export const columnSlice = createSlice({
         state.value[destinationColumnIndex].tasks = destinationNewTasks
       }
 
-      const sourceTasksIdOrder: number[] = state.value[sourceColumnIndex].tasks
-        .map(task => task.id);
+      const rawSourceTasksIdOrder: string[] = state.value[sourceColumnIndex].tasks
+        .map(task => `${task.id}`);
 
-      const destinationTasksIdOrder: number[] = state.value[destinationColumnIndex].tasks
-        .map(task => task.id);
+        console.log(rawSourceTasksIdOrder)
+
+      const rawDestinationTasksIdOrder: string[] = state.value[destinationColumnIndex].tasks
+        .map(task => String(`${task.id}`));
+
+      const TASK_ORDER_SEPARATOR = " ";
+      const sourceTasksIdOrder = rawSourceTasksIdOrder.join(TASK_ORDER_SEPARATOR);
+      const destinationTasksIdOrder = rawDestinationTasksIdOrder.join(TASK_ORDER_SEPARATOR);
       
       //TODO: update on database columnsOrder
       const columnsOrderResult: ColumnsOrderResult = {
@@ -103,8 +109,10 @@ export const columnSlice = createSlice({
         destinationColumn: createColumnOrder(destinationColumnIndex, destinationTasksIdOrder)
       }
 
-      state.value[sourceColumnIndex].tasksIdOrder = columnsOrderResult.sourceColumn.taskIds;
-      state.value[destinationColumnIndex].tasksIdOrder = columnsOrderResult.destinationColumn.taskIds;
+      console.log(columnsOrderResult);
+
+      state.value[sourceColumnIndex].tasksIdOrder = columnsOrderResult.sourceColumn.taskIdsOrder;
+      state.value[destinationColumnIndex].tasksIdOrder = columnsOrderResult.destinationColumn.taskIdsOrder;
     },
   }
 });

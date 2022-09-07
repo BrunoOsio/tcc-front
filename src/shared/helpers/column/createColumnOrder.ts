@@ -1,8 +1,8 @@
 import { ColumnOrder } from "../../../states/features/types/column/ColumnOrder";
 
-export const createColumnOrder = (columnId: number, tasksId: number[]): ColumnOrder => {
+export const createColumnOrder = (columnId: number, taskIdsOrder: string): ColumnOrder => {
   return {
     id: columnId,
-    taskIds: tasksId
+    taskIdsOrder: taskIdsOrder
   }
 }

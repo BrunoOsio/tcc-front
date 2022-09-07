@@ -17,3 +17,7 @@ export const sizes = {
   column: "220px",
   taskHeight: "80px",
 }
+
+export const responsivity = {
+  mobile: "450px"
+}

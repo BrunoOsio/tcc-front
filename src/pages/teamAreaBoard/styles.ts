@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, sizes } from "../../shared/globalStyles/globalValues";
+import { colors, responsivity, sizes } from "../../shared/globalStyles/globalValues";
 
 export const Container = styled.main`
   display: flex;
@@ -11,7 +11,7 @@ export const Container = styled.main`
   height: calc(100vh - ${sizes.navbar});
   max-height: 1200px;
 
-  @media (max-width: 400px){
+  @media (max-width: ${responsivity.mobile}){
     margin: 0px 10px;
     margin-top: ${sizes.navbarMobile};
     height: calc(100vh - ${sizes.navbarMobile});

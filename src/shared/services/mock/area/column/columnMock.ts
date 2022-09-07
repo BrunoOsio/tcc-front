@@ -11,7 +11,7 @@ export const columnMock: Column[] = [
       taskMock[2],
       taskMock[3]
     ],
-    tasksIdOrder: [],
+    tasksIdOrder: undefined,
     isForDoneTasks: false,
   },
   {
@@ -21,7 +21,7 @@ export const columnMock: Column[] = [
       taskMock[4],
       taskMock[5],
     ],
-    tasksIdOrder: [],
+    tasksIdOrder: undefined,
     isForDoneTasks: false,
   },
   {
@@ -30,7 +30,7 @@ export const columnMock: Column[] = [
     tasks: [
 
     ],
-    tasksIdOrder: [],
+    tasksIdOrder: undefined,
     isForDoneTasks: false,
   },
   {
@@ -39,7 +39,7 @@ export const columnMock: Column[] = [
     tasks: [
       taskMock[6],
     ],
-    tasksIdOrder: [],
+    tasksIdOrder: undefined,
     isForDoneTasks: false,
   },
   {
@@ -60,7 +60,7 @@ export const columnMock: Column[] = [
       taskMock[18]
 
     ],
-    tasksIdOrder: [],
+    tasksIdOrder: undefined,
     isForDoneTasks: false,
   },
   {
@@ -69,7 +69,7 @@ export const columnMock: Column[] = [
     tasks: [
 
     ],
-    tasksIdOrder: [],
+    tasksIdOrder: undefined,
     isForDoneTasks: true
   }
 ];
