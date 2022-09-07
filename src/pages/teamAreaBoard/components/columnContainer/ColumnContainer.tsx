@@ -12,14 +12,12 @@ import { TaskCard } from "../taskCard/TaskCard";
 import { Droppable } from "@hello-pangea/dnd";
 import { droppableId } from "../../../../shared/helpers/beautifulDndIdHelpers";
 import { GoPlus } from "react-icons/go";
-import { useAppDispatch } from "../../../../states/app/hooks";
 
 type ColumnContainerProps = {
   column: Column;
 };
 
 export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column }) => {
-  const dispatch = useAppDispatch();
 
   return (
     <Container isDone={column.isForDoneTasks}>
