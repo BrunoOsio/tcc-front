@@ -1,5 +1,8 @@
 import { DropResult } from "@hello-pangea/dnd";
-import { findTaskById } from "../services/task/findTaskById";
+import { ColumnsOrderResult } from "../../../states/features/types/column/ColumnsOrderResult";
+import { findTaskById } from "../../services/task/findTaskById";
+import { Column } from "../../types";
+import { createColumnOrder } from "./column/createColumnOrder";
 
 const DEFAULT_SEPARATOR = "-";
 
@@ -62,6 +65,26 @@ export const formatDndValues = (dropResult: DropResult) => {
   }
 
   return formattedDndValues;
+}
+
+export const formatColumnsOrderResult = (sourceColumn: Column, destinationColumn: Column): ColumnsOrderResult => {
+  const rawSourceTasksIdOrder: string[] = sourceColumn.tasks
+    .map(task => String(task.id));
+
+  const rawDestinationTasksIdOrder: string[] = destinationColumn.tasks
+    .map(task => String(task.id));
+
+  const TASK_ORDER_SEPARATOR = " ";
+  const sourceTasksIdOrder = rawSourceTasksIdOrder.join(TASK_ORDER_SEPARATOR);
+  const destinationTasksIdOrder = rawDestinationTasksIdOrder.join(TASK_ORDER_SEPARATOR);
+
+  //TODO: update on database columnsOrder
+  const columnsOrderResult: ColumnsOrderResult = {
+    sourceColumn: createColumnOrder(sourceColumn.id, sourceTasksIdOrder),
+    destinationColumn: createColumnOrder(destinationColumn.id, destinationTasksIdOrder)
+  }
+
+  return columnsOrderResult;
 }
 
 export const debugDropResult = (dropResult: DropResult): void => {

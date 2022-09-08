@@ -10,7 +10,7 @@ import {
 import { Column } from "../../../../shared/types/area/column/Column";
 import { TaskCard } from "../taskCard/TaskCard";
 import { Droppable } from "@hello-pangea/dnd";
-import { droppableId } from "../../../../shared/helpers/beautifulDndIdHelpers";
+import { droppableId } from "../../../../shared/helpers/area/beautifulDndIdHelpers";
 import { GoPlus } from "react-icons/go";
 
 type ColumnContainerProps = {

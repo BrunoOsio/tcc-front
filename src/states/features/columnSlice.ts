@@ -4,9 +4,9 @@ import { BaseState } from "./types/BaseState";
 import { teamMock } from "../../shared/services/mock/team/teamMock";
 import { DropResult } from "@hello-pangea/dnd";
 import { findTaskById } from "../../shared/services/task/findTaskById";
-import { debugDropResult, formatDndValues, getNumberId } from "../../shared/helpers/beautifulDndIdHelpers";
+import { debugDropResult, formatColumnsOrderResult, formatDndValues, getNumberId } from "../../shared/helpers/area/beautifulDndIdHelpers";
 import { ColumnsOrderResult } from "./types/column/ColumnsOrderResult";
-import { createColumnOrder } from "../../shared/helpers/column/createColumnOrder";
+import { createColumnOrder } from "../../shared/helpers/area/column/createColumnOrder";
 
 const tempAreaMock = teamMock[0].areas[0];
 
@@ -50,14 +50,11 @@ export const columnSlice = createSlice({
     reorder(state, action: PayloadAction<DropResult>) {
       const {draggedTask, sourceColumn, destinationColumn} = formatDndValues(action.payload);
 
-      debugDropResult(action.payload);     
-
       const sourceColumnState = state.value[sourceColumn.index];
       const destinationColumnState = state.value[destinationColumn.index];
 
       let sourceNewTasks = Array.from(sourceColumnState.tasks);
       sourceNewTasks.splice(sourceColumn.taskIndex, 1);
-      // sourceNewTasks.splice(destinationColumn.taskIndex, 0, draggedTask);
 
       sourceColumnState.tasks = sourceNewTasks;
       
@@ -69,23 +66,10 @@ export const columnSlice = createSlice({
   
         destinationColumnState.tasks = destinationNewTasks
       }
+
+      const columnsOrderResult = formatColumnsOrderResult(sourceColumnState, destinationColumnState);
       
-      const rawSourceTasksIdOrder: string[] = sourceColumnState.tasks
-        .map(task => `${task.id}`);
-
-      const rawDestinationTasksIdOrder: string[] = destinationColumnState.tasks
-        .map(task => String(`${task.id}`));
-
-      const TASK_ORDER_SEPARATOR = " ";
-      const sourceTasksIdOrder = rawSourceTasksIdOrder.join(TASK_ORDER_SEPARATOR);
-      const destinationTasksIdOrder = rawDestinationTasksIdOrder.join(TASK_ORDER_SEPARATOR);
-      
-      //TODO: update on database columnsOrder
-      const columnsOrderResult: ColumnsOrderResult = {
-        sourceColumn: createColumnOrder(sourceColumn.index, sourceTasksIdOrder),
-        destinationColumn: createColumnOrder(destinationColumn.index, destinationTasksIdOrder)
-      }
-
+      debugDropResult(action.payload);     
       console.log(columnsOrderResult);
 
       sourceColumnState.tasksIdOrder = columnsOrderResult.sourceColumn.taskIdsOrder;

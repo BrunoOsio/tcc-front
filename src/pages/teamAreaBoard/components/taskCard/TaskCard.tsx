@@ -1,5 +1,5 @@
 import { Draggable } from "@hello-pangea/dnd";
-import { draggableId } from "../../../../shared/helpers/beautifulDndIdHelpers";
+import { draggableId } from "../../../../shared/helpers/area/beautifulDndIdHelpers";
 import { Task } from "../../../../shared/types";
 import { Container, Informations, LimitAt, LimitDateLabel, MemberPhoto, Members } from "./styles";
 import { RiTimer2Fill } from "react-icons/ri";

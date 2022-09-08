@@ -3,7 +3,7 @@ import { taskMock } from "../../task/taskMock";
 
 export const columnMock: Column[] = [
   {
-    id: 1,
+    id: 254,
     title: "Ideias",
     tasks: [
       taskMock[0],
@@ -15,7 +15,7 @@ export const columnMock: Column[] = [
     isForDoneTasks: false,
   },
   {
-    id: 2,
+    id: 765,
     title: "A fazer",
     tasks: [
       taskMock[4],
