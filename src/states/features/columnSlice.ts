@@ -4,7 +4,7 @@ import { BaseState } from "./types/BaseState";
 import { teamMock } from "../../shared/services/mock/team/teamMock";
 import { DropResult } from "@hello-pangea/dnd";
 import { findTaskById } from "../../shared/services/task/findTaskById";
-import { debugDropResult, getNumberId } from "../../shared/helpers/beautifulDndIdHelpers";
+import { debugDropResult, formatDndValues, getNumberId } from "../../shared/helpers/beautifulDndIdHelpers";
 import { ColumnsOrderResult } from "./types/column/ColumnsOrderResult";
 import { createColumnOrder } from "../../shared/helpers/column/createColumnOrder";
 
@@ -46,58 +46,34 @@ export const columnSlice = createSlice({
   initialState,
 
   reducers: {
-    //TODO: Refactor multi reorder
+    //TODO: Refactor columnOrderResult
     reorder(state, action: PayloadAction<DropResult>) {
-      const {source, destination} = action.payload;
+      const {draggedTask, sourceColumn, destinationColumn} = formatDndValues(action.payload);
 
       debugDropResult(action.payload);     
 
-      //task
-      const draggableId = getNumberId(action.payload.draggableId);
-      const targetTask = findTaskById(draggableId);
+      const sourceColumnState = state.value[sourceColumn.index];
+      const destinationColumnState = state.value[destinationColumn.index];
 
-      const sourceTaskIndex = source.index;
-      const destinationTaskIndex = destination?.index || 0;
+      let sourceNewTasks = Array.from(sourceColumnState.tasks);
+      sourceNewTasks.splice(sourceColumn.taskIndex, 1);
+      sourceNewTasks.splice(destinationColumn.taskIndex, 0, draggedTask);
 
-      //droppableId
-      const sourceColumn = getNumberId(source.droppableId);
-      const destinationColumn = getNumberId(destination?.droppableId);
+      sourceColumnState.tasks = sourceNewTasks;
       
-      //column
-      const sourceColumnIndex = sourceColumn - 1;
-      const sourceColumnState = state.value[sourceColumnIndex];
+      const isMultiColumnReorder = sourceColumn !== destinationColumn;
 
-      //state
-      const destinationColumnIndex = destinationColumn - 1;
-      const destinationColumnState = state.value[destinationColumnIndex];
-
-      if (sourceColumn === destinationColumn) {
-        //reorder
-        let sourceNewTasks = Array.from(sourceColumnState.tasks);
-        sourceNewTasks.splice(sourceTaskIndex, 1);
-        sourceNewTasks.splice(destinationTaskIndex, 0, targetTask);
-              
-        sourceColumnState.tasks = sourceNewTasks;
-
-      } else {
-        //reorder multiple
-        let sourceNewTasks = Array.from(sourceColumnState.tasks);
-        sourceNewTasks.splice(sourceTaskIndex, 1);
-
-        state.value[sourceColumnIndex].tasks = sourceNewTasks
-
+      if (isMultiColumnReorder) {
         let destinationNewTasks = Array.from(destinationColumnState.tasks);
-        destinationNewTasks.splice(destinationTaskIndex, 0, targetTask);
-
+        destinationNewTasks.splice(destinationColumn.taskIndex, 0, draggedTask);
+  
         destinationColumnState.tasks = destinationNewTasks
       }
-
-      const rawSourceTasksIdOrder: string[] = state.value[sourceColumnIndex].tasks
+      
+      const rawSourceTasksIdOrder: string[] = sourceColumnState.tasks
         .map(task => `${task.id}`);
 
-        console.log(rawSourceTasksIdOrder)
-
-      const rawDestinationTasksIdOrder: string[] = state.value[destinationColumnIndex].tasks
+      const rawDestinationTasksIdOrder: string[] = destinationColumnState.tasks
         .map(task => String(`${task.id}`));
 
       const TASK_ORDER_SEPARATOR = " ";
@@ -106,14 +82,14 @@ export const columnSlice = createSlice({
       
       //TODO: update on database columnsOrder
       const columnsOrderResult: ColumnsOrderResult = {
-        sourceColumn: createColumnOrder(sourceColumnIndex, sourceTasksIdOrder),
-        destinationColumn: createColumnOrder(destinationColumnIndex, destinationTasksIdOrder)
+        sourceColumn: createColumnOrder(sourceColumn.index, sourceTasksIdOrder),
+        destinationColumn: createColumnOrder(destinationColumn.index, destinationTasksIdOrder)
       }
 
       console.log(columnsOrderResult);
 
-      state.value[sourceColumnIndex].tasksIdOrder = columnsOrderResult.sourceColumn.taskIdsOrder;
-      state.value[destinationColumnIndex].tasksIdOrder = columnsOrderResult.destinationColumn.taskIdsOrder;
+      sourceColumnState.tasksIdOrder = columnsOrderResult.sourceColumn.taskIdsOrder;
+      destinationColumnState.tasksIdOrder = columnsOrderResult.destinationColumn.taskIdsOrder;
     },
   }
 });

@@ -36,25 +36,26 @@ export const formatDndValues = (dropResult: DropResult) => {
   const destinationTaskIndex = destination?.index || 0;
 
   //droppableId
-  const sourceColumnId = getNumberId(source.droppableId);
-  const destinationColumnId = getNumberId(destination?.droppableId);
+  const sourceColumnDroppableId = getNumberId(source.droppableId);
+  const destinationColumnDroppableId = getNumberId(destination?.droppableId);
   
-  //column
-  const sourceColumnIndex = getColumnIndex(sourceColumnId);
 
-  const destinationColumnIndex = getColumnIndex(destinationColumnId);
+  //columnIndex
+  const sourceColumnIndex = getColumnIndex(sourceColumnDroppableId);
+
+  const destinationColumnIndex = getColumnIndex(destinationColumnDroppableId);
 
   const formattedDndValues = {
     draggedTask: draggedTask,
 
     sourceColumn: {
-      id: sourceColumnId,
+      id: sourceColumnDroppableId,
       index: sourceColumnIndex,
       taskIndex: sourceTaskIndex,
     },
 
     destinationColumn: {
-      id: destinationColumnId,
+      id: destinationColumnDroppableId,
       index: destinationColumnIndex,
       taskIndex: destinationTaskIndex
     }
