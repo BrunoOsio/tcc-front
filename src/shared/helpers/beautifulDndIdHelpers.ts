@@ -12,8 +12,8 @@ export const draggableId = (id: number, prefix = "draggable"):string => {
   return createBeautifulDndId(id, prefix);
 }
 
-export const droppableId = (id: number, prefix = "droppable"): string => {
-  return createBeautifulDndId(id, prefix);
+export const droppableId = (index: number, prefix = "droppable"): string => {
+  return createBeautifulDndId(index, prefix);
 }
 
 export const getNumberId = (id: string | undefined): number => {
