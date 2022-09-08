@@ -67,6 +67,7 @@ export const columnSlice = createSlice({
       const sourceColumnIndex = sourceColumn - 1;
       const sourceColumnState = state.value[sourceColumnIndex];
 
+      //state
       const destinationColumnIndex = destinationColumn - 1;
       const destinationColumnState = state.value[destinationColumnIndex];
 
@@ -76,7 +77,7 @@ export const columnSlice = createSlice({
         sourceNewTasks.splice(sourceTaskIndex, 1);
         sourceNewTasks.splice(destinationTaskIndex, 0, targetTask);
               
-        state.value[sourceColumnIndex].tasks = sourceNewTasks;
+        sourceColumnState.tasks = sourceNewTasks;
 
       } else {
         //reorder multiple
@@ -88,7 +89,7 @@ export const columnSlice = createSlice({
         let destinationNewTasks = Array.from(destinationColumnState.tasks);
         destinationNewTasks.splice(destinationTaskIndex, 0, targetTask);
 
-        state.value[destinationColumnIndex].tasks = destinationNewTasks
+        destinationColumnState.tasks = destinationNewTasks
       }
 
       const rawSourceTasksIdOrder: string[] = state.value[sourceColumnIndex].tasks

@@ -1,4 +1,5 @@
 import { DropResult } from "@hello-pangea/dnd";
+import { findTaskById } from "../services/task/findTaskById";
 
 const DEFAULT_SEPARATOR = "-";
 
@@ -19,6 +20,47 @@ export const getNumberId = (id: string | undefined): number => {
   if (!id) return -1;
 
   return Number(id.split(DEFAULT_SEPARATOR)[1]);
+}
+
+export const getColumnIndex = (columnDndId: number) => {
+  return columnDndId - 1;
+}
+
+export const formatDndValues = (dropResult: DropResult) => {
+  const {source, destination, draggableId: rawDraggableId} = dropResult;
+
+  const draggableId = getNumberId(rawDraggableId);
+  const draggedTask = findTaskById(draggableId);
+
+  const sourceTaskIndex = source.index;
+  const destinationTaskIndex = destination?.index || 0;
+
+  //droppableId
+  const sourceColumnId = getNumberId(source.droppableId);
+  const destinationColumnId = getNumberId(destination?.droppableId);
+  
+  //column
+  const sourceColumnIndex = getColumnIndex(sourceColumnId);
+
+  const destinationColumnIndex = getColumnIndex(destinationColumnId);
+
+  const formattedDndValues = {
+    draggedTask: draggedTask,
+
+    sourceColumn: {
+      id: sourceColumnId,
+      index: sourceColumnIndex,
+      taskIndex: sourceTaskIndex,
+    },
+
+    destinationColumn: {
+      id: destinationColumnId,
+      index: destinationColumnIndex,
+      taskIndex: destinationTaskIndex
+    }
+  }
+
+  return formattedDndValues;
 }
 
 export const debugDropResult = (dropResult: DropResult): void => {
