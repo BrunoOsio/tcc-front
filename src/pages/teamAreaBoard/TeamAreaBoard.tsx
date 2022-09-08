@@ -27,7 +27,7 @@ export const TeamAreaBoard = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Container>
         {columns.map((column, index) => {
-          return <ColumnContainer key={index} column={column} />;
+          return <ColumnContainer key={index} column={column} index={index} />;
         })}
       </Container>
     </DragDropContext>

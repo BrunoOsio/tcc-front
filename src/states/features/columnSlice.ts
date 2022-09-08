@@ -57,7 +57,7 @@ export const columnSlice = createSlice({
 
       let sourceNewTasks = Array.from(sourceColumnState.tasks);
       sourceNewTasks.splice(sourceColumn.taskIndex, 1);
-      sourceNewTasks.splice(destinationColumn.taskIndex, 0, draggedTask);
+      // sourceNewTasks.splice(destinationColumn.taskIndex, 0, draggedTask);
 
       sourceColumnState.tasks = sourceNewTasks;
       

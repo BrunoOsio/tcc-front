@@ -15,10 +15,12 @@ import { GoPlus } from "react-icons/go";
 
 type ColumnContainerProps = {
   column: Column;
+  index: number,
 };
 
-export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column }) => {
+export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column, index }) => {
 
+  const currentDroppableId = index + 1;
   return (
     <Container isDone={column.isForDoneTasks}>
       <Header>
@@ -31,7 +33,7 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column }) => {
             <AddTaskButton><span><GoPlus /></span></AddTaskButton>
           }
 
-          <Droppable droppableId={droppableId(column.id)}>
+          <Droppable droppableId={droppableId(currentDroppableId)}>
             {(provided, snapshot) => (
               <TasksList 
                 {...provided.droppableProps} 
