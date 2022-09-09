@@ -4,6 +4,6 @@ export type Column = {
   id: number;
   title: string;
   tasks: Task[];
-  tasksIdOrder: string | undefined;
+  taskIdsOrder: string | undefined;
   isForDoneTasks: boolean;
 }

@@ -1,26 +1,22 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Column, Task } from "../../shared/types";
+import { Column } from "../../shared/types";
 import { BaseState } from "./types/BaseState";
 import { teamMock } from "../../shared/services/mock/team/teamMock";
 import { DropResult } from "@hello-pangea/dnd";
-import { findTaskById } from "../../shared/services/task/findTaskById";
-import { debugDropResult, formatColumnsOrderResult, formatDndValues, getNumberId } from "../../shared/helpers/area/beautifulDndIdHelpers";
+import { debugDropResult, formatColumnsOrderResult, formatDndValues } from "../../shared/helpers/area/beautifulDndIdHelpers";
+
+import columnService from "../../shared/services/column/columnService";
+import { createColumnData } from "./helpers/createColumnData";
 import { ColumnsOrderResult } from "./types/column/ColumnsOrderResult";
-import { createColumnOrder } from "../../shared/helpers/area/column/createColumnOrder";
+import axios from "axios";
+import { RootState } from "../app/store";
 
 const tempAreaMock = teamMock[0].areas[0];
 
 type ColumnState = BaseState<Column>;
 
 const initialState: ColumnState = {
-  value: [
-    tempAreaMock.columns[0], 
-    tempAreaMock.columns[1], 
-    tempAreaMock.columns[2],
-    tempAreaMock.columns[3],
-    tempAreaMock.columns[4],
-    tempAreaMock.columns[5]
-  ],
+  value: [],
   isSuccess: false,
   isLoading: false,
   isError: false,
@@ -30,14 +26,44 @@ const initialState: ColumnState = {
 const findColumns = createAsyncThunk(
   "column/findColumns",
 
-  (areaId: number): Column[] => {
-    const columns: Column[] = [];
+  async (): Promise<Column[]> => {
+    const formattedColumns: Column[] = [];
 
-    tempAreaMock.columns.forEach(column => columns.push(column));
+    const columns = await columnService.findColumns();
 
-    console.log(columns);
+    for (let column of columns) {
+      const columnData = await createColumnData(column);
+      formattedColumns.push(columnData);
+    }
 
-    return columns;
+    return formattedColumns;
+  }
+);
+
+const findColumnById = createAsyncThunk(
+  "column/findColumnById",
+
+  async (columnId: number): Promise<Column> => {
+    const column = await columnService.findColumnById(columnId);
+
+    return column;
+  }
+);
+
+const patchReorder = createAsyncThunk(
+  "column/patchNewOrder",
+
+  async (dropResult: DropResult, { getState }) => {
+    const state = getState() as RootState;
+
+    const {sourceColumn, destinationColumn} = formatDndValues(dropResult);
+
+    const sourceColumnState = state.column.value[sourceColumn.index];
+    const destinationColumnState = state.column.value[destinationColumn.index];
+
+    const columnsOrderResult = formatColumnsOrderResult(sourceColumnState, destinationColumnState);
+
+    await columnService.patchReorder(columnsOrderResult);
   }
 );
 
@@ -46,20 +72,19 @@ export const columnSlice = createSlice({
   initialState,
 
   reducers: {
-    //TODO: Refactor columnOrderResult
     reorder(state, action: PayloadAction<DropResult>) {
-      const {draggedTask, sourceColumn, destinationColumn} = formatDndValues(action.payload);
-
+      const {draggedTaskId, sourceColumn, destinationColumn} = formatDndValues(action.payload);
+      
       const sourceColumnState = state.value[sourceColumn.index];
       const destinationColumnState = state.value[destinationColumn.index];
+      
+      const draggedTask = sourceColumnState.tasks.filter((task) => task.id === draggedTaskId)[0];
 
       let sourceNewTasks = Array.from(sourceColumnState.tasks);
       sourceNewTasks.splice(sourceColumn.taskIndex, 1);
-
       sourceColumnState.tasks = sourceNewTasks;
       
       const isMultiColumnReorder = sourceColumn !== destinationColumn;
-
       if (isMultiColumnReorder) {
         let destinationNewTasks = Array.from(destinationColumnState.tasks);
         destinationNewTasks.splice(destinationColumn.taskIndex, 0, draggedTask);
@@ -68,18 +93,48 @@ export const columnSlice = createSlice({
       }
 
       const columnsOrderResult = formatColumnsOrderResult(sourceColumnState, destinationColumnState);
-      
-      debugDropResult(action.payload);     
-      console.log(columnsOrderResult);
+            
+      // debugDropResult(action.payload);     
 
-      sourceColumnState.tasksIdOrder = columnsOrderResult.sourceColumn.taskIdsOrder;
-      destinationColumnState.tasksIdOrder = columnsOrderResult.destinationColumn.taskIdsOrder;
+      // //TODO: check if needs reorder on frontend
+      sourceColumnState.taskIdsOrder = columnsOrderResult.sourceColumn.taskIdsOrder;
+      destinationColumnState.taskIdsOrder = columnsOrderResult.destinationColumn.taskIdsOrder;
     },
-  }
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(
+      findColumns.pending, 
+      (state) => {
+        state.isLoading = true;
+        state.isSuccess = true;
+        state.isError = false;
+      }
+    );
+
+    builder.addCase(
+      findColumns.fulfilled, 
+      (state, action: PayloadAction<Column[]>) => {
+        state.value = action.payload;
+        state.isLoading = true;
+        state.isSuccess = true;
+        state.isError = false;
+      }
+    );
+
+    builder.addCase(
+      findColumns.rejected, 
+      (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = true;
+      state.error = action.error.message || "Something went wrong";
+    });
+  } 
 });
 
 export const { reorder } = columnSlice.actions;
-export { };
+export { findColumns, findColumnById, patchReorder };
 
 export default columnSlice.reducer;
 

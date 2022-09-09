@@ -1,6 +1,6 @@
 import { DropResult } from "@hello-pangea/dnd";
 import { ColumnsOrderResult } from "../../../states/features/types/column/ColumnsOrderResult";
-import { findTaskById } from "../../services/task/findTaskById";
+import taskService from "../../services/task/taskService";
 import { Column } from "../../types";
 import { createColumnOrder } from "./column/createColumnOrder";
 
@@ -33,7 +33,6 @@ export const formatDndValues = (dropResult: DropResult) => {
   const {source, destination, draggableId: rawDraggableId} = dropResult;
 
   const draggableId = getNumberId(rawDraggableId);
-  const draggedTask = findTaskById(draggableId);
 
   const sourceTaskIndex = source.index;
   const destinationTaskIndex = destination?.index || 0;
@@ -42,14 +41,13 @@ export const formatDndValues = (dropResult: DropResult) => {
   const sourceColumnDroppableId = getNumberId(source.droppableId);
   const destinationColumnDroppableId = getNumberId(destination?.droppableId);
   
-
   //columnIndex
   const sourceColumnIndex = getColumnIndex(sourceColumnDroppableId);
 
   const destinationColumnIndex = getColumnIndex(destinationColumnDroppableId);
 
   const formattedDndValues = {
-    draggedTask: draggedTask,
+    draggedTaskId: draggableId,
 
     sourceColumn: {
       id: sourceColumnDroppableId,

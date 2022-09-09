@@ -29,7 +29,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
             style={draggingStyle(snapshot.isDragging, provided.draggableProps.style)}
           >
             <Informations>
-              <span>{task.title}</span>
+              <span>{task.id + task.title}</span>
 
               {task.limitAt &&
                 <LimitAt>
