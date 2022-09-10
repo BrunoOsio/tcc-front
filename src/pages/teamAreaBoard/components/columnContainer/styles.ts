@@ -109,6 +109,7 @@ export const AddTaskButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: .3s all ease-in-out;
   }
 
   &:hover {
@@ -116,7 +117,8 @@ export const AddTaskButton = styled.button`
     transition: 2s all ease-in-out;
 
     span {
-      transform: scale(1.1);
+      transition: .3s all ease-in-out;
+      color: ${colors.greyScrollbarHover}
     }
   }
 `;

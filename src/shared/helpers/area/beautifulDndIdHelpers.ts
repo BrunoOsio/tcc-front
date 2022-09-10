@@ -65,7 +65,7 @@ export const formatDndValues = (dropResult: DropResult) => {
   return formattedDndValues;
 }
 
-export const formatColumnsOrderResult = (sourceColumn: Column, destinationColumn: Column): ColumnsOrderResult => {
+export const formatColumnsOrderResult = (draggedTaskId: number, sourceColumn: Column, destinationColumn: Column): ColumnsOrderResult => {
   const rawSourceTasksIdOrder: string[] = sourceColumn.tasks
     .map(task => String(task.id));
 
@@ -76,8 +76,8 @@ export const formatColumnsOrderResult = (sourceColumn: Column, destinationColumn
   const sourceTasksIdOrder = rawSourceTasksIdOrder.join(TASK_ORDER_SEPARATOR);
   const destinationTasksIdOrder = rawDestinationTasksIdOrder.join(TASK_ORDER_SEPARATOR);
 
-  //TODO: update on database columnsOrder
   const columnsOrderResult: ColumnsOrderResult = {
+    taskId: draggedTaskId,
     sourceColumn: createColumnOrder(sourceColumn.id, sourceTasksIdOrder),
     destinationColumn: createColumnOrder(destinationColumn.id, destinationTasksIdOrder)
   }

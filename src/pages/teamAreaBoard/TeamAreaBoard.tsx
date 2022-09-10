@@ -6,13 +6,14 @@ import { findColumns, patchReorder, reorder } from "../../states/features/column
 import { useEffect, useState } from "react";
 import { droppableId } from "../../shared/helpers/area/beautifulDndIdHelpers";
 import { store } from "../../states/app/store";
+import { Loading } from "./components/loading/Loading";
 
 export type TeamAreaBoardProps = {
   // area: Area
 }
 
 export const TeamAreaBoard: React.FC<TeamAreaBoardProps> = ({}) => {
-  const { value: columns } = useAppSelector((state) => state.column);
+  const { value: columns, isLoading } = useAppSelector((state) => state.column);
   const [columnIds, setColumnIds] = useState({});
 
   const dispatch = useAppDispatch();
@@ -35,13 +36,14 @@ export const TeamAreaBoard: React.FC<TeamAreaBoardProps> = ({}) => {
   }, []);
   
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Container>
+    <Container>
+      <DragDropContext onDragEnd={onDragEnd}>
+        {isLoading && <Loading />}
         {columns.map((column, index) => {
           
           return <ColumnContainer key={index} column={column} index={index} />;
         })}
-      </Container>
-    </DragDropContext>
+      </DragDropContext>
+    </Container>
   );
 };

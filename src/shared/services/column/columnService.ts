@@ -19,7 +19,7 @@ const findColumnById = async (id: number): Promise<Column> => {
   return data;
 }
 
-const patchReorder = async (columnsOrderResult: any) => {
+const patchReorder = async (columnsOrderResult: ColumnsOrderResult) => {
   const endpoint = `${BASE_URL}reorder`;
 
   await axios.patch(endpoint, columnsOrderResult);
