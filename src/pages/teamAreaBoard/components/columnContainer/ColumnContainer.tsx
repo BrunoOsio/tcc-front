@@ -12,6 +12,9 @@ import { TaskCard } from "../taskCard/TaskCard";
 import { Droppable } from "@hello-pangea/dnd";
 import { droppableId } from "../../../../shared/helpers/area/beautifulDndIdHelpers";
 import { GoPlus } from "react-icons/go";
+import Modal from "react-modal";
+import { useState } from "react";
+import { BaseModalWrapper } from "../newTaskModal/BaseModalWrapper";
 
 type ColumnContainerProps = {
   column: Column;
@@ -19,6 +22,11 @@ type ColumnContainerProps = {
 };
 
 export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column, index }) => {
+  Modal.setAppElement("#root");
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => setModalVisible(!isModalVisible);
 
   const currentDroppableId = index + 1;
   return (
@@ -30,7 +38,10 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column, index 
         <Body>
           
           { !column.isForDoneTasks &&
-            <AddTaskButton><span><GoPlus /></span></AddTaskButton>
+          <>
+            <AddTaskButton onClick={toggleModal}><span><GoPlus /></span></AddTaskButton>
+            <BaseModalWrapper isModalVisible={isModalVisible} onBackDropClick={toggleModal}/>
+          </>
           }
 
           <Droppable droppableId={droppableId(currentDroppableId)}>
