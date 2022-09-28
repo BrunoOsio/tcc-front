@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Column } from "../../shared/types";
+import { Column, Task } from "../../shared/types";
 import { BaseState } from "./types/BaseState";
 import { teamMock } from "../../shared/services/mock/team/teamMock";
 import { DropResult } from "@hello-pangea/dnd";
@@ -98,6 +98,24 @@ export const columnSlice = createSlice({
       // sourceColumnState.taskIdsOrder = columnsOrderResult.sourceColumn.taskIdsOrder || null;
       // destinationColumnState.taskIdsOrder = columnsOrderResult.destinationColumn.taskIdsOrder || null;
     },
+
+    addTask(state, action: PayloadAction<{columnId: number, title: string, description: string, createdAt: string, limitAt: string}>) {
+      const columnId = action.payload.columnId;
+      const columnIndexState = state.value.findIndex(column => column.id === columnId);
+
+      const newTask: Task = {
+        id: 999,
+        title: action.payload.title,
+        description: action.payload.description,
+        createdAt: action.payload.createdAt,
+        limitAt: action.payload.limitAt,
+        isFinished: false,
+        members: [],
+        owner: undefined
+      }
+
+      state.value[columnIndexState].tasks.push(newTask);
+    }
   },
 
   extraReducers: (builder) => {
@@ -131,7 +149,7 @@ export const columnSlice = createSlice({
   } 
 });
 
-export const { reorder } = columnSlice.actions;
+export const { reorder, addTask } = columnSlice.actions;
 export { findColumns, findColumnById, patchReorder };
 
 export default columnSlice.reducer;

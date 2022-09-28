@@ -1,30 +1,47 @@
-import ReactDOM from "react-dom";
-import styled from "styled-components";
+import axios from "axios";
+import { ChangeEvent, useState } from "react";
+import { useAppDispatch } from "../../../../states/app/hooks";
+import { addTask } from "../../../../states/features/columnSlice";
+import { BaseModal } from "./BaseModal";
+import { DesktopContainer, Header } from "./styles";
 
-type ModalProps = {
+type BaseModalWrapperProps = {
+  columnId: number;
+  isModalVisible: boolean;
   onBackDropClick: () => void;
-  children: React.ReactNode
 }
 
-const Overlay = styled.div`
-  background-color: rgb(0,0,0, 0.5);
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModalVisible, onBackDropClick}) => {
+  const dispatch = useAppDispatch();
 
-export const NewTaskModal: React.FC<ModalProps> = ({onBackDropClick, children}) => {
-  return ReactDOM.createPortal(
-    <Overlay onClick={onBackDropClick}>
-      <div onClick={event => event.stopPropagation()}>
-        {children}
-      </div>
-    </Overlay>, 
-    document.getElementById("modal-root")!
+  const [title, setTitle] = useState<string>("");
+
+  const handleTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    const newTitle = event.target.value;
+    setTitle(newTitle);
+  }
+
+  const handleSubmit = (columnId: number) => {
+    const newTask = {
+      columnId: columnId,
+      title: title,
+      description: "test",
+      createdAt: "1-1-1",
+      limitAt: "1-1-1"
+    }
+
+    dispatch(addTask(newTask));
+  }
+
+  if(!isModalVisible) return null;
+
+  return (
+    <BaseModal onBackDropClick={onBackDropClick}>
+      <DesktopContainer>
+        <Header>Adicionar nova tarefa</Header>
+        <label htmlFor="title">Título</label><input name="title" type="text" value={title} onChange={handleTitle}/>
+        <button onClick={() => handleSubmit(columnId)}>Enviar</button>
+      </DesktopContainer>
+    </BaseModal>
   );
 }

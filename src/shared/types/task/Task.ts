@@ -7,6 +7,6 @@ export type Task = {
   createdAt: string;
   limitAt?: string;
   isFinished: boolean;
-  owner: User;
+  owner?: User;
   members: User[];
 }

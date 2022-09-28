@@ -14,7 +14,7 @@ import { droppableId } from "../../../../shared/helpers/area/beautifulDndIdHelpe
 import { GoPlus } from "react-icons/go";
 import Modal from "react-modal";
 import { useState } from "react";
-import { BaseModalWrapper } from "../newTaskModal/BaseModalWrapper";
+import { NewTaskModal } from "../newTaskModal/NewTaskModal";
 
 type ColumnContainerProps = {
   column: Column;
@@ -40,7 +40,7 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column, index 
           { !column.isForDoneTasks &&
           <>
             <AddTaskButton onClick={toggleModal}><span><GoPlus /></span></AddTaskButton>
-            <BaseModalWrapper isModalVisible={isModalVisible} onBackDropClick={toggleModal}/>
+            <NewTaskModal columnId={column.id} isModalVisible={isModalVisible} onBackDropClick={toggleModal}/>
           </>
           }
 
