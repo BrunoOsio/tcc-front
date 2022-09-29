@@ -3,9 +3,7 @@ import { ColumnContainer } from "./components/columnContainer/ColumnContainer";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findColumns, patchReorder, reorder } from "../../states/features/columnSlice";
-import { useEffect, useState } from "react";
-import { droppableId } from "../../shared/helpers/area/beautifulDndIdHelpers";
-import { store } from "../../states/app/store";
+import { useEffect } from "react";
 import { Loading } from "./components/loading/Loading";
 
 export type TeamAreaBoardProps = {
@@ -14,7 +12,6 @@ export type TeamAreaBoardProps = {
 
 export const TeamAreaBoard: React.FC<TeamAreaBoardProps> = ({}) => {
   const { value: columns, isLoading } = useAppSelector((state) => state.column);
-  const [columnIds, setColumnIds] = useState({});
 
   const dispatch = useAppDispatch();
 

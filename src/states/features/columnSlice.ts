@@ -10,6 +10,9 @@ import { createColumnData } from "./helpers/createColumnData";
 import { ColumnsOrderResult } from "./types/column/ColumnsOrderResult";
 import axios from "axios";
 import { RootState } from "../app/store";
+import { NewTaskDTO } from "../../shared/dtos/task/NewTaskDTO";
+import { TaskReferencedToColumnDTO } from "../../shared/dtos/task/TaskReferencedToColumnDTO";
+import taskService from "../../shared/services/task/taskService";
 
 const tempAreaMock = teamMock[0].areas[0];
 
@@ -54,16 +57,24 @@ const patchReorder = createAsyncThunk(
   "column/patchNewOrder",
 
   async (dropResult: DropResult, { getState }) => {
-    const state = getState() as RootState;
+    const { column } = getState() as RootState;
 
     const {draggedTaskId, sourceColumn, destinationColumn} = formatDndValues(dropResult);
 
-    const sourceColumnState = state.column.value[sourceColumn.index];
-    const destinationColumnState = state.column.value[destinationColumn.index];
+    const sourceColumnState = column.value[sourceColumn.index];
+    const destinationColumnState = column.value[destinationColumn.index];
 
     const columnsOrderResult = formatColumnsOrderResult(draggedTaskId, sourceColumnState, destinationColumnState);
     
     await columnService.patchReorder(columnsOrderResult);
+  }
+);
+
+const patchCreateTask = createAsyncThunk(
+  "column/patchCreateTask",
+
+  async (taskReferencedToColumnDTO: TaskReferencedToColumnDTO) => {
+    await taskService.createTask(taskReferencedToColumnDTO);
   }
 );
 
@@ -93,28 +104,26 @@ export const columnSlice = createSlice({
       }
             
       // debugDropResult(action.payload);     
-
-      // // //TODO: check if needs reorder on frontend
-      // sourceColumnState.taskIdsOrder = columnsOrderResult.sourceColumn.taskIdsOrder || null;
-      // destinationColumnState.taskIdsOrder = columnsOrderResult.destinationColumn.taskIdsOrder || null;
     },
 
-    addTask(state, action: PayloadAction<{columnId: number, title: string, description: string, createdAt: string, limitAt: string}>) {
-      const columnId = action.payload.columnId;
+    //TODO: Set order to first on database
+    createTask(state, action: PayloadAction<TaskReferencedToColumnDTO>) {
+      const  { columnId, temporaryReduxId, title, description, createdAt, limitAt } = action.payload;
+  
       const columnIndexState = state.value.findIndex(column => column.id === columnId);
-
+  
       const newTask: Task = {
-        id: 999,
-        title: action.payload.title,
-        description: action.payload.description,
-        createdAt: action.payload.createdAt,
-        limitAt: action.payload.limitAt,
+        id: temporaryReduxId,
+        title: title,
+        description: description,
+        createdAt: createdAt,
+        limitAt: limitAt,
         isFinished: false,
         members: [],
         owner: undefined
       }
-
-      state.value[columnIndexState].tasks.push(newTask);
+      
+      state.value[columnIndexState].tasks.unshift(newTask);
     }
   },
 
@@ -149,8 +158,8 @@ export const columnSlice = createSlice({
   } 
 });
 
-export const { reorder, addTask } = columnSlice.actions;
-export { findColumns, findColumnById, patchReorder };
+export const { reorder, createTask } = columnSlice.actions;
+export { findColumns, findColumnById, patchReorder, patchCreateTask };
 
 export default columnSlice.reducer;
 

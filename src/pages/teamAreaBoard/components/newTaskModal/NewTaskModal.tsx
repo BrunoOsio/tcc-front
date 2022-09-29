@@ -1,7 +1,8 @@
-import axios from "axios";
 import { ChangeEvent, useState } from "react";
+import { TaskReferencedToColumnDTO } from "../../../../shared/dtos/task/TaskReferencedToColumnDTO";
+import taskService from "../../../../shared/services/task/taskService";
 import { useAppDispatch } from "../../../../states/app/hooks";
-import { addTask } from "../../../../states/features/columnSlice";
+import { createTask, patchCreateTask } from "../../../../states/features/columnSlice";
 import { BaseModal } from "./BaseModal";
 import { DesktopContainer, Header } from "./styles";
 
@@ -21,16 +22,20 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
     setTitle(newTitle);
   }
 
-  const handleSubmit = (columnId: number) => {
-    const newTask = {
+  const handleSubmit = async (columnId: number) => {
+    const biggestId = await taskService.findBiggestId() + 1;
+    const newTask: TaskReferencedToColumnDTO = {
       columnId: columnId,
+      temporaryReduxId: biggestId,
       title: title,
       description: "test",
       createdAt: "1-1-1",
       limitAt: "1-1-1"
     }
 
-    dispatch(addTask(newTask));
+    onBackDropClick();
+    dispatch(createTask(newTask));
+    dispatch(patchCreateTask(newTask));
   }
 
   if(!isModalVisible) return null;
