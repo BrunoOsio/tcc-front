@@ -1,7 +1,7 @@
 import { Draggable } from "@hello-pangea/dnd";
 import { draggableId } from "../../../../shared/helpers/area/beautifulDndIdHelpers";
 import { Task } from "../../../../shared/types";
-import { Container, Informations, LimitAt, LimitDateLabel, MemberPhoto, Members } from "./styles";
+import { Container, Informations, LimitAt, LimitDateLabel, MemberPhoto, Members, Title } from "./styles";
 import { RiTimer2Fill } from "react-icons/ri";
 import { getFrom } from "./helpers/formatLimitDate";
 import { draggingStyle } from "./snapshot/draggingStyle";
@@ -29,7 +29,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
             style={draggingStyle(snapshot.isDragging, provided.draggableProps.style)}
           >
             <Informations>
-              <span>{task.id + task.title}</span>
+              <Title>{task.title}</Title>
 
               {task.limitAt &&
                 <LimitAt>

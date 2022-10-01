@@ -30,6 +30,10 @@ export const Informations = styled.div`
   width: 80%;
 `;
 
+export const Title = styled.span`
+  font-size: 0.8rem;
+`;
+
 export const LimitAt = styled.div`
   background-color: inherit;
   display: flex;

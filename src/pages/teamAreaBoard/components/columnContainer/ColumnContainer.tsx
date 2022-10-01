@@ -14,6 +14,8 @@ import { droppableId } from "../../../../shared/helpers/area/beautifulDndIdHelpe
 import { GoPlus } from "react-icons/go";
 import { useState } from "react";
 import { NewTaskModal } from "../newTaskModal/NewTaskModal";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type ColumnContainerProps = {
   column: Column;

@@ -1,10 +1,11 @@
 import { ChangeEvent, useState } from "react";
 import { TaskReferencedToColumnDTO } from "../../../../shared/dtos/task/TaskReferencedToColumnDTO";
+import { notifySuccess } from "../../../../shared/helpers/area/notifications";
 import taskService from "../../../../shared/services/task/taskService";
 import { useAppDispatch } from "../../../../states/app/hooks";
 import { createTask, patchCreateTask } from "../../../../states/features/columnSlice";
 import { BaseModal } from "./BaseModal";
-import { DesktopContainer, Header } from "./styles";
+import { Button, DesktopContainer, FormGroup, Header, Input, Label } from "./styles";
 
 type BaseModalWrapperProps = {
   columnId: number;
@@ -15,7 +16,8 @@ type BaseModalWrapperProps = {
 export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModalVisible, onBackDropClick}) => {
   const dispatch = useAppDispatch();
 
-  const [title, setTitle] = useState<string>("");
+  const INITIAL_TITLE = "";
+  const [title, setTitle] = useState<string>(INITIAL_TITLE);
 
   const handleTitle = (event: ChangeEvent<HTMLInputElement>) => {
     const newTitle = event.target.value;
@@ -23,6 +25,7 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
   }
 
   const handleSubmit = async (columnId: number) => {
+    
     const biggestId = await taskService.findBiggestId() + 1;
     const newTask: TaskReferencedToColumnDTO = {
       columnId: columnId,
@@ -32,8 +35,11 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
       createdAt: "1-1-1",
       limitAt: "1-1-1"
     }
-
+    
+    setTitle(INITIAL_TITLE);
     onBackDropClick();
+    notifySuccess("Tarefa criada");
+
     dispatch(createTask(newTask));
     dispatch(patchCreateTask(newTask));
   }
@@ -44,8 +50,11 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
     <BaseModal onBackDropClick={onBackDropClick}>
       <DesktopContainer>
         <Header>Adicionar nova tarefa</Header>
-        <label htmlFor="title">Título</label><input name="title" type="text" value={title} onChange={handleTitle}/>
-        <button onClick={() => handleSubmit(columnId)}>Enviar</button>
+        <FormGroup>
+          <Label htmlFor="title">Título da tarefa</Label>
+          <Input name="title" type="text" value={title} onChange={handleTitle}/>
+        </FormGroup>
+        <Button onClick={() => handleSubmit(columnId)}>Enviar</Button>
       </DesktopContainer>
     </BaseModal>
   );

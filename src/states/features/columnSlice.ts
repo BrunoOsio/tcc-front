@@ -83,6 +83,7 @@ export const columnSlice = createSlice({
   initialState,
 
   reducers: {
+    //!URGERT! reorder new tasks gives a id = 2 
     reorder(state, action: PayloadAction<DropResult>) {
       const {draggedTaskId, sourceColumn, destinationColumn} = formatDndValues(action.payload);
       

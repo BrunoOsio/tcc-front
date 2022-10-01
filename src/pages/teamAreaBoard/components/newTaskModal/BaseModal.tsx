@@ -1,5 +1,4 @@
 import ReactDOM from "react-dom";
-import styled from "styled-components";
 import { motion } from "framer-motion";
 import "./overlay.css";
 
@@ -8,20 +7,17 @@ type ModalProps = {
   children: React.ReactNode
 }
 
-const Overlay = styled.div`
-
-`;
-
 export const BaseModal: React.FC<ModalProps> = ({onBackDropClick, children}) => {
   return ReactDOM.createPortal(
     <motion.div 
     initial={{
       opacity: 0,
-      scale: 0
     }}
     animate={{
       opacity: 1,
-      scale: 1
+      transition: {
+        duration: 0.4
+      }
     }}
     className="overlay"
     onClick={onBackDropClick}>
