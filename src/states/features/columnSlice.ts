@@ -3,7 +3,7 @@ import { Column, Task } from "../../shared/types";
 import { BaseState } from "./types/BaseState";
 import { teamMock } from "../../shared/services/mock/team/teamMock";
 import { DropResult } from "@hello-pangea/dnd";
-import { debugDropResult, formatColumnsOrderResult, formatDndValues } from "../../shared/helpers/area/beautifulDndIdHelpers";
+import { debugDropResult, formatColumnsOrderResult, formatDndValues, updateTaskOrderOnNewTask } from "../../shared/helpers/area/beautifulDndIdHelpers";
 
 import columnService from "../../shared/services/column/columnService";
 import { createColumnData } from "./helpers/createColumnData";
@@ -83,7 +83,6 @@ export const columnSlice = createSlice({
   initialState,
 
   reducers: {
-    //!URGERT! reorder new tasks gives a id = 2 
     reorder(state, action: PayloadAction<DropResult>) {
       const {draggedTaskId, sourceColumn, destinationColumn} = formatDndValues(action.payload);
       
@@ -103,8 +102,9 @@ export const columnSlice = createSlice({
   
         destinationColumnState.tasks = destinationNewTasks
       }
-            
-      // debugDropResult(action.payload);     
+      
+      console.log(formatColumnsOrderResult(draggedTaskId, sourceColumnState, destinationColumnState));
+      debugDropResult(action.payload);     
     },
 
     //TODO: Set order to first on database
@@ -124,7 +124,9 @@ export const columnSlice = createSlice({
         owner: undefined
       }
       
+      const taskIdsOrder = state.value[columnIndexState].taskIdsOrder;
       state.value[columnIndexState].tasks.unshift(newTask);
+      state.value[columnIndexState].taskIdsOrder = updateTaskOrderOnNewTask(newTask.id, taskIdsOrder!);
     }
   },
 

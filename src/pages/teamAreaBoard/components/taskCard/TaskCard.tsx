@@ -17,7 +17,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
     const [date, hours] = getFrom(limitDate); 
     return `${date} às ${hours}`;
   }
-
+  console.log(task.id);
   return (
     <Draggable key={task.id} draggableId={draggableId(task.id)} index={index}>
       {

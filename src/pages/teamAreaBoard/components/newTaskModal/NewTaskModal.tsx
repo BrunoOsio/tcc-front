@@ -17,7 +17,7 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
   const dispatch = useAppDispatch();
 
   const INITIAL_TITLE = "";
-  const [title, setTitle] = useState<string>(INITIAL_TITLE);
+  const [title, setTitle] = useState<string>(INITIAL_TITLE);  
 
   const handleTitle = (event: ChangeEvent<HTMLInputElement>) => {
     const newTitle = event.target.value;
@@ -35,13 +35,13 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
       createdAt: "1-1-1",
       limitAt: "1-1-1"
     }
-    
+    console.log(newTask);
     setTitle(INITIAL_TITLE);
     onBackDropClick();
     notifySuccess("Tarefa criada");
 
-    dispatch(createTask(newTask));
     dispatch(patchCreateTask(newTask));
+    dispatch(createTask(newTask));
   }
 
   if(!isModalVisible) return null;

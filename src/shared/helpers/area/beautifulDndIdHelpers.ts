@@ -85,6 +85,16 @@ export const formatColumnsOrderResult = (draggedTaskId: number, sourceColumn: Co
   return columnsOrderResult;
 }
 
+export const updateTaskOrderOnNewTask = (taskId: number, tasksOrder: string): string | null => {
+  if(!tasksOrder) return null;
+
+  const tasksOrderArray = tasksOrder.split(" ");
+  tasksOrderArray.unshift(String(taskId));
+  const newTasksOrder = tasksOrderArray.join(" ");
+
+  return newTasksOrder;
+}
+
 export const debugDropResult = (dropResult: DropResult): void => {
   console.log(`
   --------------------
