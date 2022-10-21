@@ -1,6 +1,5 @@
 import { DropResult } from "@hello-pangea/dnd";
 import { ColumnsOrderResult } from "../../../states/features/types/column/ColumnsOrderResult";
-import taskService from "../../services/task/taskService";
 import { Column } from "../../types";
 import { createColumnOrder } from "./column/createColumnOrder";
 

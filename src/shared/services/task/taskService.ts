@@ -37,7 +37,7 @@ const createTask = async (taskReferencedToColumnDTO: TaskReferencedToColumnDTO) 
     title: title,
     description: description,
     createdAt: createdAt,
-    limitAt: limitAt
+    limitAt: limitAt || undefined
   }
 
   const { data } = await axios.post(endpoint, newTaskDTO);

@@ -5,6 +5,10 @@ type MemberPhotoProps = {
   amount: number;
 };
 
+type LimitDateLabelProps = {
+  isLate?: boolean;
+}
+
 export const Container = styled.article`
   padding: 12px 12px;
   height: ${sizes.taskHeight};
@@ -42,7 +46,7 @@ export const LimitAt = styled.div`
   color: ${colors.darkGreyText};
 `;
 
-export const LimitDateLabel = styled.small``;
+export const LimitDateLabel = styled.small<LimitDateLabelProps>``;
 
 export const Members = styled.div`
   background-color: inherit;

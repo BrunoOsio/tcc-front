@@ -26,12 +26,29 @@ export const FormGroup = styled.div`
   width: 100%;
 `;
 
+export const DateTimeFormGroup = styled(FormGroup)`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+`;
+
+export const Input = styled.input`
+  outline: none;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid ${colors.greyScrollbarHover};
+  color: ${colors.greyScrollbarHover};
+  padding: 15px 10px 3px 10px;
+  margin-top: 5px;
+  font-size: 1rem;
+`;
+
 export const Label = styled.label`
-  width: 118px;
   box-sizing: border-box;
   font-size: 0.8rem;
   font-weight: bold;
-  margin-left: 20px;
+  margin-left: 10px;
+  padding: 0 6px;
   color: ${colors.greyScrollbarHover};
   z-index: 1;
   position: relative;
@@ -39,7 +56,11 @@ export const Label = styled.label`
   background-color: ${colors.lightGreyBackgroundColumn};
 `;
 
-export const Input = styled.input`
+export const DescriptionLabel = styled(Label)`
+  width: 90px;
+`;
+
+export const TextArea = styled.textarea`
   outline: none;
   background: transparent;
   border: 2px solid ${colors.greyScrollbarHover};
@@ -47,7 +68,42 @@ export const Input = styled.input`
   padding: 10px 20px;
   margin-top: 5px;
   font-size: 1rem;
+  resize: vertical;
   border-radius: 5px;
+`;
+
+export const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  align-content: center;
+`;
+
+export const EnableLimitDate = styled.input`
+  font-size:1.3rem;
+  height: 27px;
+  width: 27px;
+`;
+export const CheckboxLabel = styled.label`
+  box-sizing: border-box;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: 8px;
+  color: ${colors.greyScrollbarHover};
+`;
+
+export const DateTimeInput = styled.input`
+  height: 30px;
+  padding: 20px 10px;
+  border-radius: 5px;
+  outline: none;
+  background-color: ${colors.blue};
+  border: none;
+  color: white;
+  font-weight: 600;
+`;
+
+export const Placeholder = styled.div`
+  height: 40px;
 `;
 
 export const Button = styled.button`

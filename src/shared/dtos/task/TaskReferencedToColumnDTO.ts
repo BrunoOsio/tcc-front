@@ -4,5 +4,5 @@ export type TaskReferencedToColumnDTO = {
   title: string, 
   description: string, 
   createdAt: string, 
-  limitAt: string
+  limitAt?: string
 }

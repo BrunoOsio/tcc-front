@@ -13,11 +13,12 @@ type TaskCardProps = {
 
 export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
 
-  const limitDate = (limitDate: string): string => {
-    const [date, hours] = getFrom(limitDate); 
-    return `${date} às ${hours}`;
+  const handleLimitDateLabel = (limitDate: string): string => {
+    const date = getFrom(limitDate); 
+
+    return `${date?.day}/${date?.month} às ${date?.hours}`;
   }
-  console.log(task.id);
+
   return (
     <Draggable key={task.id} draggableId={draggableId(task.id)} index={index}>
       {
@@ -34,7 +35,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
               {task.limitAt &&
                 <LimitAt>
                   <RiTimer2Fill />
-                  <LimitDateLabel>{limitDate(task.limitAt)}</LimitDateLabel>
+                  <LimitDateLabel>{handleLimitDateLabel(task.limitAt)}</LimitDateLabel>
                 </LimitAt>
               }
               

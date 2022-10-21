@@ -1,7 +1,22 @@
-import { dateHoursSeparator } from "../../../../../shared/helpers/dateHelpers";
+import { dateHoursSeparator, dateSeparator } from "../../../../../shared/helpers/dateHelpers";
 
-export const getFrom = (limitAt: string | undefined): string[] => {
-  if (!limitAt) return [];
+type DateTime = {
+  day: string,
+  month: string,
+  year: string,
+  hours: string
+}
 
-  return limitAt.split(dateHoursSeparator);
+export const getFrom = (limitDate: string | undefined): DateTime | undefined => {
+  if (!limitDate) return undefined;
+  
+  const [date, hours] = limitDate.split(dateHoursSeparator);
+  const [day, month, year] = date.split(dateSeparator);
+
+  return {
+    day: day,
+    month: month, 
+    year: year,
+    hours: hours
+  }
 }

@@ -12,6 +12,23 @@ export const GlobalStyle = createGlobalStyle`
     height: calc(100% - ${sizes.navbar});
   }
 
+  ::-webkit-calendar-picker-indicator {
+    text-align: center;
+    color: white;
+    background-color: ${colors.white};
+    padding: 5px;
+    border-radius: 3px;
+    position: relative;
+    left: 3.5px;
+    top: 0.5px;
+    transition: all .3s ease-in-out;
+  }
+
+  ::-webkit-calendar-picker-indicator:hover {
+    cursor: pointer;
+    transform: scale(1.25);
+  }
+
   body {
     font-family: 'Cabin', sans-serif;
     background-color: ${colors.background};
