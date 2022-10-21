@@ -6,7 +6,13 @@ type MemberPhotoProps = {
 };
 
 type LimitDateLabelProps = {
-  isLate?: boolean;
+  color: string;
+}
+
+export const dateLabelColors = {
+  normal: colors.greyScrollbarHover,
+  warning: "#ffbf80",
+  late: "#ff9999"
 }
 
 export const Container = styled.article`
@@ -46,7 +52,10 @@ export const LimitAt = styled.div`
   color: ${colors.darkGreyText};
 `;
 
-export const LimitDateLabel = styled.small<LimitDateLabelProps>``;
+export const LimitDateLabel = styled.small<LimitDateLabelProps>`
+  color: ${({ color }) => color};
+  font-weight: 600;
+`;
 
 export const Members = styled.div`
   background-color: inherit;

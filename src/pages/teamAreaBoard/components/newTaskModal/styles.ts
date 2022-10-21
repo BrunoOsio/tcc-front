@@ -20,6 +20,16 @@ export const DesktopContainer = styled(Container)`
   gap: 10px;
 `;
 
+export const ExitButton = styled.div`
+  transition: all .3s ease-in-out;
+  position: relative;
+  top: -30px;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+  }
+`;
+
 export const FormGroup = styled.div`
   display: flex;
   flex-direction: column;

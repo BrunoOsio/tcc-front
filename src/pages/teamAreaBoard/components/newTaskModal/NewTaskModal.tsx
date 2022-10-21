@@ -1,13 +1,14 @@
 import moment from "moment";
 import { ChangeEvent, useState } from "react";
 import { TaskReferencedToColumnDTO } from "../../../../shared/dtos/task/TaskReferencedToColumnDTO";
-import { notifySuccess } from "../../../../shared/helpers/area/notifications";
-import { createDateOfNow, createDefaultDateTimeLocalInput, formatInputDate, formatToLimitDate, formatToLimitDateTimeInput } from "../../../../shared/helpers/dateHelpers";
+import { notifyError, notifySuccess } from "../../../../shared/helpers/area/notifications";
+import { createDateOfNow, createDefaultDateTimeLocalInput, formatDate, formatStringDate, isValidStringDate } from "../../../../shared/helpers/dateHelpers";
 import taskService from "../../../../shared/services/task/taskService";
 import { useAppDispatch } from "../../../../states/app/hooks";
 import { createTask, patchCreateTask } from "../../../../states/features/columnSlice";
 import { BaseModal } from "./BaseModal";
-import { Button, CheckboxContainer, CheckboxLabel, DateTimeFormGroup, DateTimeInput, DescriptionLabel, DesktopContainer, EnableLimitDate, FormGroup, Header, Input, Label, Placeholder, TextArea } from "./styles";
+import { MdClose } from "react-icons/md";
+import { Button, CheckboxContainer, CheckboxLabel, DateTimeFormGroup, DateTimeInput, DescriptionLabel, DesktopContainer, EnableLimitDate, ExitButton, FormGroup, Header, Input, Label, Placeholder, TextArea } from "./styles";
 
 type BaseModalWrapperProps = {
   columnId: number;
@@ -45,15 +46,21 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
   }
 
   const handleLimitDate = (event: ChangeEvent<HTMLInputElement>) => {
-    const limitDate = formatInputDate(moment(event.target.value).toDate()); 
+    const limitDate = formatDate(moment(event.target.value).toDate()); 
     console.log(limitDate);
+
+    if(!isValidStringDate(limitDate)) {
+      notifyError("Não é possível limpar a data, desmarque a caixa de seleção"); 
+      return;
+    }
+
     setLimitDate(limitDate);
   }
 
   const handleSubmit = async (columnId: number) => {
     
     const biggestId = await taskService.findBiggestId() + 1;
-    const formattedLimitDate = formatToLimitDate(limitDate);
+    const formattedLimitDate = formatStringDate(limitDate);
 
     const newTask: TaskReferencedToColumnDTO = {
       columnId: columnId,
@@ -64,7 +71,6 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
       limitAt: isLimitDateCheckbox ? formattedLimitDate : undefined,
     }
 
-    console.log(newTask);
     resetFormData();
     onBackDropClick();
     notifySuccess("Tarefa criada");
@@ -86,7 +92,7 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
     //TODO Make X button for closing the modal
     <BaseModal onBackDropClick={onBackDropClick}>
       <DesktopContainer>
-        
+        <ExitButton onClick={onBackDropClick}><MdClose color="#6a6a6a"/></ExitButton>        
         <Header>Adicionar nova tarefa</Header>
 
         <FormGroup>
@@ -105,7 +111,7 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
             <CheckboxLabel htmlFor="isLimitDate">Habilitar data limite?</CheckboxLabel>
           </CheckboxContainer>
 
-          { isLimitDateCheckbox && <DateTimeInput type="datetime-local" value={formatToLimitDateTimeInput(limitDate)} onChange={handleLimitDate}/>}
+          { isLimitDateCheckbox && <DateTimeInput type="datetime-local" value={formatStringDate(limitDate)} onChange={handleLimitDate}/>}
           { !isLimitDateCheckbox && <Placeholder/>}
         </DateTimeFormGroup>
 

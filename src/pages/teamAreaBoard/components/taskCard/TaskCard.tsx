@@ -1,10 +1,10 @@
 import { Draggable } from "@hello-pangea/dnd";
 import { draggableId } from "../../../../shared/helpers/area/beautifulDndIdHelpers";
 import { Task } from "../../../../shared/types";
-import { Container, Informations, LimitAt, LimitDateLabel, MemberPhoto, Members, Title } from "./styles";
+import { Container, dateLabelColors, Informations, LimitAt, LimitDateLabel, MemberPhoto, Members, Title } from "./styles";
 import { RiTimer2Fill } from "react-icons/ri";
-import { getFrom } from "./helpers/formatLimitDate";
 import { draggingStyle } from "./snapshot/draggingStyle";
+import moment from "moment";
 
 type TaskCardProps = {
   index: number
@@ -14,9 +14,20 @@ type TaskCardProps = {
 export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
 
   const handleLimitDateLabel = (limitDate: string): string => {
-    const date = getFrom(limitDate); 
+    const date = moment(limitDate).toDate();
 
-    return `${date?.day}/${date?.month} às ${date?.hours}`;
+    return `${date.getDate()}/${date.getMonth() + 1} às ${String(date.getHours())}:${String(date.getMinutes())}`;
+  }
+
+  const handleDateColorLabel = (limitAt: string) => {
+    const now = moment();
+    const limit = moment(limitAt);
+
+    let color = dateLabelColors.normal;
+    if (now.isSame(limit, "day")) color = dateLabelColors.warning;
+    else if (now.isAfter(limit)) color = dateLabelColors.late;
+
+    return color;
   }
 
   return (
@@ -34,8 +45,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
 
               {task.limitAt &&
                 <LimitAt>
-                  <RiTimer2Fill />
-                  <LimitDateLabel>{handleLimitDateLabel(task.limitAt)}</LimitDateLabel>
+                  <RiTimer2Fill color={handleDateColorLabel(task.limitAt)}/>
+                  <LimitDateLabel color={handleDateColorLabel(task.limitAt)}>{handleLimitDateLabel(task.limitAt)}</LimitDateLabel>
                 </LimitAt>
               }
               
