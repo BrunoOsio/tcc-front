@@ -4,8 +4,8 @@ import { Column } from "../../types";
 
 const BASE_URL = "http://127.0.0.1:3000/api/columns/";
 
-const findColumns = async (): Promise<Column[]> =>{
-  const endpoint = `${BASE_URL}`;
+const findColumns = async (areaId: number): Promise<Column[]> =>{
+  const endpoint = `${BASE_URL}ofArea/${areaId}`;
   const { data } = await axios.get(endpoint);
 
   return data;

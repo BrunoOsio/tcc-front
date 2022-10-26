@@ -89,7 +89,6 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
   if(!isModalVisible) return null;
 
   return (
-    //TODO Make X button for closing the modal
     <BaseModal onBackDropClick={onBackDropClick}>
       <DesktopContainer>
         <ExitButton onClick={onBackDropClick}><MdClose color="#6a6a6a"/></ExitButton>        

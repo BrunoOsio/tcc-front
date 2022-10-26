@@ -1,20 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Column, Task } from "../../shared/types";
 import { BaseState } from "./types/BaseState";
-import { teamMock } from "../../shared/services/mock/team/teamMock";
 import { DropResult } from "@hello-pangea/dnd";
 import { debugDropResult, formatColumnsOrderResult, formatDndValues, updateTaskOrderOnNewTask } from "../../shared/helpers/area/beautifulDndIdHelpers";
 
 import columnService from "../../shared/services/column/columnService";
 import { createColumnData } from "./helpers/createColumnData";
-import { ColumnsOrderResult } from "./types/column/ColumnsOrderResult";
-import axios from "axios";
 import { RootState } from "../app/store";
-import { NewTaskDTO } from "../../shared/dtos/task/NewTaskDTO";
 import { TaskReferencedToColumnDTO } from "../../shared/dtos/task/TaskReferencedToColumnDTO";
 import taskService from "../../shared/services/task/taskService";
-
-const tempAreaMock = teamMock[0].areas[0];
 
 type ColumnState = BaseState<Column>;
 
@@ -29,11 +23,11 @@ const initialState: ColumnState = {
 const findColumns = createAsyncThunk(
   "column/findColumns",
 
-  async (): Promise<Column[]> => {
+  async (areaId: number): Promise<Column[]> => {
     const formattedColumns: Column[] = [];
 
-    const columns = await columnService.findColumns();
-
+    const columns = await columnService.findColumns(areaId);
+    
     for (let column of columns) {
       const columnData = await createColumnData(column);
       formattedColumns.push(columnData);

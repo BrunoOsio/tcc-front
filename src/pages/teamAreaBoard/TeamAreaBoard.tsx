@@ -5,12 +5,10 @@ import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findColumns, patchReorder, reorder } from "../../states/features/columnSlice";
 import { useEffect } from "react";
 import { Loading } from "./components/loading/Loading";
+import { useParams } from "react-router-dom";
 
-export type TeamAreaBoardProps = {
-  // area: Area
-}
-
-export const TeamAreaBoard: React.FC<TeamAreaBoardProps> = ({}) => {
+export const TeamAreaBoard = () => {
+  const { areaId } = useParams();
   const { value: columns, isLoading } = useAppSelector((state) => state.column);
 
   const dispatch = useAppDispatch();
@@ -29,15 +27,15 @@ export const TeamAreaBoard: React.FC<TeamAreaBoardProps> = ({}) => {
   };
 
   useEffect(() => {
-    dispatch(findColumns());
+    dispatch(findColumns(Number(areaId!)));
   }, []);
   
   return (
     <Container>
       <DragDropContext onDragEnd={onDragEnd}>
         {isLoading && <Loading />}
+
         {columns.map((column, index) => {
-          
           return <ColumnContainer key={index} column={column} index={index} />;
         })}
       </DragDropContext>

@@ -14,10 +14,33 @@ export const DesktopContainer = styled(Container)`
   box-shadow: 0 0 7px ${colors.lightGreyBackgroundColumn};
   padding: 60px;
   width: 550px;
+  max-height: 90vh;
+  overflow-y: auto;
   font-size: 26px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 30px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: inherit;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${colors.greyScrollbar};
+    border-radius: 999px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${colors.greyScrollbarHover};
+  }
 `;
 
 export const ExitButton = styled.div`

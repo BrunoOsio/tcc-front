@@ -31,6 +31,6 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Cabin', sans-serif;
-    background-color: ${colors.background};
+    background-color: ${colors.white};
   }
 `;

@@ -5,6 +5,7 @@ import { Container, dateLabelColors, Informations, LimitAt, LimitDateLabel, Memb
 import { RiTimer2Fill } from "react-icons/ri";
 import { draggingStyle } from "./snapshot/draggingStyle";
 import moment from "moment";
+import { colors } from "../../../../shared/globalStyles/globalValues";
 
 type TaskCardProps = {
   index: number
@@ -16,7 +17,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
   const handleLimitDateLabel = (limitDate: string): string => {
     const date = moment(limitDate).toDate();
 
-    return `${date.getDate()}/${date.getMonth() + 1} às ${String(date.getHours())}:${String(date.getMinutes())}`;
+    return `${date.getDate()}/${date.getMonth() + 1}`;
   }
 
   const handleDateColorLabel = (limitAt: string) => {
@@ -45,7 +46,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
 
               {task.limitAt &&
                 <LimitAt>
-                  <RiTimer2Fill color={handleDateColorLabel(task.limitAt)}/>
+                  <RiTimer2Fill color={colors.darkGreyText}/>
                   <LimitDateLabel color={handleDateColorLabel(task.limitAt)}>{handleLimitDateLabel(task.limitAt)}</LimitDateLabel>
                 </LimitAt>
               }

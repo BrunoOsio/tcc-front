@@ -10,9 +10,9 @@ type LimitDateLabelProps = {
 }
 
 export const dateLabelColors = {
-  normal: colors.greyScrollbarHover,
-  warning: "#ffbf80",
-  late: "#ff9999"
+  normal: "#AEC4FF",
+  warning: "#FFBF80",
+  late: "#FF9999"
 }
 
 export const Container = styled.article`
@@ -41,6 +41,7 @@ export const Informations = styled.div`
 `;
 
 export const Title = styled.span`
+  display: inline;
   font-size: 0.8rem;
 `;
 
@@ -50,10 +51,16 @@ export const LimitAt = styled.div`
   gap: 5px;
   font-size: 0.8rem;
   color: ${colors.darkGreyText};
+  align-items: center;
 `;
 
+const isDarkFont = (color: string): boolean => false;
+
 export const LimitDateLabel = styled.small<LimitDateLabelProps>`
-  color: ${({ color }) => color};
+  background-color: ${({ color }) => color};
+  color: ${({color}) => isDarkFont(color) ? colors.white : colors.darkGreyText};
+  padding: 3px 5px 3px;
+  border-radius: 3px;
   font-weight: 600;
 `;
 
