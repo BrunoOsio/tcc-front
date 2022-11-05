@@ -15,7 +15,7 @@ import { RiPlayListAddLine } from "react-icons/ri";
 export const TeamAreaBoard = () => {
   const { areaId } = useParams();
   const areaIdNumber = Number(areaId);
-
+  console.log(areaIdNumber);
   const { value: columns, isLoading } = useAppSelector((state) => state.column);
 
   const dispatch = useAppDispatch();

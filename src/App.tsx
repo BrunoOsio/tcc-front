@@ -14,7 +14,7 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<TeamSelector/>}/>
             <Route path="/team/:teamId/dashboard" element={<TeamDashboard/>}/>
-            <Route path="/dashboard/area/:areaId" element={<TeamAreaBoard/>}/>
+            <Route path="/team/:teamId/dashboard/area/:areaId" element={<TeamAreaBoard/>}/>
           </Routes>
         </BrowserRouter>
 
