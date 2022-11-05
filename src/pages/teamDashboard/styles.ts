@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { sizes } from "../../shared/globalStyles/globalValues";
 
+type AreasProps = {
+  listSize: number;
+}
 export const Container = styled.div`
   width: 80vw;
   margin: 0 auto;
@@ -9,9 +12,9 @@ export const Container = styled.div`
   max-height: 1200px;
 `;
 
-export const Areas = styled.div`
+export const Areas = styled.div<AreasProps>`
   display: grid;
-  gap: 30px;
+  gap: ${({listSize}) => listSize >= 2 ? "30px" : "0px"};
   grid-template-columns: repeat(4, auto);
   justify-content: center;
 `;

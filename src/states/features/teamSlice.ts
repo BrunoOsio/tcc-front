@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Area } from "../../shared/types";
+import teamService from "../../shared/services/team/teamService";
+import { Team } from "../../shared/types/team/Team";
 import { BaseState } from "./types/BaseState";
-import areaService from "../../shared/services/area/areaService";
 
-type AreaState = BaseState<Area>;
+type TeamState = BaseState<Team>;
 
-const initialState: AreaState = {
+const initialState: TeamState = {
   value: [],
   isSuccess: false,
   isLoading: false,
@@ -13,26 +13,27 @@ const initialState: AreaState = {
   error: "",
 };
 
-const findAreas = createAsyncThunk(
-  "column/findAreas",
+const findTeams = createAsyncThunk(
+  "team/findTeams",
 
-  async (teamId: number): Promise<Area[]> => {
-    const areas = await areaService.findAreas(teamId);
+  async (userId: number): Promise<Team[]> => {
 
-    return areas;
+    const teams = await teamService.findTeams(userId);
+    
+    return teams;
   }
 );
 
-export const areaSlice = createSlice({
-  name: "area",
+export const teamSlice = createSlice({
+  name: "team",
   initialState,
-  reducers: {
 
+  reducers: {
   },
 
   extraReducers: (builder) => {
     builder.addCase(
-      findAreas.pending, 
+      findTeams.pending, 
       (state) => {
         state.isLoading = true;
         state.isSuccess = true;
@@ -41,8 +42,8 @@ export const areaSlice = createSlice({
     );
 
     builder.addCase(
-      findAreas.fulfilled, 
-      (state, action: PayloadAction<Area[]>) => {
+      findTeams.fulfilled, 
+      (state, action: PayloadAction<Team[]>) => {
         state.value = action.payload;
         state.isLoading = false;
         state.isSuccess = true;
@@ -51,17 +52,17 @@ export const areaSlice = createSlice({
     );
 
     builder.addCase(
-      findAreas.rejected, 
+      findTeams.rejected, 
       (state, action) => {
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = true;
       state.error = action.error.message || "Something went wrong";
     });
-  }
+  } 
 });
 
-export const { } = areaSlice.actions;
-export { findAreas };
+export const { } = teamSlice.actions;
+export { findTeams };
 
-export default areaSlice.reducer;
+export default teamSlice.reducer;

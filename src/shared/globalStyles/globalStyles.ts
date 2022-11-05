@@ -29,6 +29,28 @@ export const GlobalStyle = createGlobalStyle`
     transform: scale(1.25);
   }
 
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 12px;
+    background-color: ${colors.background};
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${colors.greyScrollbar};
+    border-radius: 999px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${colors.greyScrollbarHover};
+    cursor: pointer;
+  }
+
   body {
     font-family: 'Cabin', sans-serif;
     background-color: ${colors.white};

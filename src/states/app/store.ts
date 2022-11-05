@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import columnReducer from "../features/columnSlice";
 import areaReducer from "../features/areaSlice";
+import teamReducer from "../features/teamSlice";
 
 export const store = configureStore({
   reducer: {
     column: columnReducer,
-    area: areaReducer
+    area: areaReducer,
+    team: teamReducer
   }
 });
 

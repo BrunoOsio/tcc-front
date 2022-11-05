@@ -3,7 +3,7 @@ import { ColumnContainer } from "./components/columnContainer/ColumnContainer";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { createColumn, findColumns, patchCreateColumn, patchReorder, reorder } from "../../states/features/columnSlice";
-import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Loading } from "./components/loading/Loading";
 import { useParams } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
