@@ -9,6 +9,7 @@ import { createColumnData } from "./helpers/createColumnData";
 import { RootState } from "../app/store";
 import { TaskReferencedToColumnDTO } from "../../shared/dtos/task/TaskReferencedToColumnDTO";
 import taskService from "../../shared/services/task/taskService";
+import { ColumnReferencedToAreaDTO } from "../../shared/dtos/column/ColumnReferencedToAreaDTO";
 
 type ColumnState = BaseState<Column>;
 
@@ -72,6 +73,14 @@ const patchCreateTask = createAsyncThunk(
   }
 );
 
+const patchCreateColumn = createAsyncThunk(
+  "column/patchCreateColumn",
+
+  async (columnReferencedToAreaDTO: ColumnReferencedToAreaDTO) => {
+    await columnService.createColumn(columnReferencedToAreaDTO);
+  }
+);
+
 export const columnSlice = createSlice({
   name: "column",
   initialState,
@@ -101,7 +110,6 @@ export const columnSlice = createSlice({
       debugDropResult(action.payload);     
     },
 
-    //TODO: Set order to first on database
     createTask(state, action: PayloadAction<TaskReferencedToColumnDTO>) {
       const  { columnId, temporaryReduxId, title, description, createdAt, limitAt } = action.payload;
   
@@ -121,6 +129,20 @@ export const columnSlice = createSlice({
       const taskIdsOrder = state.value[columnIndexState].taskIdsOrder;
       state.value[columnIndexState].tasks.unshift(newTask);
       state.value[columnIndexState].taskIdsOrder = updateTaskOrderOnNewTask(newTask.id, taskIdsOrder!);
+    },
+
+    createColumn(state, action: PayloadAction<ColumnReferencedToAreaDTO>) {
+      const {title, temporaryReduxId} = action.payload;
+
+      const newColumn: Column = {
+        id: temporaryReduxId,
+        title: title,
+        isForDoneTasks: false,
+        taskIdsOrder: null,
+        tasks: []
+      }
+
+      state.value.push(newColumn);
     }
   },
 
@@ -155,8 +177,8 @@ export const columnSlice = createSlice({
   } 
 });
 
-export const { reorder, createTask } = columnSlice.actions;
-export { findColumns, findColumnById, patchReorder, patchCreateTask };
+export const { reorder, createTask, createColumn } = columnSlice.actions;
+export { findColumns, findColumnById, patchReorder, patchCreateTask, patchCreateColumn };
 
 export default columnSlice.reducer;
 

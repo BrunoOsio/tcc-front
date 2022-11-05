@@ -17,12 +17,13 @@ export const dateLabelColors = {
 
 export const Container = styled.article`
   padding: 12px 12px;
-  height: ${sizes.taskHeight};
+  height: auto;
   background-color: ${colors.background};
   cursor: grab;
   user-select: none;
   display: flex;
   margin-bottom: 10px;
+  word-break: break-all;
 
   border: 4px solid ${colors.white};
   border-radius: 12px;

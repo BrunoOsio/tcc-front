@@ -35,11 +35,11 @@ export const Header = styled.article`
 `;
 
 export const ColumnTitleInput = styled.input`
-  width: 50%;
+  width: 100%;
   height: 100%;
 
   font-size: 1.3rem;
-  padding: 10px 0px;
+  padding: 10px 10px;
   background-color: transparent;
   color: ${colors.white};
   outline: none;
