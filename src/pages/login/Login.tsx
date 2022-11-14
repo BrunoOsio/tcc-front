@@ -54,6 +54,7 @@ export const Login = () => {
               value={values.password.trim()} 
               onChange={handleChange} 
               onBlur={handleBlur}
+              type="password"
             />
 
           {(isPasswordInvalid) && <Error>{errors.password}</Error>}

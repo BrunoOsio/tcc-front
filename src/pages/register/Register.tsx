@@ -94,6 +94,7 @@ export const Register = () => {
               value={values.password.trim()}
               onChange={handleChange}
               onBlur={handleBlur}
+              type="password"
             />
 
             {isPasswordInvalid && <Error>{errors.password}</Error>}
@@ -107,6 +108,7 @@ export const Register = () => {
               value={values.confirmPassword.trim()}
               onChange={handleChange}
               onBlur={handleBlur}
+              type="password"
             />
 
             {isConfirmPasswordInvalid && <Error>{errors.confirmPassword}</Error>}
