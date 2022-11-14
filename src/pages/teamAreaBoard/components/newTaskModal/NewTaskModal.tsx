@@ -47,7 +47,6 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
 
   const handleLimitDate = (event: ChangeEvent<HTMLInputElement>) => {
     const limitDate = formatDate(moment(event.target.value).toDate()); 
-    console.log(limitDate);
 
     if(!isValidStringDate(limitDate)) {
       notifyError("Não é possível limpar a data, desmarque a caixa de seleção"); 
