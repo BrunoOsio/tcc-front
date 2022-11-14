@@ -15,8 +15,8 @@ import { RiPlayListAddLine } from "react-icons/ri";
 export const TeamAreaBoard = () => {
   const { areaId } = useParams();
   const areaIdNumber = Number(areaId);
-  console.log(areaIdNumber);
-  const { value: columns, isLoading } = useAppSelector((state) => state.column);
+
+  const { value: columns, isLoading, isSuccess } = useAppSelector((state) => state.column);
 
   const dispatch = useAppDispatch();
 
@@ -78,6 +78,8 @@ export const TeamAreaBoard = () => {
     dispatch(findColumns(areaIdNumber));
   }, []);
 
+  const isColumnListEmpty = columns.length === 0 
+
   return (
     <Container>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -85,7 +87,7 @@ export const TeamAreaBoard = () => {
         isLoading ? 
           <Loading /> 
         : 
-          columns.length === 0 ?
+          (isSuccess && isColumnListEmpty) ?
             <NoColumnContainer>
               <NewColumnPlaceholder>
                 <FormGroup>
@@ -106,26 +108,29 @@ export const TeamAreaBoard = () => {
             columns.map((column, index) => <ColumnContainer key={index} column={column} index={index} />)
         }
         
-        { 
-        !isNewColumnButton ? 
-          <NewColumnButton id="ref" onClick={showNewColumnButton}><span><RiPlayListAddLine/></span></NewColumnButton>
-        : 
-          <NewColumnPlaceholder>
-            <FormGroup>
-              <Input 
-                autoFocus
-                value={newColumnInput} 
-                onChange={handleNewColumnInputChange}
-                isBlank={isNewColumnInputBlank}
-                onFocus={(event) => event.target.select()}
-              />
-              {!isNewColumnInputBlank && <Submit onClick={handleSubmitNewColumn}><BsArrowRight size={30}/></Submit>}
-            </FormGroup>
-            <PlaceholderBody>
-              <button>dsfds</button>
-            </PlaceholderBody>
-          </NewColumnPlaceholder>
+        {
+        (isSuccess && !isColumnListEmpty) && (
+          !isNewColumnButton ? 
+            <NewColumnButton id="ref" onClick={showNewColumnButton}><span><RiPlayListAddLine/></span></NewColumnButton>
+          : 
+            <NewColumnPlaceholder>
+              <FormGroup>
+                <Input 
+                  autoFocus
+                  value={newColumnInput} 
+                  onChange={handleNewColumnInputChange}
+                  isBlank={isNewColumnInputBlank}
+                  onFocus={(event) => event.target.select()}
+                />
+                {!isNewColumnInputBlank && <Submit onClick={handleSubmitNewColumn}><BsArrowRight size={30}/></Submit>}
+              </FormGroup>
+              <PlaceholderBody>
+                <button>dsfds</button>
+              </PlaceholderBody>
+            </NewColumnPlaceholder>
+        )
         }
+
       </DragDropContext>
     </Container>
   );
