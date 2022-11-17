@@ -2,6 +2,12 @@ import { useFormik } from "formik"
 import { loginSchema } from "./schemas/loginSchema";
 import { Button, Container, Form, FormGroup, Error, Input, Label, LeftSide, RightSide, Title, DividerContainer, Line, TextDivider, NotRegisteredText } from "./styles";
 import { ImArrowRight } from "react-icons/im";
+import { trimmed } from "../../shared/helpers/stringHelpers";
+import { useLocation, useNavigate } from "react-router-dom";
+import userService from "../../shared/services/user/userService";
+import { UserLoginDTO } from "../../shared/dtos/user/UserLoginDTO";
+import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
+import { Loading } from "./components/loading/Loading";
 
 export type LoginFormValues = {
   email: string,
@@ -9,14 +15,35 @@ export type LoginFormValues = {
 }
 
 export const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const onSubmit = async () => {
-    console.log("submitted");
+    console.log("entrou");
+
+    const userLogin: UserLoginDTO = {
+      email: values.email,
+      password: values.password
+    } 
+
+    const login = await userService.checkLogin(userLogin);
+    
+    if (login) {
+      notifySuccess("Usuário logado com sucesso");
+      navigate("/");
+    } else {
+      notifyError("Usuário ou senha inválidos");
+      resetFormData();
+    }
   }
 
+  const fillEmail = (): string => {
+    return trimmed(location.state ? location.state.email : "");
+  }
+  
   const initialValues: LoginFormValues = {
-    email: "sdfgs".trim(),
-    password: "".trim()
+    email: fillEmail(),
+    password: trimmed("")
   }
 
   const {values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit} = useFormik({
@@ -25,8 +52,20 @@ export const Login = () => {
     onSubmit
   });
 
+  const resetFormData = () => {
+    const {email, password} = initialValues;
+
+    values.email = email;
+    values.password = password;
+  }
+
+  const goToRegister = () => {
+    navigate("/register");
+  }
+  
   const isEmailInvalid = errors.email && touched.email;
   const isPasswordInvalid = errors.password && touched.password;
+  console.log(isSubmitting)
 
   return (
     <Container>
@@ -38,7 +77,7 @@ export const Login = () => {
             <Input 
               name="email"
               isError={isEmailInvalid}
-              value={values.email.trim()} 
+              value={trimmed(values.email)} 
               onChange={handleChange} 
               onBlur={handleBlur}
             />
@@ -51,7 +90,7 @@ export const Login = () => {
             <Input 
               name="password"
               isError={isPasswordInvalid}
-              value={values.password.trim()} 
+              value={trimmed(values.password)} 
               onChange={handleChange} 
               onBlur={handleBlur}
               type="password"
@@ -59,14 +98,14 @@ export const Login = () => {
 
           {(isPasswordInvalid) && <Error>{errors.password}</Error>}
           </FormGroup>
-          <Button disabled={isSubmitting} type="submit"><span><ImArrowRight/></span></Button>
+          <Button type="submit"><span>{isSubmitting ? <Loading/> : <ImArrowRight/>}</span></Button>
         </Form>
         <DividerContainer>
           <Line/>
           <TextDivider>OU</TextDivider>
         </DividerContainer>
 
-        <NotRegisteredText>Não tenho cadastro</NotRegisteredText>
+        <NotRegisteredText onClick={goToRegister}>Não tenho cadastro</NotRegisteredText>
       </LeftSide>
       <RightSide>
         Right Side
