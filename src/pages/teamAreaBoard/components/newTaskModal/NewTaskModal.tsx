@@ -1,7 +1,7 @@
 import moment from "moment";
 import { ChangeEvent, useState } from "react";
 import { TaskReferencedToColumnDTO } from "../../../../shared/dtos/task/TaskReferencedToColumnDTO";
-import { notifyError, notifySuccess } from "../../../../shared/helpers/area/notifications";
+import { notifyError, notifySuccess } from "../../../../shared/helpers/notificationHelpers";
 import { createDateOfNow, createDefaultDateTimeLocalInput, formatDate, formatStringDate, isValidStringDate } from "../../../../shared/helpers/dateHelpers";
 import taskService from "../../../../shared/services/task/taskService";
 import { useAppDispatch } from "../../../../states/app/hooks";

@@ -10,13 +10,15 @@ import {
   LeftSide,
   RightSide,
   Title,
-  DividerContainer,
-  Line,
-  TextDivider,
-  NotRegisteredText,
 } from "../login/styles";
 import { ImArrowRight } from "react-icons/im";
 import { registerSchema } from "./schemas/registerSchema";
+import { trimmed } from "../../shared/helpers/stringHelpers";
+import userService from "../../shared/services/user/userService";
+import { NewUserDTO } from "../../shared/dtos/user/NewUserDTO";
+import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
+import { useNavigate } from "react-router-dom";
+
 
 export type RegisterFormValues = {
   name: string;
@@ -26,15 +28,31 @@ export type RegisterFormValues = {
 };
 
 export const Register = () => {
+  const navigate = useNavigate();
   const onSubmit = async () => {
-    console.log("submitted");
+
+    const user: NewUserDTO = {
+      email: values.email,
+      name: values.name,
+      password: values.password
+    } 
+
+    const newUser = await userService.register(user);
+
+    if (newUser) {
+      notifySuccess("Usuário cadastrado com sucesso");
+      navigate("/login", {state: user});
+    } else {
+      notifyError("Erro no cadastro");
+      resetFormData();
+    }
   };
 
   const initialValues: RegisterFormValues = {
     name: "",
-    email: "",
-    password: "",
-    confirmPassword: ""
+    email: trimmed(""),
+    password: trimmed(""),
+    confirmPassword: trimmed("")
   };
 
   const {
@@ -50,6 +68,15 @@ export const Register = () => {
     validationSchema: registerSchema,
     onSubmit,
   });
+
+  const resetFormData = () => {
+    const {email, name, password, confirmPassword} = initialValues;
+
+    values.email = email;
+    values.name = name;
+    values.password = password;
+    values.confirmPassword = confirmPassword;
+  }
 
   const isNameInvalid = errors.name && touched.name;
   const isEmailInvalid = errors.email && touched.email;
@@ -78,7 +105,7 @@ export const Register = () => {
             <Input
               name="email"
               isError={isEmailInvalid}
-              value={values.email.trim()}
+              value={trimmed(values.email)}
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -91,7 +118,7 @@ export const Register = () => {
             <Input
               name="password"
               isError={isPasswordInvalid}
-              value={values.password.trim()}
+              value={trimmed(values.password)}
               onChange={handleChange}
               onBlur={handleBlur}
               type="password"
@@ -105,7 +132,7 @@ export const Register = () => {
             <Input
               name="confirmPassword"
               isError={isPasswordInvalid}
-              value={values.confirmPassword.trim()}
+              value={trimmed(values.confirmPassword)}
               onChange={handleChange}
               onBlur={handleBlur}
               type="password"

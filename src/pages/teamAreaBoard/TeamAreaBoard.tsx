@@ -8,7 +8,7 @@ import { Loading } from "./components/loading/Loading";
 import { useParams } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import { ColumnReferencedToAreaDTO } from "../../shared/dtos/column/ColumnReferencedToAreaDTO";
-import { notifySuccess } from "../../shared/helpers/area/notifications";
+import { notifySuccess } from "../../shared/helpers/notificationHelpers";
 import columnService from "../../shared/services/column/columnService";
 import { RiPlayListAddLine } from "react-icons/ri";
 
