@@ -19,4 +19,11 @@ const checkLogin = async (user: UserLoginDTO): Promise<User> => {
   return data;
 }
 
-export default { register, checkLogin };
+const findUser = async (userId: number): Promise<User> => {
+  const endpoint = `${BASE_URL}/${userId}`;
+  const { data } = await axios.get(endpoint);
+
+  return data;
+}
+
+export default { register, checkLogin, findUser };

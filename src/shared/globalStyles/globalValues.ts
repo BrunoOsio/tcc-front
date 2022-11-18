@@ -21,3 +21,9 @@ export const sizes = {
 export const responsivity = {
   mobile: "450px"
 }
+
+export const storage = {
+  id: "id",
+  name: "name",
+  email: "email"
+}

@@ -9,13 +9,32 @@ export const Container = styled.main`
   width: 100vw;
   display: flex;
   flex-direction: column;
-`;
+  `;
 
 export const Header = styled.section`
   background: rgb(42,115,255);
   background: linear-gradient(180deg, rgba(42,115,255,1) 23%, rgba(87,147,255,1) 69%);
   width: 100%;
   height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  `;
+
+export const UserCard = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -20px;
+`;
+
+export const Name = styled.span`
+  color: ${colors.white};
+  margin-top: 10px;
+  font-size: 1.2rem;
 `;
 
 const headerOverlayPx = "-50px";

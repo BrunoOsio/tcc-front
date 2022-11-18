@@ -8,6 +8,8 @@ import userService from "../../shared/services/user/userService";
 import { UserLoginDTO } from "../../shared/dtos/user/UserLoginDTO";
 import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
 import { Loading } from "./components/loading/Loading";
+import { storage } from "../../shared/globalStyles/globalValues";
+import { UserLoginStorageDTO } from "../../shared/dtos/user/UserLoginStorageDTO";
 
 export type LoginFormValues = {
   email: string,
@@ -19,8 +21,6 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = async () => {
-    console.log("entrou");
-
     const userLogin: UserLoginDTO = {
       email: values.email,
       password: values.password
@@ -29,10 +29,19 @@ export const Login = () => {
     const login = await userService.checkLogin(userLogin);
     
     if (login) {
+      const userLoginStorage: UserLoginStorageDTO = {
+        id: login.id,
+        name: login.name,
+        email: login.email
+      }
+      configureLoginStorage(userLoginStorage);
+
       notifySuccess("Usuário logado com sucesso");
-      navigate("/");
+
+      goToTeamSelector();
     } else {
       notifyError("Usuário ou senha inválidos");
+
       resetFormData();
     }
   }
@@ -52,6 +61,11 @@ export const Login = () => {
     onSubmit
   });
 
+  const configureLoginStorage = (user: UserLoginStorageDTO) => {
+    localStorage.clear();
+    localStorage.setItem(storage.id, String(user.id));
+  }
+
   const resetFormData = () => {
     const {email, password} = initialValues;
 
@@ -62,10 +76,13 @@ export const Login = () => {
   const goToRegister = () => {
     navigate("/register");
   }
+
+  const goToTeamSelector = () => {
+    navigate("/");
+  }
   
   const isEmailInvalid = errors.email && touched.email;
   const isPasswordInvalid = errors.password && touched.password;
-  console.log(isSubmitting)
 
   return (
     <Container>
