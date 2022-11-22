@@ -33,9 +33,8 @@ export const teamSchema = yup.object().shape({
   number:    
     yup.number()
     .positive(negativeNumberMessage)
-    .max(maximumNumberLength, maximumNumberMessage)
-    .required(requiredNumberMessage),
-  
+    .max(maximumNumberLength, maximumNumberMessage),
+      
   modality: 
     yup.string()
     .oneOf(getModalityInitials, modalityNotMatchedMessage)

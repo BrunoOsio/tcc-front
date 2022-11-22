@@ -20,7 +20,7 @@ export const CreateTeam = () => {
     const newTeam: NewTeamDTO = {
       name: values.name,
       modality: values.modality,
-      number: values.number as unknown as number
+      number: values.number || undefined
     }
 
     const team = await teamService.createTeam(newTeam);
@@ -48,6 +48,8 @@ export const CreateTeam = () => {
     onSubmit
   });
 
+  console.log(errors.number);
+
   const userId = getStoredId();
   useEffect(() => {
     const getUser = async () => {
@@ -59,7 +61,9 @@ export const CreateTeam = () => {
   }, []);
 
   const isNumberedModality = (choosedModality: string | undefined) => {
-    if (choosedModality === undefined) return;
+    if (choosedModality === undefined) {
+      return; 
+    }
 
     const modalities = modalityMock;
 
@@ -104,6 +108,7 @@ export const CreateTeam = () => {
           <Select 
             name="modality"
             placeholder="Selecione a modalidade"
+            required={true}
             isError={isModalityInvalid}
             onChange={handleChange} 
             onBlur={handleBlur}
