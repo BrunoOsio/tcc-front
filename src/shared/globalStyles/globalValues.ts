@@ -2,6 +2,7 @@ export const colors = {
   background: "#E4EBFF",
   taskHover: "#DAE4FF",
   blue: "#1688FF",
+  darkBlue: "#3579D2",
   lightGreyBackgroundColumn: "#EFEFEF",
   lightGreyBackgroundAddButton: "#E4E4E4",
   greyBorderAddButton: "#A2A2A2",

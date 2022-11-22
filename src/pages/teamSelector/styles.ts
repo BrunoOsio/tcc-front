@@ -95,7 +95,7 @@ export const NewTeamButton = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #3579D2;
+  background-color: ${colors.darkBlue};
   border-radius: 10px;
   column-gap: 5px;
   transition: all .2s ease-in-out;
@@ -115,15 +115,15 @@ export const NewTeamButton = styled.button`
   &:hover {
     cursor: pointer;
     background-color: white;
-    border-color: #3579D2;
+    border-color: ${colors.darkBlue};
 
     article {
-      color: #3579D2;
+      color: ${colors.darkBlue};
     }
 
     span {
       transform: scale(1.2);
-      color: #3579D2;
+      color: ${colors.darkBlue};
     }
   }
 `;

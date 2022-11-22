@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
+import { ImArrowRight } from "react-icons/im";
 import { useLocation, useNavigate } from "react-router-dom";
 import { NewTeamDTO } from "../../shared/dtos/team/NewTeamDTO";
 import { getStoredId } from "../../shared/helpers/localStorageHelpers";
@@ -8,8 +9,10 @@ import { modalityMock } from "../../shared/services/mock/modality/modalityMock";
 import teamService from "../../shared/services/team/teamService";
 import userService from "../../shared/services/user/userService";
 import { Modality, User } from "../../shared/types";
+import { Loading } from "../login/components/loading/Loading";
+import { Icon } from "./components/icon/Icon";
 import { teamSchema } from "./schemas/teamSchema";
-import { Container, Form, FormGroup, Input, Label, Error, Title, Select, Button } from "./styles";
+import { Container, Form, FormGroup, Input, Label, Error, Title, Select, Button, Header } from "./styles";
 
 export const CreateTeam = () => {
   const [user, setUser] = useState<User>();
@@ -23,7 +26,7 @@ export const CreateTeam = () => {
       number: values.number || undefined
     }
 
-    const team = await teamService.createTeam(newTeam);
+    const team = user && await teamService.createTeam(newTeam, user.id);
     
     if (team) {
       notifySuccess("Time criado com sucesso");
@@ -88,7 +91,11 @@ export const CreateTeam = () => {
 
   return (
     <Container>
-      <Title>Criar novo time</Title>
+      <Header>
+        <Title>Criar novo time</Title>
+
+        {user && <Icon user={user}/>}
+      </Header>
       <Form onSubmit={handleSubmit} autoComplete="off">
         <FormGroup>
           <Label htmlFor="name">Nome do time</Label>
@@ -108,7 +115,6 @@ export const CreateTeam = () => {
           <Select 
             name="modality"
             placeholder="Selecione a modalidade"
-            required={true}
             isError={isModalityInvalid}
             onChange={handleChange} 
             onBlur={handleBlur}
@@ -139,7 +145,7 @@ export const CreateTeam = () => {
           )
         }
 
-        <Button type="submit">Enviar</Button>
+        <Button type="submit"><span>{isSubmitting ? <Loading/> : <ImArrowRight/>}</span></Button>
       </Form>
     </Container>
   );

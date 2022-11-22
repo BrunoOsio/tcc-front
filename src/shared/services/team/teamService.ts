@@ -11,8 +11,8 @@ const findTeams = async (userId: number): Promise<Team[]> => {
   return data;
 }
 
-const createTeam = async(newTeamDto: NewTeamDTO): Promise<Team> => {
-  const endpoint = `${BASE_URL}`;
+const createTeam = async(newTeamDto: NewTeamDTO, leaderId: number): Promise<Team> => {
+  const endpoint = `${BASE_URL}?userId=${leaderId}`;
   const { data } = await axios.post(endpoint, newTeamDto)
 
   return data;

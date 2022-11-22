@@ -11,8 +11,8 @@ const longPasswordMessage = `Requer uma senha de no máximo ${maximumPasswordLen
 
 const requiredPasswordMessage = "Requer uma senha";
 
-const passwordPatternRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$/;
-const passwordNotAppliesRulesMessage = "A senha deve conter ao menos uma letra maiúscula, uma minúscula, e um número"
+// const passwordPatternRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$/;
+// const passwordNotAppliesRulesMessage = "A senha deve conter ao menos uma letra maiúscula, uma minúscula, e um número"
 
 export const loginSchema = yup.object().shape({
   email: 
@@ -26,6 +26,6 @@ export const loginSchema = yup.object().shape({
     .trim()
     .min(minimumPasswordLength, shortPasswordMessage)
     .max(maximumPasswordLength, longPasswordMessage)
-    .matches(passwordPatternRegex, passwordNotAppliesRulesMessage)
+    // .matches(passwordPatternRegex, passwordNotAppliesRulesMessage)
     .required(requiredPasswordMessage),
 })

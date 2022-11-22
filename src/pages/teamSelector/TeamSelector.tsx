@@ -21,7 +21,7 @@ export const TeamSelector = () => {
 
   const listSize = teams.length;
   const userId = getStoredId();
-
+  
   useEffect(() => {
     const getUser = async () => {
       const user = await userService.findUser(userId);
