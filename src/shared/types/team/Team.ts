@@ -3,9 +3,9 @@ import { Area, Modality, User } from "..";
 export type Team = {
   id: number;
   name: string;
-  //modality: Modality;
+  modality: Modality;
   number: number;
-  //photo: TeamPhoto;
+  //Photo;
   areas: Area[];
   //leader: User;
   members: User[];

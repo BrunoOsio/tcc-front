@@ -15,7 +15,7 @@ export const Header = styled.section`
   background: rgb(42,115,255);
   background: linear-gradient(180deg, rgba(42,115,255,1) 23%, rgba(87,147,255,1) 69%);
   width: 100%;
-  height: 200px;
+  height: 230px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,7 +41,7 @@ const headerOverlayPx = "-50px";
 export const Teams = styled.section<TeamsProps>`
   background-color: ${colors.background};
   width: 800px;
-  height: 500px;
+  height: 490px;
   margin: 0 auto;
   padding: ${({listSize}) => listSize >= 5 && "100px"};
   padding-bottom: 20px;
@@ -76,6 +76,58 @@ export const Teams = styled.section<TeamsProps>`
 
 export const GridWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+export const NewTeamButton = styled.button`
+  font-size: 1.1rem;
+  padding: 5px 20px;
+  outline:none;
+  border: none;
+  background: transparent;
+  border: 3px solid white;
+  position: relative;
+  top: 10px;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #3579D2;
+  border-radius: 10px;
+  column-gap: 5px;
+  transition: all .2s ease-in-out;
+
+  article {
+    color: white;
+    transition: all .2s ease-in-out;
+  }
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    border-color: #3579D2;
+
+    article {
+      color: #3579D2;
+    }
+
+    span {
+      transform: scale(1.2);
+      color: #3579D2;
+    }
+  }
+`;
+
+export const ButtonLabel = styled.div`
+  font-size: 0.8rem;
 `;

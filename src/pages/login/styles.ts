@@ -16,7 +16,8 @@ export const LeftSide = styled.div`
   width: 37%;
   height: 100%;
   background: rgb(42,115,255);
-  background: linear-gradient(180deg, rgba(42,115,255,1) 9%, rgba(126,172,255,1) 67%);  display: flex;
+  background: linear-gradient(180deg, rgba(42,115,255,1) 9%, rgba(126,172,255,1) 67%);  
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
