@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findTeams } from "../../states/features/teamSlice";
 import { TeamCard } from "./components/teamCard/TeamCard";
-import { ButtonLabel, Container, GridWrapper, Header, Name, NewTeamButton, Teams, UserCard } from "./styles";
+import { Container, GridWrapper, Header, Name, Teams, UserCard } from "./styles";
 import userService from "../../shared/services/user/userService";
 import { Icon } from "./components/icon/Icon";
 import { User } from "../../shared/types";
 import { Loading } from "../teamAreaBoard/components/loading/Loading";
 import { getStoredId } from "../../shared/helpers/localStorageHelpers";
-import { GoPlus } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
+import { NewTeamButton } from "./components/newTeamButton/NewTeamButton";
 
 export const TeamSelector = () => {
   const navigate = useNavigate();
@@ -49,10 +49,11 @@ export const TeamSelector = () => {
           
         }
         
-        <NewTeamButton onClick={goToCreateTeam}> 
+        {/* <NewTeamButton onClick={goToCreateTeam}> 
           <article><span><GoPlus/></span></article>  
           <article><ButtonLabel>Novo time</ButtonLabel></article>
-        </NewTeamButton>
+        </NewTeamButton> */}
+        <NewTeamButton/>
 
       </Header>
       <GridWrapper>

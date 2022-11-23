@@ -51,8 +51,6 @@ export const CreateTeam = () => {
     onSubmit
   });
 
-  console.log(errors.number);
-
   const userId = getStoredId();
   useEffect(() => {
     const getUser = async () => {
