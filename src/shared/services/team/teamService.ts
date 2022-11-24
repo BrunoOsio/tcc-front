@@ -11,11 +11,20 @@ const findTeams = async (userId: number): Promise<Team[]> => {
   return data;
 }
 
-const createTeam = async(newTeamDto: NewTeamDTO, leaderId: number): Promise<Team> => {
+const createTeam = async (newTeamDto: NewTeamDTO, leaderId: number): Promise<Team> => {
   const endpoint = `${BASE_URL}?userId=${leaderId}`;
   const { data } = await axios.post(endpoint, newTeamDto)
 
   return data;
 }
 
-export default { findTeams, createTeam };
+const findByKeyword = async (key: string): Promise<Team[]> => {
+  if (key === "") return [];
+
+  const endpoint = `${BASE_URL}/searchKey?key=${key}`;
+  const { data } = await axios.get(endpoint);
+
+  return data;
+}
+
+export default { findTeams, createTeam, findByKeyword };

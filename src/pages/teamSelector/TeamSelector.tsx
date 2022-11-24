@@ -10,6 +10,7 @@ import { Loading } from "../teamAreaBoard/components/loading/Loading";
 import { getStoredId } from "../../shared/helpers/localStorageHelpers";
 import { useNavigate } from "react-router-dom";
 import { NewTeamButton } from "./components/newTeamButton/NewTeamButton";
+import { IconBlank } from "./components/iconBlank/IconBlank";
 
 export const TeamSelector = () => {
   const navigate = useNavigate();
@@ -33,26 +34,25 @@ export const TeamSelector = () => {
     dispatch(findTeams(userId));
   }, []);
 
-  const goToCreateTeam = () => {
-    navigate("/createTeam");
-  }
-
   return (
     <Container>
       <Header>
+        {
+          !user &&
+          <UserCard>
+            <IconBlank/>
+            <Name>Carregando</Name>
+          </UserCard>
+        }
+        
         {
           user &&
           <UserCard>
             <Icon user={user}/>
             <Name>{user.name}</Name>
           </UserCard>
-          
         }
         
-        {/* <NewTeamButton onClick={goToCreateTeam}> 
-          <article><span><GoPlus/></span></article>  
-          <article><ButtonLabel>Novo time</ButtonLabel></article>
-        </NewTeamButton> */}
         <NewTeamButton/>
 
       </Header>
