@@ -1,15 +1,16 @@
-import { User } from "../../../../shared/types";
 import { Border, Container, Initials } from "./styles";
+import { User } from "../../types";
 
 type IconProps = {
   user: User;
+  size: number;
 }
 
 const SPACE = " ";
 const FIRST_LETTER_INDEX = 0;
 const NO_SPACE_BETWEEN_LETTERS = "";
 const MAX_INITIALS_LENGTH = 3;
-export const Icon: React.FC<IconProps> = ({user}) => {
+export const Icon: React.FC<IconProps> = ({user, size}) => {
 
   const getFullnameInitials = () => {
       const fullnameArray = user.name.split(SPACE);
@@ -23,7 +24,7 @@ export const Icon: React.FC<IconProps> = ({user}) => {
   }
 
   return (
-    <Border>
+    <Border size={size}>
       <Container>
         <Initials>{getFullnameInitials()}</Initials>
       </Container>

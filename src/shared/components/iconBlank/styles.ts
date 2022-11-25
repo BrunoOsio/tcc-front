@@ -1,9 +1,12 @@
 import styled from "styled-components";
-import { colors } from "../../../../shared/globalStyles/globalValues";
+import { colors } from "../../globalStyles/globalValues";
 
-export const Border = styled.div`
-  width: 90px;
-  height: 90px;
+type BorderProps = {
+  size: number;
+}
+export const Border = styled.div<BorderProps>`
+  width: ${({size}) => `${size}px`};
+  height: ${({size}) => `${size}px`};
   clip-path: circle();
   background-color: ${colors.lightGreyBackgroundAddButton};
 `;

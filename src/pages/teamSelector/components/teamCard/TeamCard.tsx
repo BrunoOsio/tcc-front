@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Team } from "../../../../shared/types/team/Team";
 import { Container, Name, Photo } from "./styles";
@@ -15,7 +16,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({team}) => {
 
   return (
     <Container onClick={navigateToAreas}>
-      <Photo/><br />
+      <Photo/>
       <Name>{team.name}</Name>
     </Container>
   );

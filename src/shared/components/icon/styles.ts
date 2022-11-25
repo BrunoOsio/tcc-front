@@ -1,9 +1,13 @@
 import styled from "styled-components";
-import { colors } from "../../../../shared/globalStyles/globalValues";
+import { colors } from "../../globalStyles/globalValues";
 
-export const Border = styled.div`
-  width: 40px;
-  height: 40px;
+export type BorderProps = {
+  size: number
+}
+
+export const Border = styled.div<BorderProps>`
+  width: ${({size}) => `${size}px`};
+  height: ${({size}) => `${size}px`};
   clip-path: circle();
   background-color: ${colors.white};
   display: flex;
@@ -15,11 +19,19 @@ export const Border = styled.div`
 export const Container = styled.div`
   width: 90%;
   height: 90%;
-  background-color: #639AE4;
+  background-color: ${colors.darkBlue};
   clip-path: circle();
   display: flex;
   justify-content: center;
   align-items: center;
+
+  span {
+    font-size: 1.3rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const Initials = styled.div`

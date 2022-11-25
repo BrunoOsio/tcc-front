@@ -1,3 +1,4 @@
+import { Dropdown } from "antd";
 import styled from "styled-components";
 import { colors } from "../../../../shared/globalStyles/globalValues";
 
@@ -19,6 +20,7 @@ export const Container = styled.button`
   border-radius: 10px;
   column-gap: 5px;
   transition: all .2s ease-in-out;
+  cursor: pointer;
 
   article {
     color: white;
@@ -30,21 +32,6 @@ export const Container = styled.button`
     justify-content: center;
     align-items: center;
     font-size: 0.8rem;
-  }
-
-  &:hover {
-    cursor: pointer;
-    background-color: white;
-    border-color: ${colors.darkBlue};
-
-    article {
-      color: ${colors.darkBlue};
-    }
-
-    span {
-      transform: scale(1.2);
-      color: ${colors.darkBlue};
-    }
   }
 `;
 

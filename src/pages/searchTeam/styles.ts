@@ -8,13 +8,20 @@ export type BodyProps = {
 export const Container = styled.section`
   width: 100vw;
   margin: 0 auto;
+  overflow-x: hidden;
 `;
 
 export const SearchBarGroup = styled.article`
   display: flex;
   flex-direction: column;
   background-color: ${colors.darkBlue};
+  background: linear-gradient(180deg, rgba(42,115,255,1) 23%, rgba(87,147,255,1) 69%);
   width: 100%;
+  transition: all .1s ease-in-out;
+
+  &:hover {
+    transform: scale(1.005);
+  }
 `;
 
 export const SearchBarContainer = styled.div`
@@ -87,8 +94,19 @@ export const Body = styled.div<BodyProps>`
 
   place-content: center;
 
-  column-gap: 10px;
-  row-gap: 10px;
+  gap: 10px;
+  gap: ${({listSize}) => listSize === 0 && "0px"};
+`;
 
-
+export const NoTeamsGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 160px;
+  color: ${colors.greyScrollbar};
+  .icon {
+    font-size: 1.6rem;
+  }
 `;

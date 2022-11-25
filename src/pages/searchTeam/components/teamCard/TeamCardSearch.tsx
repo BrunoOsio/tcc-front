@@ -3,19 +3,20 @@ import { getStoredId } from "../../../../shared/helpers/localStorageHelpers";
 import userService from "../../../../shared/services/user/userService";
 import { User } from "../../../../shared/types";
 import { Team } from "../../../../shared/types/team/Team";
-import { Leader, LeaderGroup, MainInformationGroup, MembersGroup, MembersLength, Modality, Name } from "./styles";
-import { Icon } from "../icon/Icon";
+import { EnterButton, EnterButtonPlaceholder, Leader, LeaderGroup, MainInformationGroup, MembersGroup, MembersLength, Modality, Name } from "./styles";
 import { Container } from "./styles";
 import { RiVipCrownFill } from "react-icons/ri";
 import { AiOutlineTeam } from "react-icons/ai";
-import { IconBlank } from "../iconBlank/Icon";
+import { Icon } from "../../../../shared/components/icon/Icon";
+import { IconBlank } from "../../../../shared/components/iconBlank/IconBlank";
 
 export type TeamCardProps = {
   team: Team;
 }
 
-export const TeamCard: React.FC<TeamCardProps> = ({team}) => {
+export const TeamCardSearch: React.FC<TeamCardProps> = ({team}) => {
   const [user, setUser] = useState<User>();
+  const [isEnterButton, setEnterButton] = useState<boolean>(false);
 
   const userId = getStoredId();
   useEffect(() => {
@@ -27,19 +28,22 @@ export const TeamCard: React.FC<TeamCardProps> = ({team}) => {
 
   }, []);
 
+  const toggleEnterButton = () => {
+    setEnterButton(!isEnterButton);
+  }
   return (
-    <Container>
+    <Container onMouseEnter={toggleEnterButton} onMouseLeave={toggleEnterButton}>
       <MainInformationGroup>
         {!user && 
         <>
-          <IconBlank/>
+          <IconBlank size={90}/>
           <Name>Carregando</Name>
         </>
         }
 
         {user && 
         <>
-          <Icon user={user}/>
+          <Icon user={user} size={90}/>
           <Name>{team.name}</Name>
         </>
         }
@@ -58,6 +62,8 @@ export const TeamCard: React.FC<TeamCardProps> = ({team}) => {
         <MembersLength>8 Membros</MembersLength>
       </MembersGroup>
       
+      {!isEnterButton && <EnterButtonPlaceholder/>}
+      {isEnterButton && <EnterButton/>}
     </Container>
   );
 }

@@ -63,3 +63,14 @@ export const MembersLength = styled.span`
   font-size: 0.7rem;
   padding-left: 10px;
 `;
+
+
+export const EnterButtonPlaceholder = styled.div`
+  width: 50%;
+  height: 30px;
+  background-color: tomato;
+`;
+
+export const EnterButton = styled(EnterButtonPlaceholder)`
+  background-color: green;
+`;

@@ -1,7 +1,9 @@
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { ImArrowRight } from "react-icons/im";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Icon } from "../../shared/components/icon/Icon";
+import { IconBlank } from "../../shared/components/iconBlank/IconBlank";
 import { NewTeamDTO } from "../../shared/dtos/team/NewTeamDTO";
 import { getStoredId } from "../../shared/helpers/localStorageHelpers";
 import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
@@ -10,7 +12,6 @@ import teamService from "../../shared/services/team/teamService";
 import userService from "../../shared/services/user/userService";
 import { Modality, User } from "../../shared/types";
 import { Loading } from "../login/components/loading/Loading";
-import { Icon } from "./components/icon/Icon";
 import { teamSchema } from "./schemas/teamSchema";
 import { Container, Form, FormGroup, Input, Label, Error, Title, Select, Button, Header } from "./styles";
 
@@ -91,8 +92,8 @@ export const CreateTeam = () => {
     <Container>
       <Header>
         <Title>Criar novo time</Title>
-
-        {user && <Icon user={user}/>}
+        {!user && <IconBlank size={40}/>}
+        {user && <Icon user={user} size={40}/>}
       </Header>
       <Form onSubmit={handleSubmit} autoComplete="off">
         <FormGroup>

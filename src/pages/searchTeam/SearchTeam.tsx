@@ -3,10 +3,12 @@ import { getStoredId } from "../../shared/helpers/localStorageHelpers";
 import userService from "../../shared/services/user/userService";
 import { User } from "../../shared/types";
 import { ImSearch } from "react-icons/im";
-import { Body, Container, SearchBar, SearchBarContainer, SearchBarGroup } from "./styles";
+import { Body, Container, NoTeamsGroup, SearchBar, SearchBarContainer, SearchBarGroup } from "./styles";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findTeamsByKeyword } from "../../states/features/teamSlice";
-import { TeamCard } from "./components/teamCard/TeamCard";
+import { TeamCardSearch } from "./components/teamCard/TeamCardSearch";
+import { Loading } from "../../shared/components/loading/Loading";
+import { HiOutlineEmojiSad } from "react-icons/hi";
 
 export const SearchTeam = () => {
   const dispatch = useAppDispatch();
@@ -15,7 +17,7 @@ export const SearchTeam = () => {
 
   const { value: teams, isLoading, isSuccess } = useAppSelector((state) => state.team);
   
-  const defaultSearch = "abc";
+  const defaultSearch = "";
   const [search, setSearch] = useState<string>(defaultSearch);
 
   const userId = getStoredId();
@@ -32,12 +34,14 @@ export const SearchTeam = () => {
     dispatch(findTeamsByKeyword(search));
   }, [search]);
 
-  console.log(teams);
-
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   }
 
+  const isSearchBlank = search === defaultSearch;
+  const found = teams.length > 0;
+  const notFound = teams.length === 0 && search !== undefined;
+  
   return (
     <Container>
       <SearchBarGroup className="group">
@@ -47,14 +51,33 @@ export const SearchTeam = () => {
             name="search" 
             placeholder="Pesquise o nome da equipe ou seu número"
             value={search}
+            autoComplete="off"
             onChange={handleSearchChange}
           />
         </SearchBarContainer>
       </SearchBarGroup>
       <Body listSize={teams.length}>
-      {/* //TODO:  loading */}
         {
-          teams.map((team) => <TeamCard key={team.id} team={team}/>)
+          isLoading && 
+          <Loading size={90}/>
+        }
+        { 
+          isSuccess && (
+            (isSearchBlank) 
+            ? <div></div>
+            :
+            (found)
+            ? teams.map((team) => <TeamCardSearch key={team.id} team={team}/>)
+            :
+            (notFound && !isLoading)
+            ? (
+              <NoTeamsGroup>
+                <span className="icon"><HiOutlineEmojiSad/></span>
+                <span>Não encontrado</span>
+              </NoTeamsGroup>
+            )
+            : null
+          ) 
         }
       </Body>
     </Container>

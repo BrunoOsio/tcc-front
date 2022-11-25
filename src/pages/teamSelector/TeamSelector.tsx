@@ -6,11 +6,11 @@ import { Container, GridWrapper, Header, Name, Teams, UserCard } from "./styles"
 import userService from "../../shared/services/user/userService";
 import { Icon } from "./components/icon/Icon";
 import { User } from "../../shared/types";
-import { Loading } from "../teamAreaBoard/components/loading/Loading";
 import { getStoredId } from "../../shared/helpers/localStorageHelpers";
 import { useNavigate } from "react-router-dom";
 import { NewTeamButton } from "./components/newTeamButton/NewTeamButton";
 import { IconBlank } from "./components/iconBlank/IconBlank";
+import { Loading } from "../../shared/components/loading/Loading";
 
 export const TeamSelector = () => {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ export const TeamSelector = () => {
         <Teams listSize={listSize}>
           {
             isLoading && (
-              <Loading/>
+              <Loading size={100}/>
             ) 
           }
           {

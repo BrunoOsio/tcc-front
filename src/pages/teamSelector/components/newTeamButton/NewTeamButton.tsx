@@ -6,9 +6,19 @@ import { RiPencilFill } from "react-icons/ri";
 import { AiOutlineTeam } from "react-icons/ai";
 import { DropboxAction } from "../../../../shared/helpers/dropbox/DropboxAction";
 import { runAction } from "../../../../shared/helpers/dropbox/runAction";
+import { useState } from "react";
+import { BsChevronDown } from "react-icons/bs";
+
+enum IconEnum {
+  DOWN = 0,
+  NEW_TEAM = 1,
+  COMMUNITY = 2
+}
 
 export const NewTeamButton = () => {
   const navigate = useNavigate();
+
+  const [menuIcon, setMenuIcon] = useState<IconEnum | undefined>();
 
   const goToCreateTeam = () => {
     navigate("/createTeam");
@@ -28,6 +38,20 @@ export const NewTeamButton = () => {
       action: goToSearchTeam
     }
   ] 
+  
+  const setButtonIcon = () => {
+
+    switch(menuIcon) {
+      case IconEnum.DOWN:
+        return <BsChevronDown />
+      case IconEnum.NEW_TEAM:
+        return <RiPencilFill />
+      case IconEnum.COMMUNITY:
+        return <AiOutlineTeam/>
+      default:
+        return <GoPlus />
+    }
+  }
 
   const menu = <Menu 
     onClick={({key}) => {
@@ -38,23 +62,30 @@ export const NewTeamButton = () => {
       {
         label: "Criar novo time",
         key: menuActions[0].key,
-        icon: <RiPencilFill />
+        icon: <RiPencilFill />,
+        onMouseEnter: () => setMenuIcon(IconEnum.NEW_TEAM),
+        onMouseLeave: () => setMenuIcon(undefined)
       },
       {
         label: "Entrar em time existente",
         key: menuActions[1].key,
-        icon: <AiOutlineTeam/>
+        icon: <AiOutlineTeam/>,
+        onMouseEnter: () => setMenuIcon(IconEnum.COMMUNITY),
+        onMouseLeave: () => setMenuIcon(undefined)
       },
     ]}>
 
   </Menu>
 
+
   return (
     <Dropdown
       overlay={menu}
     >
-      <Container> 
-        <article><span><GoPlus/></span></article>  
+      <Container onMouseEnter={() => setMenuIcon(IconEnum.DOWN)}> 
+        <article><span>
+          {setButtonIcon()}
+        </span></article>  
         <article><ButtonLabel>Novo time</ButtonLabel></article>
       </Container>
     </Dropdown>
