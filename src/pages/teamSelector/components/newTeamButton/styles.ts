@@ -10,7 +10,7 @@ export const Container = styled.button`
   background: transparent;
   border: 3px solid white;
   position: relative;
-  top: 10px;
+  top: 12px;
   z-index: 2;
   display: flex;
   flex-direction: row;

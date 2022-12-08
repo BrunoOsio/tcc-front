@@ -1,44 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findTeams } from "../../states/features/teamSlice";
 import { TeamCard } from "./components/teamCard/TeamCard";
 import { Container, GridWrapper, Header, Name, Teams, UserCard } from "./styles";
-import userService from "../../shared/services/user/userService";
 import { Icon } from "./components/icon/Icon";
-import { User } from "../../shared/types";
 import { getStoredId } from "../../shared/helpers/localStorageHelpers";
-import { useNavigate } from "react-router-dom";
 import { NewTeamButton } from "./components/newTeamButton/NewTeamButton";
 import { IconBlank } from "./components/iconBlank/IconBlank";
 import { Loading } from "../../shared/components/loading/Loading";
+import { findUser } from "../../states/features/userSlice";
+import { Sidebar } from "../../shared/components/sidebar/Sidebar";
+import { PositionCoordinates } from "../../shared/components/sidebar/types/PositionCoordinates";
 
 export const TeamSelector = () => {
-  const navigate = useNavigate();
+  const { value: user, isLoading: isUserLoading, isSuccess: isUserSuccess } = useAppSelector((state) => state.user);
 
-  const [user, setUser] = useState<User>();
-  
-  const { value: teams, isLoading, isSuccess } = useAppSelector((state) => state.team);
-  const dispatch = useAppDispatch();
+  const { value: teams, isLoading: isTeamLoading, isSuccess: isTeamSuccess } = useAppSelector((state) => state.team);  const dispatch = useAppDispatch();
 
   const listSize = teams.length;
-  const userId = getStoredId();
   
+  const userId = getStoredId();
   useEffect(() => {
-    const getUser = async () => {
-      const user = await userService.findUser(userId);
-      setUser(user);
-    };
-    
-    getUser();
+    dispatch(findUser(userId));
+
 
     dispatch(findTeams(userId));
   }, []);
 
+  const openButtonSidebarCoordinates: PositionCoordinates = {
+    top: "55px",
+    left: "40px",
+  } 
+  
   return (
     <Container>
+      <Sidebar position={openButtonSidebarCoordinates}/>
       <Header>
+        
         {
-          !user &&
+          isUserLoading &&
           <UserCard>
             <IconBlank/>
             <Name>Carregando</Name>
@@ -59,12 +59,12 @@ export const TeamSelector = () => {
       <GridWrapper>
         <Teams listSize={listSize}>
           {
-            isLoading && (
+            isTeamLoading && (
               <Loading size={100}/>
             ) 
           }
           {
-            isSuccess && (
+            isTeamSuccess && (
               teams.map((team, index) => <TeamCard key={index} team={team} />)
             )
           }

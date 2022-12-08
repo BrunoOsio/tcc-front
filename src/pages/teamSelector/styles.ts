@@ -7,8 +7,10 @@ type TeamsProps = {
 
 export const Container = styled.main`
   width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: ${colors.white};
   `;
 
 export const Header = styled.section`
@@ -40,6 +42,7 @@ export const Name = styled.span`
 const headerOverlayPx = "-50px";
 export const Teams = styled.section<TeamsProps>`
   background-color: ${colors.background};
+  border: 5px solid rgba(176,197,247,0.68);
   width: 800px;
   height: 490px;
   margin: 0 auto;
@@ -47,7 +50,7 @@ export const Teams = styled.section<TeamsProps>`
   padding-bottom: 20px;
   position: relative;
   top: ${headerOverlayPx};
-  border-radius: 15px;
+  border-radius: 20px;
   overflow-y: auto;
 
   ::-webkit-scrollbar-track {
@@ -80,53 +83,6 @@ export const GridWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-// export const NewTeamButton = styled.button`
-//   font-size: 1.1rem;
-//   padding: 5px 20px;
-//   outline:none;
-//   border: none;
-//   background: transparent;
-//   border: 3px solid white;
-//   position: relative;
-//   top: 10px;
-//   z-index: 2;
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: space-between;
-//   background-color: ${colors.darkBlue};
-//   border-radius: 10px;
-//   column-gap: 5px;
-//   transition: all .2s ease-in-out;
-
-//   article {
-//     color: white;
-//     transition: all .2s ease-in-out;
-//   }
-
-//   span {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     font-size: 0.8rem;
-//   }
-
-//   &:hover {
-//     cursor: pointer;
-//     background-color: white;
-//     border-color: ${colors.darkBlue};
-
-//     article {
-//       color: ${colors.darkBlue};
-//     }
-
-//     span {
-//       transform: scale(1.2);
-//       color: ${colors.darkBlue};
-//     }
-//   }
-// `;
 
 export const ButtonLabel = styled.div`
   font-size: 0.8rem;

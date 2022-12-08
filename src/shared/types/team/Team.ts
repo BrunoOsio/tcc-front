@@ -7,7 +7,7 @@ export type Team = {
   number: number;
   //Photo;
   areas: Area[];
-  //leader: User;
+  leaders: User[];
   members: User[];
   joinRequests: User[];
 }

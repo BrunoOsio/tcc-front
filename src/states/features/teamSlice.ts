@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RequestJoinDTO } from "../../pages/searchTeam/components/teamCardSearch/dto/RequestJoinDTO";
 import teamService from "../../shared/services/team/teamService";
+import userService from "../../shared/services/user/userService";
 import { Team } from "../../shared/types/team/Team";
 import { BaseState } from "./types/BaseState";
 
@@ -34,11 +36,28 @@ const findTeamsByKeyword = createAsyncThunk(
   }
 )
 
+const patchRequestJoinUser = createAsyncThunk(
+  "team/patchRequestJoinUser",
+
+  async (requestJoinDto: RequestJoinDTO): Promise<void> => {
+    await teamService.requestJoin(requestJoinDto);
+  }
+)
+
+const patchRemoveJoinUser = createAsyncThunk(
+  "team/patchRequestJoinUser",
+
+  async (requestJoinDto: RequestJoinDTO): Promise<void> => {
+    await teamService.removeJoin(requestJoinDto);
+  }
+)
+
 export const teamSlice = createSlice({
   name: "team",
   initialState,
 
   reducers: {
+
   },
 
   extraReducers: (builder) => {
@@ -101,6 +120,6 @@ export const teamSlice = createSlice({
 });
 
 export const { } = teamSlice.actions;
-export { findTeams, findTeamsByKeyword };
+export { findTeams, findTeamsByKeyword, patchRequestJoinUser, patchRemoveJoinUser };
 
 export default teamSlice.reducer;

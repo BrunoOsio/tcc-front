@@ -4,20 +4,22 @@ import { ImArrowRight } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../../shared/components/icon/Icon";
 import { IconBlank } from "../../shared/components/iconBlank/IconBlank";
+import { Navbar } from "../../shared/components/navbar/Navbar";
 import { NewTeamDTO } from "../../shared/dtos/team/NewTeamDTO";
 import { getStoredId } from "../../shared/helpers/localStorageHelpers";
 import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
 import { modalityMock } from "../../shared/services/mock/modality/modalityMock";
 import teamService from "../../shared/services/team/teamService";
-import userService from "../../shared/services/user/userService";
 import { Modality, User } from "../../shared/types";
+import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
+import { findUser } from "../../states/features/userSlice";
 import { Loading } from "../login/components/loading/Loading";
 import { teamSchema } from "./schemas/teamSchema";
-import { Container, Form, FormGroup, Input, Label, Error, Title, Select, Button, Header } from "./styles";
+import { Form, FormGroup, Input, Label, Error, Title, Select, Button, Header, FormContainer, Container } from "./styles";
 
 export const CreateTeam = () => {
-  const [user, setUser] = useState<User>();
-
+  const { value: user, isLoading: isUserLoading, isSuccess: isUserSuccess } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate(); 
 
   const onSubmit = async () => {
@@ -54,12 +56,7 @@ export const CreateTeam = () => {
 
   const userId = getStoredId();
   useEffect(() => {
-    const getUser = async () => {
-      const user = await userService.findUser(userId);
-      setUser(user);
-    };
-    
-    getUser();
+    dispatch(findUser(userId));
   }, []);
 
   const isNumberedModality = (choosedModality: string | undefined) => {
@@ -90,63 +87,67 @@ export const CreateTeam = () => {
 
   return (
     <Container>
-      <Header>
-        <Title>Criar novo time</Title>
-        {!user && <IconBlank size={40}/>}
-        {user && <Icon user={user} size={40}/>}
-      </Header>
-      <Form onSubmit={handleSubmit} autoComplete="off">
-        <FormGroup>
-          <Label htmlFor="name">Nome do time</Label>
-            <Input 
-              name="name"
-              isError={isNameInvalid}
-              value={values.name} 
-              onChange={handleChange} 
-              onBlur={handleBlur}
-        />
-
-            {(isNameInvalid) && <Error>{errors.name}</Error>}
-        </FormGroup>
-
-        <FormGroup>
-          <Label htmlFor="modality">Modalidade</Label>
-          <Select 
-            name="modality"
-            placeholder="Selecione a modalidade"
-            isError={isModalityInvalid}
-            onChange={handleChange} 
-            onBlur={handleBlur}
-          >
-            {modalityMock.map((modality) => <option key={modality.initials} value={modality.initials}>{modality.name}</option>)}
-          </Select>
-
-          {(isModalityInvalid) && <Error>{errors.modality}</Error>}
-        </FormGroup>
-
-        {
-          isNumberedModality(values.modality) && (
-          
-            <FormGroup>
-              <Label htmlFor="number">Número de registro</Label>
+      <Navbar/>
+      <FormContainer>
+        <Header>
+          <Title>Criar novo time</Title>
+          {isUserLoading && <IconBlank size={40}/>}
+          {user && <Icon user={user} size={40}/>}
+        </Header>
+        <Form onSubmit={handleSubmit} autoComplete="off">
+          <FormGroup>
+            <Label htmlFor="name">Nome do time</Label>
               <Input 
-                type="number"
-                placeholder="Ex: 1772"
-                name="number"
-                isError={isNumberInvalid}
-                value={values.number} 
+                name="name"
+                isError={isNameInvalid}
+                value={values.name} 
                 onChange={handleChange} 
                 onBlur={handleBlur}
-            />
+          />
 
-              {(isNumberInvalid) && <Error>{errors.number}</Error>}
-            </FormGroup>
-          )
-        }
+              {(isNameInvalid) && <Error>{errors.name}</Error>}
+          </FormGroup>
 
-        <Button type="submit"><span>{isSubmitting ? <Loading/> : <ImArrowRight/>}</span></Button>
-      </Form>
+          <FormGroup>
+            <Label htmlFor="modality">Modalidade</Label>
+            <Select 
+              name="modality"
+              placeholder="Selecione a modalidade"
+              isError={isModalityInvalid}
+              onChange={handleChange} 
+              onBlur={handleBlur}
+            >
+              {modalityMock.map((modality) => <option key={modality.initials} value={modality.initials}>{modality.name}</option>)}
+            </Select>
+
+            {(isModalityInvalid) && <Error>{errors.modality}</Error>}
+          </FormGroup>
+
+          {
+            isNumberedModality(values.modality) && (
+            
+              <FormGroup>
+                <Label htmlFor="number">Número de registro</Label>
+                <Input 
+                  type="number"
+                  placeholder="Ex: 1772"
+                  name="number"
+                  isError={isNumberInvalid}
+                  value={values.number} 
+                  onChange={handleChange} 
+                  onBlur={handleBlur}
+              />
+
+                {(isNumberInvalid) && <Error>{errors.number}</Error>}
+              </FormGroup>
+            )
+          }
+
+          <Button type="submit"><span>{isSubmitting ? <Loading/> : <ImArrowRight/>}</span></Button>
+        </Form>
+      </FormContainer>
     </Container>
+    
   );
 
 }

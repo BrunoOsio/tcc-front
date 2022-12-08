@@ -1,4 +1,5 @@
 import axios from "axios";
+import { RequestJoinDTO } from "../../../pages/searchTeam/components/teamCardSearch/dto/RequestJoinDTO";
 import { NewUserDTO } from "../../dtos/user/NewUserDTO";
 import { UserLoginDTO } from "../../dtos/user/UserLoginDTO";
 import { User } from "../../types";

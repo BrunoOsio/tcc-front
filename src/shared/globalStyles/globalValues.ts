@@ -3,6 +3,7 @@ export const colors = {
   taskHover: "#DAE4FF",
   blue: "#1688FF",
   darkBlue: "#3579D2",
+  navyBlue: "#0F4092",
   lightGreyBackgroundColumn: "#EFEFEF",
   lightGreyBackgroundAddButton: "#E4E4E4",
   greyBorderAddButton: "#A2A2A2",
@@ -13,7 +14,7 @@ export const colors = {
 }
 
 export const sizes = {
-  navbar: "120px",
+  navbar: "50px",
   navbarMobile: "130px",
   column: "220px",
   taskHeight: "80px",

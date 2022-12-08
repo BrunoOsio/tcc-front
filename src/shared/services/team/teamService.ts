@@ -1,4 +1,5 @@
 import axios from "axios";
+import { RequestJoinDTO } from "../../../pages/searchTeam/components/teamCardSearch/dto/RequestJoinDTO";
 import { NewTeamDTO } from "../../dtos/team/NewTeamDTO";
 import { Team } from "../../types/team/Team";
 
@@ -23,8 +24,26 @@ const findByKeyword = async (key: string): Promise<Team[]> => {
 
   const endpoint = `${BASE_URL}/searchKey?key=${key}`;
   const { data } = await axios.get(endpoint);
+  console.log(data);
+  return data;
+}
+
+const requestJoin = async (joinRequestDto: RequestJoinDTO): Promise<void> => {
+  const {userId, team} = joinRequestDto;
+  const endpoint = `${BASE_URL}/${team.id}/addRequest/${userId}`;
+  const { data } = await axios.put(endpoint, joinRequestDto);
 
   return data;
 }
 
-export default { findTeams, createTeam, findByKeyword };
+const removeJoin = async (joinRequestDto: RequestJoinDTO): Promise<void> => {
+  const {userId, team} = joinRequestDto;
+  const endpoint = `${BASE_URL}/${team.id}/removeRequest/${userId}`;
+  const { data } = await axios.put(endpoint, joinRequestDto);
+
+  return data;
+}
+
+
+
+export default { findTeams, createTeam, findByKeyword, requestJoin, removeJoin };

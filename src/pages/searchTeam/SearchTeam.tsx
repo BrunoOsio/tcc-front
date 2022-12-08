@@ -1,33 +1,28 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { getStoredId } from "../../shared/helpers/localStorageHelpers";
-import userService from "../../shared/services/user/userService";
-import { User } from "../../shared/types";
 import { ImSearch } from "react-icons/im";
 import { Body, Container, NoTeamsGroup, SearchBar, SearchBarContainer, SearchBarGroup } from "./styles";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findTeamsByKeyword } from "../../states/features/teamSlice";
-import { TeamCardSearch } from "./components/teamCard/TeamCardSearch";
+import { TeamCardSearch } from "./components/teamCardSearch/TeamCardSearch";
 import { Loading } from "../../shared/components/loading/Loading";
 import { HiOutlineEmojiSad } from "react-icons/hi";
+import { findUser } from "../../states/features/userSlice";
+import { Sidebar } from "../../shared/components/sidebar/Sidebar";
+import { Navbar } from "../../shared/components/navbar/Navbar";
 
 export const SearchTeam = () => {
   const dispatch = useAppDispatch();
+  const { value: user, isLoading: isUserLoading, isSuccess: isUserSuccess } = useAppSelector((state) => state.user);
 
-  const [user, setUser] = useState<User>();
-
-  const { value: teams, isLoading, isSuccess } = useAppSelector((state) => state.team);
+  const { value: teams, isLoading: isTeamLoading, isSuccess: isTeamSuccess } = useAppSelector((state) => state.team);
   
   const defaultSearch = "";
   const [search, setSearch] = useState<string>(defaultSearch);
 
   const userId = getStoredId();
   useEffect(() => {
-    const getUser = async () => {
-      const user = await userService.findUser(userId);
-      setUser(user);
-    };
-    getUser();
-
+    dispatch(findUser(userId));
   }, []);
 
   useEffect(() => {
@@ -44,6 +39,7 @@ export const SearchTeam = () => {
   
   return (
     <Container>
+      <Navbar/>
       <SearchBarGroup className="group">
         <SearchBarContainer>
           <span className="search"><ImSearch/></span>
@@ -58,18 +54,18 @@ export const SearchTeam = () => {
       </SearchBarGroup>
       <Body listSize={teams.length}>
         {
-          isLoading && 
+          isTeamLoading && 
           <Loading size={90}/>
         }
         { 
-          isSuccess && (
+          isTeamSuccess && (
             (isSearchBlank) 
-            ? <div></div>
+            ? null
             :
             (found)
             ? teams.map((team) => <TeamCardSearch key={team.id} team={team}/>)
             :
-            (notFound && !isLoading)
+            (notFound && !isTeamLoading)
             ? (
               <NoTeamsGroup>
                 <span className="icon"><HiOutlineEmojiSad/></span>

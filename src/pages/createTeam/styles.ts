@@ -5,15 +5,26 @@ type InputProps = {
   isError?: boolean | "" | undefined;
 };
 
-const sectionsGap = "10px";
 export const Container = styled.div`
+  width: 100%;
+  height: 100vh;
+  background: rgb(42,115,255);
+  background: linear-gradient(43deg, rgba(42,115,255,1) 0%, rgba(126,172,255,1) 67%);
+`;
+
+export const FormContainer = styled.div`
   width: 80%;
-  max-width: 900px;
+  max-width: 750px;
   margin: 0 auto;
-  margin-top: calc(${sizes.navbar} + ${sectionsGap});
-  border-left: 3px solid ${colors.lightGreyBackgroundAddButton};
-  border-right: 3px solid ${colors.lightGreyBackgroundAddButton};
-  height: calc(100vh - ${sizes.navbar} - ${sectionsGap});
+  padding: 50px;
+  background-color: white;
+  border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 20px;
+  
 `;
 
 export const Header = styled.div`
@@ -21,11 +32,11 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${colors.darkBlue};
   color: white;
-  border-radius: 0px 0px 10px 10px;
-  border: 3px solid ${colors.darkBlue};
-  padding: 15px 30px;
+  border-radius: 10px;
+  padding: 25px 30px;
+  background: rgb(83,142,255);
+  background: linear-gradient(83deg, rgba(83,142,255,1) 0%, rgba(126,172,255,1) 67%);
 `;
 
 export const Title = styled.h1`
@@ -36,7 +47,6 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   row-gap: 30px;
-  width: 93.5%;
   margin: 30px auto 0px auto;
 `;
 
@@ -58,14 +68,15 @@ export const Input = styled.input<InputProps>`
   width: 100%;
   color: ${colors.darkGreyText};
   padding: 6px 10px;
-  border-radius: 10px;
   outline: none;
-  border: 3px solid ${colors.lightGreyBackgroundAddButton};
-  border: ${({ isError }) => isError && "3px solid #FF5757"};
+  border: none;
+  border-bottom: 3px solid ${colors.lightGreyBackgroundAddButton};
+  border-bottom: ${({ isError }) => isError && "3px solid #FF5757"};
   transition: all 0.2s ease-in-out;
 
+
   &:focus {
-    border: 3px solid #5286d5;
+    border-bottom: 3px solid #5286d5;
   }
 `;
 
@@ -74,14 +85,14 @@ export const Select = styled.select<InputProps>`
   width: 100%;
   color: ${colors.darkGreyText};
   padding: 6px 10px;
-  border-radius: 10px;
-  border: 3px solid ${colors.lightGreyBackgroundAddButton};
+  border: none;
+  border-bottom: 3px solid ${colors.lightGreyBackgroundAddButton};
+  border-bottom: ${({ isError }) => isError && "3px solid #FF5757"};
   outline: none;
-  border: ${({ isError }) => isError && "3px solid #FF5757"};
   transition: all 0.2s ease-in-out;
 
   &:focus {
-    border: 3px solid #5286d5;
+    border-bottom: 3px solid #5286d5;
   }
 `;
 

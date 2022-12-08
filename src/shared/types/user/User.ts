@@ -1,4 +1,4 @@
-import { UserPhoto } from "./userPhoto/UserPhoto";
+import { Team } from "../team/Team";
 
 export type User = {
   id: number;
@@ -6,4 +6,7 @@ export type User = {
   //photo?: UserPhoto; //TODO: how to do that
   email: string;
   password: string;
+  teams: Team[];
+  teamsLeadered: Team[];
+  joinRequests: Team[]
 }

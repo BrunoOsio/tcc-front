@@ -6,7 +6,6 @@ export type BodyProps = {
 }
 
 export const Container = styled.section`
-  width: 100vw;
   margin: 0 auto;
   overflow-x: hidden;
 `;
@@ -18,7 +17,7 @@ export const SearchBarGroup = styled.article`
   background: linear-gradient(180deg, rgba(42,115,255,1) 23%, rgba(87,147,255,1) 69%);
   width: 100%;
   transition: all .1s ease-in-out;
-
+  
   &:hover {
     transform: scale(1.005);
   }
@@ -68,6 +67,7 @@ export const SearchBar = styled.input`
   font-size: 1.6rem;
   padding: 10px 90px;
   color: ${colors.white};
+  overflow: hidden;
 
   &::placeholder {
     color: ${colors.lightGreyBackgroundAddButton};
@@ -83,7 +83,7 @@ export const SearchBar = styled.input`
 
 export const Body = styled.div<BodyProps>`
   width: 75%;
-  margin: 30px auto 0px auto;
+  margin: 50px auto 0px auto;
 
   display: grid;
   grid-template-columns: repeat(4, auto);
@@ -94,8 +94,9 @@ export const Body = styled.div<BodyProps>`
 
   place-content: center;
 
-  gap: 10px;
-  gap: ${({listSize}) => listSize === 0 && "0px"};
+  gap: 0px;
+  gap: ${({listSize}) => listSize > 1 && "10px"};
+  row-gap: ${({listSize}) => listSize > 4 && "50px"};
 `;
 
 export const NoTeamsGroup = styled.div`
