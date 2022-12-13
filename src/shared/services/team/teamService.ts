@@ -5,6 +5,13 @@ import { Team } from "../../types/team/Team";
 
 const BASE_URL = "http://127.0.0.1:3000/api/teams";
 
+const findTeam = async (teamId: number): Promise<Team> => {
+  const endpoint = `${BASE_URL}/${teamId}`;
+  const { data } = await axios.get(endpoint);
+
+  return data;
+}
+
 const findTeams = async (userId: number): Promise<Team[]> => {
   const endpoint = `${BASE_URL}/searchUser?userId=${userId}`;
   const { data } = await axios.get(endpoint);
@@ -24,7 +31,7 @@ const findByKeyword = async (key: string): Promise<Team[]> => {
 
   const endpoint = `${BASE_URL}/searchKey?key=${key}`;
   const { data } = await axios.get(endpoint);
-  console.log(data);
+
   return data;
 }
 
@@ -46,4 +53,4 @@ const removeJoin = async (joinRequestDto: RequestJoinDTO): Promise<void> => {
 
 
 
-export default { findTeams, createTeam, findByKeyword, requestJoin, removeJoin };
+export default { findTeam, findTeams, createTeam, findByKeyword, requestJoin, removeJoin };

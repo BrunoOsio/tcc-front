@@ -17,7 +17,7 @@ export const TeamSelector = () => {
 
   const { value: teams, isLoading: isTeamLoading, isSuccess: isTeamSuccess } = useAppSelector((state) => state.team);  const dispatch = useAppDispatch();
 
-  const listSize = teams.length;
+  const listSize = teams && teams.length;
   
   const userId = getStoredId();
   useEffect(() => {

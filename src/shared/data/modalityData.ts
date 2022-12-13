@@ -1,6 +1,6 @@
-import { Modality } from "../../../types";
+import { Modality } from "../types";
 
-export const modalityMock: Modality[] = [
+export const modalityData: Modality[] = [
   {
     initials: "FRC",
     name: "FIRST Robotics Competition",

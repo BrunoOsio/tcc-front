@@ -1,9 +1,9 @@
-import { AreaSpecialization, Column, User } from "..";
+import { NonTechnicalSpecialization } from "./specialization/base/NonTechnicalSpecialization";
+import { TechnicalSpecialization } from "./specialization/base/TechnicalSpecialization";
 
 export type Area = {
   id: number;
-  title: string;
-  // specialization: AreaSpecialization;
+  name: string;
+  specialization: TechnicalSpecialization | NonTechnicalSpecialization;
   // leader: User;
-  // columns: Column[];
 }

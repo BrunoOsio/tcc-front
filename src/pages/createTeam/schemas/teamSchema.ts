@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { modalityMock } from "../../../shared/services/mock/modality/modalityMock";
+import { modalityData } from "../../../shared/data/modalityData";
 
 const requiredNameMessage = "Requer um nome";
 
@@ -20,7 +20,7 @@ const modalityNotMatchedMessage = "Isso não é uma modalidade";
 const requiredModalityMessage = "Requer uma modalidade";
 
 
-const getModalityInitials = modalityMock.map((modality => modality.initials));
+const getModalityInitials = modalityData.map((modality => modality.initials));
 
 export const teamSchema = yup.object().shape({
   name: 

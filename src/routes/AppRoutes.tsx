@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { TeamAreaBoard } from "../pages";
+import { CreateArea } from "../pages/createArea/CreateArea";
 import { CreateTeam } from "../pages/createTeam/CreateTeam";
 import { Login } from "../pages/login/Login";
 import { Register } from "../pages/register/Register";
@@ -17,7 +18,8 @@ export const AppRoutes = () => {
             <Route path="/createTeam" element={<CreateTeam/>}/>
             <Route path="/searchTeam" element={<SearchTeam/>}/>
             <Route path="/team/:teamId/dashboard" element={<TeamDashboard/>}/>
-            <Route path="/team/:teamId/area/:areaId" element={<TeamAreaBoard/>}/>
+            <Route path="/team/:teamId/createArea" element={<CreateArea/>}/>
+            <Route path="/team/:teamId/area/:areaId/board" element={<TeamAreaBoard/>}/>
           </Routes>
         </BrowserRouter>
   );

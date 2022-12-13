@@ -26,6 +26,17 @@ const findTeams = createAsyncThunk(
   }
 );
 
+const findTeam = createAsyncThunk(
+  "team/findTeam",
+
+  async (teamId: number): Promise<Team[]> => {
+
+    const teams = await teamService.findTeam(teamId);
+
+    return [teams];
+  }
+);
+
 const findTeamsByKeyword = createAsyncThunk(
   "team/findTeamsByKeyword",
 
@@ -90,6 +101,34 @@ export const teamSlice = createSlice({
     });
 
     builder.addCase(
+      findTeam.pending, 
+      (state) => {
+        state.isLoading = true;
+        state.isSuccess = true;
+        state.isError = false;
+      }
+    );
+
+    builder.addCase(
+      findTeam.fulfilled, 
+      (state, action: PayloadAction<Team[]>) => {
+        state.value = action.payload;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+      }
+    );
+
+    builder.addCase(
+      findTeam.rejected, 
+      (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = true;
+      state.error = action.error.message || "Something went wrong";
+    });
+
+    builder.addCase(
       findTeamsByKeyword.pending, 
       (state) => {
         state.isLoading = true;
@@ -120,6 +159,6 @@ export const teamSlice = createSlice({
 });
 
 export const { } = teamSlice.actions;
-export { findTeams, findTeamsByKeyword, patchRequestJoinUser, patchRemoveJoinUser };
+export { findTeam, findTeams, findTeamsByKeyword, patchRequestJoinUser, patchRemoveJoinUser };
 
 export default teamSlice.reducer;

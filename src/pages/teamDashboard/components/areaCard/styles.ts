@@ -13,6 +13,7 @@ export const Container = styled.div`
   padding: 30px;
   align-items: center;
   transition: all 0.2s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.01);
@@ -39,6 +40,14 @@ export const Specialization = styled.div`
   display: flex;
   align-items: center;
   align-content: center;
-  text-align: center;
-  background-color: bisque;
+
+  span {
+    width: 100%;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    color: ${colors.blue};
+  }
 `;

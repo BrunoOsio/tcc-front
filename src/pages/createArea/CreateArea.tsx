@@ -1,40 +1,45 @@
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { ImArrowRight } from "react-icons/im";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Icon } from "../../shared/components/icon/Icon";
 import { IconBlank } from "../../shared/components/iconBlank/IconBlank";
 import { Navbar } from "../../shared/components/navbar/Navbar";
-import { NewTeamDTO } from "../../shared/dtos/team/NewTeamDTO";
+import { NewAreaDTO } from "../../shared/dtos/area/NewAreaDTO";
 import { getStoredId } from "../../shared/helpers/localStorageHelpers";
 import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
-import { modalityData } from "../../shared/data/modalityData";
-import teamService from "../../shared/services/team/teamService";
-import { Modality, User } from "../../shared/types";
+import areaService from "../../shared/services/area/areaService";
+import { areaSpecializationData } from "../../shared/data/areaSpecializationData";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
+import { findTeam } from "../../states/features/teamSlice";
 import { findUser } from "../../states/features/userSlice";
 import { Loading } from "../login/components/loading/Loading";
-import { teamSchema } from "./schemas/teamSchema";
+import { areaSchema } from "./schemas/areaSchema";
 import { Form, FormGroup, Input, Label, Error, Title, Select, Button, Header, FormContainer, Container } from "./styles";
 
-export const CreateTeam = () => {
+export const CreateArea = () => {
+
+  const { teamId } = useParams();
+  const teamIdNumber = Number(teamId);
+
   const { value: user, isLoading: isUserLoading, isSuccess: isUserSuccess } = useAppSelector((state) => state.user);
+  const { value: team } = useAppSelector((state => state.team));
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate(); 
 
   const onSubmit = async () => {
-    const newTeam: NewTeamDTO = {
+    console.log(values.specialization);
+    const newArea: NewAreaDTO = {
       name: values.name,
-      modality: values.modality,
-      number: values.number || undefined
+      specialization: values.specialization,
     }
 
-    const team = user && await teamService.createTeam(newTeam, user.id);
-    
-    if (team) {
-      notifySuccess("Time criado com sucesso");
+    const area = team && await areaService.createArea(newArea, team[0].id);
 
-      goToTeamDashboard(team.id);
+    if (area) {
+      notifySuccess("Área criada com sucesso");
+      goToTeamAreaBoard(area.id);
     } else {
       notifyError("Erro na criação, preencha os dados novamente");
 
@@ -44,57 +49,45 @@ export const CreateTeam = () => {
 
   const initialValues = {
     name: "",
-    modality: modalityData[0].initials,  
-    number: undefined,
+    specialization: areaSpecializationData[0].type
   }
 
   const {values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit} = useFormik({
     initialValues,
-    validationSchema: teamSchema,
+    validationSchema: areaSchema,
     onSubmit
   });
 
   const userId = getStoredId();
   useEffect(() => {
     dispatch(findUser(userId));
+    dispatch(findTeam(teamIdNumber));
   }, []);
-
-  const isNumberedModality = (choosedModality: string | undefined) => {
-    if (choosedModality === undefined) {
-      return; 
-    }
-
-    const modality: Modality = modalityData.filter(modality => modality.initials === choosedModality)[0];
-
-    return modality.hasNumber && true;
-  }
-
-  const goToTeamDashboard = (teamId: number) => {
-    navigate(`/team/${teamId}/dashboard`)
-  }
 
   const resetFormData = () => {
     values.name = initialValues.name;
-    values.number = initialValues.number;
-    values.modality = initialValues.modality;
+    values.specialization = initialValues.specialization;
+  }
+
+  const goToTeamAreaBoard = (areaId: number) => {
+    navigate(`/team/${teamIdNumber}/area/${areaId}/board`);
   }
 
   const isNameInvalid = errors.name && touched.name;
-  const isModalityInvalid = errors.modality && touched.modality;
-  const isNumberInvalid = errors.number && touched.number;
+  const isSpecializationInvalid = errors.specialization && touched.specialization;
 
   return (
     <Container>
       <Navbar/>
       <FormContainer>
         <Header>
-          <Title>Criar novo time</Title>
+          <Title>Criar nova área</Title>
           {isUserLoading && <IconBlank size={40}/>}
           {user && <Icon user={user} size={40}/>}
         </Header>
         <Form onSubmit={handleSubmit} autoComplete="off">
           <FormGroup>
-            <Label htmlFor="name">Nome do time</Label>
+            <Label htmlFor="name">Nome da área</Label>
               <Input 
                 name="name"
                 isError={isNameInvalid}
@@ -107,39 +100,19 @@ export const CreateTeam = () => {
           </FormGroup>
 
           <FormGroup>
-            <Label htmlFor="modality">Modalidade</Label>
+            <Label htmlFor="modality">Tipo de especialização</Label>
             <Select 
-              name="modality"
-              placeholder="Selecione a modalidade"
-              isError={isModalityInvalid}
+              name="specialization"
+              placeholder="Selecione a especialização da área"
+              isError={isSpecializationInvalid}
               onChange={handleChange} 
               onBlur={handleBlur}
             >
-              {modalityData.map((modality) => <option key={modality.initials} value={modality.initials}>{modality.name}</option>)}
+              {areaSpecializationData.map((specialization, index) => <option key={index} value={specialization.type}>{specialization.value}</option>)}
             </Select>
 
-            {(isModalityInvalid) && <Error>{errors.modality}</Error>}
+            {(isSpecializationInvalid) && <Error>{errors.specialization}</Error>}
           </FormGroup>
-
-          {
-            isNumberedModality(values.modality) && (
-            
-              <FormGroup>
-                <Label htmlFor="number">Número de registro</Label>
-                <Input 
-                  type="number"
-                  placeholder="Ex: 1772"
-                  name="number"
-                  isError={isNumberInvalid}
-                  value={values.number} 
-                  onChange={handleChange} 
-                  onBlur={handleBlur}
-              />
-
-                {(isNumberInvalid) && <Error>{errors.number}</Error>}
-              </FormGroup>
-            )
-          }
 
           <Button type="submit"><span>{isSubmitting ? <Loading/> : <ImArrowRight/>}</span></Button>
         </Form>
