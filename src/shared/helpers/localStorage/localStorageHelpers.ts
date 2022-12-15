@@ -59,7 +59,7 @@ export const getStoredValues = () => {
 }
 
 export const isLoggedIn = (): boolean => {
-  return getStoredId() != null;
+  return getStoredId() != 0;
 }
 
 export const isUserOnTeam = (requestedTeamIdRoute: number): boolean => {

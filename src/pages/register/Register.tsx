@@ -16,7 +16,7 @@ import { registerSchema } from "./schemas/registerSchema";
 import { trimmed } from "../../shared/helpers/stringHelpers";
 import userService from "../../shared/services/user/userService";
 import { NewUserDTO } from "../../shared/dtos/user/NewUserDTO";
-import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
+import { notifyError, notifySuccess, notifyWarning } from "../../shared/helpers/notificationHelpers";
 import { useNavigate } from "react-router-dom";
 
 
@@ -37,15 +37,24 @@ export const Register = () => {
       password: values.password
     } 
 
+    const isUniqueEmail = await userService.isUniqueEmail(user.email);
+
+    if (!isUniqueEmail) {
+      notifyWarning("O email já está cadastrado")
+      resetFormData();
+      return;
+    }
+
     const newUser = await userService.register(user);
 
-    if (newUser) {
-      notifySuccess("Usuário cadastrado com sucesso");
-      navigate("/login", {state: user});
-    } else {
+    if (!newUser) {
       notifyError("Erro no cadastro");
       resetFormData();
+      return; 
     }
+
+    notifySuccess("Usuário cadastrado com sucesso");
+    navigate("/login", {state: user});
   };
 
   const initialValues: RegisterFormValues = {

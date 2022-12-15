@@ -1,10 +1,16 @@
 import axios from "axios";
-import { RequestJoinDTO } from "../../../pages/searchTeam/components/teamCardSearch/dto/RequestJoinDTO";
 import { NewUserDTO } from "../../dtos/user/NewUserDTO";
 import { UserLoginDTO } from "../../dtos/user/UserLoginDTO";
 import { User } from "../../types";
 
 const BASE_URL = "http://127.0.0.1:3000/api/users";
+
+const isUniqueEmail = async (email: string): Promise<boolean> => {
+  const endpoint = `${BASE_URL}/search?email=${email}`;
+  const { data } = await axios.get(endpoint);
+  const isUniqueEmail = data ? false : true; 
+  return isUniqueEmail;
+}
 
 const register = async (user: NewUserDTO): Promise<boolean> => {
   const endpoint = `${BASE_URL}`;
@@ -27,4 +33,4 @@ const findUser = async (userId: number): Promise<User> => {
   return data;
 }
 
-export default { register, checkLogin, findUser };
+export default { isUniqueEmail, register, checkLogin, findUser };

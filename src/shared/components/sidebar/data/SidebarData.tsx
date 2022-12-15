@@ -32,7 +32,7 @@ export const SidebarData: SidebarItem[] = [
     icon: <MdSettings/>,
   },
   {
-    title: "Mudar de conta",
+    title: "Deslogar",
     path: "/login",
     icon: <IoMdExit/>,
   },
