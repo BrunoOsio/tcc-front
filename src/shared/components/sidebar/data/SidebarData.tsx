@@ -2,6 +2,7 @@ import { AiOutlineHome, AiOutlineTeam } from "react-icons/ai";
 import { FaListUl } from "react-icons/fa";
 import { RiPencilFill } from "react-icons/ri";
 import { MdSettings } from "react-icons/md";
+import { IoMdExit } from "react-icons/io";
 import { SidebarItem } from "../types/SidebarItem";
 
 export const SidebarData: SidebarItem[] = [
@@ -29,5 +30,10 @@ export const SidebarData: SidebarItem[] = [
     title: "Sua conta",
     path: "/userSettings",
     icon: <MdSettings/>,
+  },
+  {
+    title: "Mudar de conta",
+    path: "/login",
+    icon: <IoMdExit/>,
   },
 ];

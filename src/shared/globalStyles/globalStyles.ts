@@ -6,6 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* background-color: rgba(230, 0, 0, 0.1); */
   }
 
   html, body, #root {

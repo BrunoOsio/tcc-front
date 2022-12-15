@@ -12,6 +12,9 @@ import { TeamPhoto } from "../../shared/components/teamPhoto/TeamPhoto";
 import { TeamPhotoBlank } from "../../shared/components/teamPhotoBlank/TeamPhotoBlank";
 import { AiOutlineTeam } from "react-icons/ai";
 import { GoPlus } from "react-icons/go";
+import { getStoredId } from "../../shared/helpers/localStorage/localStorageHelpers";
+import { findUser } from "../../states/features/userSlice";
+import teamService from "../../shared/services/team/teamService";
 
 export const TeamDashboard = () => {
   const navigate = useNavigate();
@@ -19,18 +22,22 @@ export const TeamDashboard = () => {
   const { teamId } = useParams();
   const teamIdNumber = Number(teamId);
 
-  const { value: areas, isLoading } = useAppSelector((state) => state.area);
+  const { value: areas, isLoading: isAreaLoading } = useAppSelector((state) => state.area);
   const listSize = areas && areas.length;
 
   const { value: teamArray, isLoading: isTeamLoading} = useAppSelector((state) => state.team);
   const isTeamSuccess = teamArray && teamArray.length === 1;
   const team = teamArray[0];
 
+  const { value: user, isLoading: isUserLoading } = useAppSelector((state) => state.user);
+  const userId = getStoredId();
+
   const dispatch = useAppDispatch();
   
   useEffect(() => {
       dispatch(findTeam(teamIdNumber));
       dispatch(findAreas(teamIdNumber));
+      dispatch(findUser(userId));
   }, []);
 
   const goToNewArea = () => {
@@ -41,7 +48,11 @@ export const TeamDashboard = () => {
   const MAX_MEMBERS_ON_LIST = (screenWidth > 1500) ? 6 : 5;
   const membersLengthReached = team ? team.members?.length > MAX_MEMBERS_ON_LIST : false;
 
+  const teamLeader = team?.leaders ? team.leaders[0].name : null;
+  const teamMembers = team?.members ? team.members : [];
+
   return (
+    
     <Container>
       <Navbar />
       <TeamInformationsGroup>
@@ -56,7 +67,7 @@ export const TeamDashboard = () => {
             <LeaderGroup>
               <span><RiVipCrownFill/></span>
               { isTeamLoading && <Leader>Carregando líder</Leader>}
-              { isTeamSuccess && <Leader>{team.leaders[0].name}</Leader>}
+              { isTeamSuccess && <Leader>{teamLeader}</Leader>}
             </LeaderGroup>
           </NameAndLeaderGroup>
         </LeftInformations>
@@ -67,7 +78,7 @@ export const TeamDashboard = () => {
           </LabelGroup>
           {isTeamSuccess && (
 
-            team.members.map((member, index) => { 
+            teamMembers.map((member, index) => { 
               if (index < MAX_MEMBERS_ON_LIST) {
                 return <Icon key={member.id} user={member} size={50}/>
               }

@@ -4,7 +4,7 @@ import { colors } from "../../../../shared/globalStyles/globalValues";
 
 export const Container = styled.div`
   width: 230px;
-  height: 330px;
+  height: 270px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,15 +17,11 @@ export const Container = styled.div`
 
   &:hover {
     transform: scale(1.01);
-  }
-`;
-
-export const LinkArea = styled(Link)`
-    text-decoration: none;
-
-    &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;
+    border-color: ${colors.purpleBlue};
+    span {
+      color: ${colors.purpleBlue};
     }
+  }
 `;
 
 export const Title = styled.span`
@@ -40,6 +36,7 @@ export const Specialization = styled.div`
   display: flex;
   align-items: center;
   align-content: center;
+  transition: .2s;
 
   span {
     width: 100%;

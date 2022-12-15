@@ -8,8 +8,13 @@ import userService from "../../shared/services/user/userService";
 import { UserLoginDTO } from "../../shared/dtos/user/UserLoginDTO";
 import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
 import { Loading } from "./components/loading/Loading";
-import { storage } from "../../shared/globalStyles/globalValues";
 import { UserLoginStorageDTO } from "../../shared/dtos/user/UserLoginStorageDTO";
+import teamService from "../../shared/services/team/teamService";
+import { getStoredId, mapRawTeamsIdsToString, saveLocalStorage } from "../../shared/helpers/localStorage/localStorageHelpers";
+import { SaveLocalStorageDto } from "../../shared/helpers/localStorage/SaveLocalStorageDto";
+import { useAppSelector } from "../../states/app/hooks";
+import { useDispatch } from "react-redux";
+import { findUser } from "../../states/features/userSlice";
 
 export type LoginFormValues = {
   email: string,
@@ -19,6 +24,9 @@ export type LoginFormValues = {
 export const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { value: user, isLoading: isUserLoading, isSuccess: isUserSuccess } = useAppSelector((state) => state.user);
 
   const onSubmit = async () => {
     const userLogin: UserLoginDTO = {
@@ -29,11 +37,13 @@ export const Login = () => {
     const login = await userService.checkLogin(userLogin);
     
     if (login) {
+
       const userLoginStorage: UserLoginStorageDTO = {
         id: login.id,
         name: login.name,
         email: login.email
       }
+
       configureLoginStorage(userLoginStorage);
 
       notifySuccess("Usuário logado com sucesso");
@@ -61,9 +71,13 @@ export const Login = () => {
     onSubmit
   });
 
-  const configureLoginStorage = (user: UserLoginStorageDTO) => {
-    localStorage.clear();
-    localStorage.setItem(storage.id, String(user.id));
+  const configureLoginStorage = async (user: UserLoginStorageDTO) => {
+    
+    const teams = await teamService.findTeams(user.id);
+    const teamsIds = mapRawTeamsIdsToString(teams.map(team => team.id));
+
+    const localStorageDto: SaveLocalStorageDto = {id: String(user.id), teamsIds: teamsIds}
+    saveLocalStorage(localStorageDto);
   }
 
   const resetFormData = () => {

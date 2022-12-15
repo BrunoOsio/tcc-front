@@ -1,6 +1,7 @@
 import axios from "axios";
 import { RequestJoinDTO } from "../../../pages/searchTeam/components/teamCardSearch/dto/RequestJoinDTO";
 import { NewTeamDTO } from "../../dtos/team/NewTeamDTO";
+import { IsUserOnTeamDTO } from "../../dtos/team/IsUserOnTeamDTO";
 import { Team } from "../../types/team/Team";
 
 const BASE_URL = "http://127.0.0.1:3000/api/teams";
@@ -51,6 +52,13 @@ const removeJoin = async (joinRequestDto: RequestJoinDTO): Promise<void> => {
   return data;
 }
 
+const isUserOnTeam = async (verifyUserOnTeamDto: IsUserOnTeamDTO): Promise<boolean> => {
+  const {team, user} = verifyUserOnTeamDto;
 
+  const endpoint = `${BASE_URL}/${team.id}/hasUser/${user.id}`;
+  const { data } = await axios.get(endpoint);
 
-export default { findTeam, findTeams, createTeam, findByKeyword, requestJoin, removeJoin };
+  return data;
+}
+
+export default { findTeam, findTeams, createTeam, findByKeyword, requestJoin, removeJoin, isUserOnTeam };

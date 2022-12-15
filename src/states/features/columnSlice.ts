@@ -105,9 +105,6 @@ export const columnSlice = createSlice({
   
         destinationColumnState.tasks = destinationNewTasks
       }
-      
-      console.log(formatColumnsOrderResult(draggedTaskId, sourceColumnState, destinationColumnState));
-      debugDropResult(action.payload);     
     },
 
     createTask(state, action: PayloadAction<TaskReferencedToColumnDTO>) {

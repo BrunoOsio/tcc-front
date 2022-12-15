@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStoredId } from "../../../../shared/helpers/localStorageHelpers";
+import { getStoredId } from "../../../../shared/helpers/localStorage/localStorageHelpers";
 import { Team } from "../../../../shared/types/team/Team";
 import { ColumnWrapper, EnterButton, EnterButtonPlaceholder, Leader, LeaderGroup, MainInformationGroup, MembersGroup, MembersLength, Modality, Name, WaitingLabel, Number, ExtraInformations } from "./styles";
 import { Container } from "./styles";

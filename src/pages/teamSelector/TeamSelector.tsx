@@ -4,15 +4,18 @@ import { findTeams } from "../../states/features/teamSlice";
 import { TeamCard } from "./components/teamCard/TeamCard";
 import { Container, GridWrapper, Header, Name, Teams, UserCard } from "./styles";
 import { Icon } from "./components/icon/Icon";
-import { getStoredId } from "../../shared/helpers/localStorageHelpers";
+import { getStoredId } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { NewTeamButton } from "./components/newTeamButton/NewTeamButton";
 import { IconBlank } from "./components/iconBlank/IconBlank";
 import { Loading } from "../../shared/components/loading/Loading";
 import { findUser } from "../../states/features/userSlice";
 import { Sidebar } from "../../shared/components/sidebar/Sidebar";
 import { PositionCoordinates } from "../../shared/components/sidebar/types/PositionCoordinates";
+import { useNavigate } from "react-router-dom";
 
 export const TeamSelector = () => {
+  const navigate = useNavigate();
+
   const { value: user, isLoading: isUserLoading, isSuccess: isUserSuccess } = useAppSelector((state) => state.user);
 
   const { value: teams, isLoading: isTeamLoading, isSuccess: isTeamSuccess } = useAppSelector((state) => state.team);  const dispatch = useAppDispatch();
@@ -22,9 +25,10 @@ export const TeamSelector = () => {
   const userId = getStoredId();
   useEffect(() => {
     dispatch(findUser(userId));
-
-
     dispatch(findTeams(userId));
+
+    if (isUserSuccess && !user) 
+      navigate("/login");
   }, []);
 
   const openButtonSidebarCoordinates: PositionCoordinates = {

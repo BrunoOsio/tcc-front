@@ -6,7 +6,7 @@ import { Icon } from "../../shared/components/icon/Icon";
 import { IconBlank } from "../../shared/components/iconBlank/IconBlank";
 import { Navbar } from "../../shared/components/navbar/Navbar";
 import { NewAreaDTO } from "../../shared/dtos/area/NewAreaDTO";
-import { getStoredId } from "../../shared/helpers/localStorageHelpers";
+import { getStoredId } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
 import areaService from "../../shared/services/area/areaService";
 import { areaSpecializationData } from "../../shared/data/areaSpecializationData";
@@ -16,6 +16,8 @@ import { findUser } from "../../states/features/userSlice";
 import { Loading } from "../login/components/loading/Loading";
 import { areaSchema } from "./schemas/areaSchema";
 import { Form, FormGroup, Input, Label, Error, Title, Select, Button, Header, FormContainer, Container } from "./styles";
+import { TechnicalSpecialization } from "../../shared/types/area/specialization/base/TechnicalSpecialization";
+import { NonTechnicalSpecialization } from "../../shared/types/area/specialization/base/NonTechnicalSpecialization";
 
 export const CreateArea = () => {
 
@@ -29,10 +31,10 @@ export const CreateArea = () => {
   const navigate = useNavigate(); 
 
   const onSubmit = async () => {
-    console.log(values.specialization);
+
     const newArea: NewAreaDTO = {
       name: values.name,
-      specialization: values.specialization,
+      specialization: values.specialization as TechnicalSpecialization | NonTechnicalSpecialization,
     }
 
     const area = team && await areaService.createArea(newArea, team[0].id);

@@ -6,7 +6,7 @@ import { Icon } from "../../shared/components/icon/Icon";
 import { IconBlank } from "../../shared/components/iconBlank/IconBlank";
 import { Navbar } from "../../shared/components/navbar/Navbar";
 import { NewTeamDTO } from "../../shared/dtos/team/NewTeamDTO";
-import { getStoredId } from "../../shared/helpers/localStorageHelpers";
+import { addLocalStorageNewTeamId, getStoredId, getStoredValues } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
 import { modalityData } from "../../shared/data/modalityData";
 import teamService from "../../shared/services/team/teamService";
@@ -30,8 +30,10 @@ export const CreateTeam = () => {
     }
 
     const team = user && await teamService.createTeam(newTeam, user.id);
-    
+
     if (team) {
+      addLocalStorageNewTeamId(team.id);
+      getStoredValues();
       notifySuccess("Time criado com sucesso");
 
       goToTeamDashboard(team.id);
@@ -145,7 +147,5 @@ export const CreateTeam = () => {
         </Form>
       </FormContainer>
     </Container>
-    
   );
-
 }

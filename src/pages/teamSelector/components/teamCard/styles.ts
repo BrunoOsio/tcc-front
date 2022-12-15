@@ -15,7 +15,7 @@ export const Container = styled.article`
 
   &:hover {
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0.9;
   }
 `;
 

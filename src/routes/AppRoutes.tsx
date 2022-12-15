@@ -7,6 +7,7 @@ import { Register } from "../pages/register/Register";
 import { SearchTeam } from "../pages/searchTeam/SearchTeam";
 import { TeamDashboard } from "../pages/teamDashboard/TeamDashboard";
 import { TeamSelector } from "../pages/teamSelector/TeamSelector";
+import { PrivateRoute } from "../shared/components/privateRoute/PrivateRoute";
 
 export const AppRoutes = () => {
   return(
@@ -17,7 +18,7 @@ export const AppRoutes = () => {
             <Route path="/" element={<TeamSelector/>}/>
             <Route path="/createTeam" element={<CreateTeam/>}/>
             <Route path="/searchTeam" element={<SearchTeam/>}/>
-            <Route path="/team/:teamId/dashboard" element={<TeamDashboard/>}/>
+            <Route path="/team/:teamId/dashboard" element={<PrivateRoute><TeamDashboard/></PrivateRoute>}/>
             <Route path="/team/:teamId/createArea" element={<CreateArea/>}/>
             <Route path="/team/:teamId/area/:areaId/board" element={<TeamAreaBoard/>}/>
           </Routes>

@@ -42,7 +42,6 @@ export const userSlice = createSlice({
       userState?.joinRequests.push(team);
     },
 
-    //TODO: FIX
     removeJoinUser(state, action: PayloadAction<RequestJoinDTO>) {
       const { team } = action.payload;
       const userState = state.value;
@@ -50,12 +49,10 @@ export const userSlice = createSlice({
       if (!userState) return;
 
       const teamIndex = userState.joinRequests.findIndex((teamRequest) => teamRequest.id === team.id);  
-      console.log("start", userState.joinRequests);
+
       if (teamIndex > -1) {
         userState.joinRequests.splice(teamIndex, 1);
       }
-
-      console.log("final", userState.joinRequests);
     }
   },
 

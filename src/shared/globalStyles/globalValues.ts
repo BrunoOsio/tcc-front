@@ -4,6 +4,7 @@ export const colors = {
   blue: "#1688FF",
   darkBlue: "#3579D2",
   navyBlue: "#0F4092",
+  purpleBlue: "#3561D2",
   lightGreyBackgroundColumn: "#EFEFEF",
   lightGreyBackgroundAddButton: "#E4E4E4",
   greyBorderAddButton: "#A2A2A2",
@@ -26,6 +27,5 @@ export const responsivity = {
 
 export const storage = {
   id: "id",
-  name: "name",
-  email: "email"
+  teamsIds: "teamsIds" 
 }

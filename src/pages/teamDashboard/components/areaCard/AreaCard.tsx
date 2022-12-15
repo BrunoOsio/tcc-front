@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { areaSpecializationData } from "../../../../shared/data/areaSpecializationData";
 import { Area } from "../../../../shared/types";
-import { Container, LinkArea, Specialization, Title } from "./styles";
+import { Container, Specialization, Title } from "./styles";
 
 type AreaCardProps = {
   area: Area;

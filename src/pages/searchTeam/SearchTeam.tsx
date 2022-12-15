@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { getStoredId } from "../../shared/helpers/localStorageHelpers";
+import { getStoredId } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { ImSearch } from "react-icons/im";
 import { Body, Container, NoTeamsGroup, SearchBar, SearchBarContainer, SearchBarGroup } from "./styles";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
