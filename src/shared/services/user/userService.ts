@@ -2,6 +2,7 @@ import axios from "axios";
 import { NewUserDTO } from "../../dtos/user/NewUserDTO";
 import { UserLoginDTO } from "../../dtos/user/UserLoginDTO";
 import { User } from "../../types";
+import { Team } from "../../types/team/Team";
 
 const BASE_URL = "http://127.0.0.1:3000/api/users";
 
@@ -33,4 +34,11 @@ const findUser = async (userId: number): Promise<User> => {
   return data;
 }
 
-export default { isUniqueEmail, register, checkLogin, findUser };
+const findLeaderedTeams = async (userId: number): Promise<Team[]> => {
+  const endpoint = `${BASE_URL}/${userId}/teamsLeadered`;
+  const { data } = await axios.get(endpoint);
+
+  return data;
+}
+
+export default { isUniqueEmail, register, checkLogin, findUser, findLeaderedTeams };

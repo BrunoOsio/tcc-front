@@ -158,3 +158,6 @@ export const ButtonGroup = styled.div`
 
   }
 `;
+
+export const ButtonGroupPlaceholder = styled(ButtonGroup)`
+`;

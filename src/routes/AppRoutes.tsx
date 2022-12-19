@@ -3,7 +3,7 @@ import { TeamAreaBoard } from "../pages";
 import { CreateArea } from "../pages/createArea/CreateArea";
 import { CreateTeam } from "../pages/createTeam/CreateTeam";
 import { Login } from "../pages/login/Login";
-import { NotLoggedPage } from "../pages/notLoggedPage/notLoggedPage";
+import { NotLoggedPage } from "../pages/notLoggedPage/NotLoggedPage";
 import { ProhibitedPage } from "../pages/prohibitedPage/ProhibitedPage";
 import { Register } from "../pages/register/Register";
 import { SearchTeam } from "../pages/searchTeam/SearchTeam";

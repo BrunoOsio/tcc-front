@@ -79,9 +79,17 @@ export const Login = () => {
   const configureLoginStorage = async (user: UserLoginStorageDTO) => {
     
     const teams = await teamService.findTeams(user.id);
-    const teamsIds = mapRawTeamsIdsToString(teams.map(team => team.id));
+    const leaderedTeams = await userService.findLeaderedTeams(user.id);
 
-    const localStorageDto: SaveLocalStorageDto = {id: String(user.id), teamsIds: teamsIds}
+    const teamsIds = mapRawTeamsIdsToString(teams.map(team => team.id));
+    const leaderedTeamsIds = mapRawTeamsIdsToString(leaderedTeams.map(team => team.id));
+
+    const localStorageDto: SaveLocalStorageDto = {
+      id: String(user.id), 
+      teamsIds: teamsIds,
+      leaderedTeamsIds: leaderedTeamsIds
+    }
+    
     saveLocalStorage(localStorageDto);
   }
 

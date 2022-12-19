@@ -1,16 +1,16 @@
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ImArrowRight } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../../shared/components/icon/Icon";
 import { IconBlank } from "../../shared/components/iconBlank/IconBlank";
 import { Navbar } from "../../shared/components/navbar/Navbar";
 import { NewTeamDTO } from "../../shared/dtos/team/NewTeamDTO";
-import { addLocalStorageNewTeamId, getStoredId, getStoredValues } from "../../shared/helpers/localStorage/localStorageHelpers";
+import { addLocalStorageWhenCreatedTeam, getStoredId } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
 import { modalityData } from "../../shared/data/modalityData";
 import teamService from "../../shared/services/team/teamService";
-import { Modality, User } from "../../shared/types";
+import { Modality } from "../../shared/types";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findUser } from "../../states/features/userSlice";
 import { Loading } from "../login/components/loading/Loading";
@@ -32,8 +32,8 @@ export const CreateTeam = () => {
     const team = user && await teamService.createTeam(newTeam, user.id);
 
     if (team) {
-      addLocalStorageNewTeamId(team.id);
-      getStoredValues();
+      addLocalStorageWhenCreatedTeam(team.id);
+
       notifySuccess("Time criado com sucesso");
 
       goToTeamDashboard(team.id);

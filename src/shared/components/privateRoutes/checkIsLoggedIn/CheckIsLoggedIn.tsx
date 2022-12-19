@@ -8,7 +8,7 @@ type PrivateRouteProps = {
 export const CheckIsLoggedIn: React.FC<PrivateRouteProps> = ({children}) => {
 
   const isAuth = isLoggedIn();
-  console.log(getStoredId());
+
   return (
     isAuth ? children : <Navigate to="/notLogged"/>
   )

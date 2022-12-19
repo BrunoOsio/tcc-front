@@ -27,5 +27,6 @@ export const responsivity = {
 
 export const storage = {
   id: "id",
-  teamsIds: "teamsIds" 
+  teamsIds: "teamsIds",
+  leaderedTeamsIds: "leaderedTeamsIds"
 }
