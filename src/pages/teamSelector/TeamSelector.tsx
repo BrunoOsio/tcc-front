@@ -12,6 +12,7 @@ import { findUser } from "../../states/features/userSlice";
 import { Sidebar } from "../../shared/components/sidebar/Sidebar";
 import { PositionCoordinates } from "../../shared/components/sidebar/types/PositionCoordinates";
 import { useNavigate } from "react-router-dom";
+import routes from "../../routes/routes";
 
 export const TeamSelector = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export const TeamSelector = () => {
     dispatch(findTeams(userId));
 
     if (isUserSuccess && !user) 
-      navigate("/login");
+      navigate(routes.login());
   }, []);
 
   const openButtonSidebarCoordinates: PositionCoordinates = {

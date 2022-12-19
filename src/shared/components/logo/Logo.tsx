@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import routes from "../../../routes/routes";
 import { Container } from "./styles";
 
 type LogoTheme = "dark" | "white";
@@ -12,7 +13,7 @@ export const Logo: React.FC<LogoProps> = ({ theme }) => {
   const navigate = useNavigate();
 
   const goToMainPage = () => {
-    navigate("/");
+    navigate(routes.mainMenu());
   }
 
   const themeChoosen =

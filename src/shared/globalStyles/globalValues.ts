@@ -12,6 +12,7 @@ export const colors = {
   greyScrollbarHover: "#909090",
   darkGreyText: "#292929",
   white: "#FFFFFF",
+  redSalmon: "#FF5757"
 }
 
 export const sizes = {

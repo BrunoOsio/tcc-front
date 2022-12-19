@@ -16,6 +16,7 @@ import { useAppSelector } from "../../states/app/hooks";
 import { useDispatch } from "react-redux";
 import { findUser } from "../../states/features/userSlice";
 import { useEffect } from "react";
+import routes from "../../routes/routes";
 
 export type LoginFormValues = {
   email: string,
@@ -101,11 +102,11 @@ export const Login = () => {
   }
 
   const goToRegister = () => {
-    navigate("/register");
+    navigate(routes.register());
   }
 
   const goToTeamSelector = () => {
-    navigate("/");
+    navigate(routes.mainMenu());
   }
   
   const isEmailInvalid = errors.email && touched.email;

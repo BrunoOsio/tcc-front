@@ -18,6 +18,7 @@ import { areaSchema } from "./schemas/areaSchema";
 import { Form, FormGroup, Input, Label, Error, Title, Select, Button, Header, FormContainer, Container } from "./styles";
 import { TechnicalSpecialization } from "../../shared/types/area/specialization/base/TechnicalSpecialization";
 import { NonTechnicalSpecialization } from "../../shared/types/area/specialization/base/NonTechnicalSpecialization";
+import routes from "../../routes/routes";
 
 export const CreateArea = () => {
 
@@ -72,7 +73,7 @@ export const CreateArea = () => {
   }
 
   const goToTeamAreaBoard = (areaId: number) => {
-    navigate(`/team/${teamIdNumber}/area/${areaId}/board`);
+    navigate(routes.teamAreaBoard(teamIdNumber, areaId));
   }
 
   const isNameInvalid = errors.name && touched.name;

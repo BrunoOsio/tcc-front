@@ -24,7 +24,7 @@ export const SidebarNav = styled.div<{ sidebar: boolean }>`
   position: fixed;
   top: 0;
   left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
-  transition: 0.6s ease-out;
+  transition: 0.2s ;
   z-index: 999;
 `;
 
@@ -68,7 +68,25 @@ export const Header = styled.div`
   align-content: center;
   width: 60%;
   margin: 0 auto;
-  margin-bottom: 30px;
+  margin-bottom: 30px; 
+
+  span {
+    position: relative;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    top: -25px;
+    left: -117px;
+    font-size: 1.2rem;
+    padding: 5px;
+    background-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #1F4689;
+    }
+  }
 `;
 
 export const SidebarWrap = styled.div`

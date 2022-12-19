@@ -14,6 +14,7 @@ import { AiOutlineTeam } from "react-icons/ai";
 import { GoPlus } from "react-icons/go";
 import { getStoredId, isUserTeamLeader } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { findUser } from "../../states/features/userSlice";
+import routes from "../../routes/routes";
 
 export const TeamDashboard = () => {
   const navigate = useNavigate();
@@ -40,14 +41,18 @@ export const TeamDashboard = () => {
   }, []);
 
   const goToNewArea = () => {
-    navigate(`/team/${team.id}/createArea`);
+    navigate(routes.createArea(teamIdNumber));
+  }
+
+  const goToTeamMembers = () => {
+    navigate(routes.teamMembers(teamIdNumber));
   }
 
   const screenWidth = window.innerWidth;
   const MAX_MEMBERS_ON_LIST = (screenWidth > 1500) ? 6 : 5;
   const membersLengthReached = team ? team.members?.length > MAX_MEMBERS_ON_LIST : false;
 
-  const teamLeader = team?.leaders ? team.leaders[0].name : null;
+  const teamLeader = team?.leaders ? team.leaders[0]?.name : null;
   const teamMembers = team?.members ? team.members : [];
 
   const isTeamLeader = team ? isUserTeamLeader(team.id) : false;
@@ -73,7 +78,7 @@ export const TeamDashboard = () => {
           </NameAndLeaderGroup>
         </LeftInformations>
         <RightInformations>
-          <LabelGroup>
+          <LabelGroup onClick={goToTeamMembers}>
             <span><AiOutlineTeam/></span>
             <Label>Membros</Label>
           </LabelGroup>

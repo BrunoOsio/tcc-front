@@ -18,6 +18,7 @@ import userService from "../../shared/services/user/userService";
 import { NewUserDTO } from "../../shared/dtos/user/NewUserDTO";
 import { notifyError, notifySuccess, notifyWarning } from "../../shared/helpers/notificationHelpers";
 import { useNavigate } from "react-router-dom";
+import routes from "../../routes/routes";
 
 
 export type RegisterFormValues = {
@@ -54,7 +55,7 @@ export const Register = () => {
     }
 
     notifySuccess("Usuário cadastrado com sucesso");
-    navigate("/login", {state: user});
+    navigate(routes.login(), {state: user});
   };
 
   const initialValues: RegisterFormValues = {

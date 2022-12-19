@@ -1,12 +1,13 @@
 import { ImBlocked } from "react-icons/im"
 import { useNavigate } from "react-router-dom";
+import routes from "../../routes/routes";
 import { Button, Container, Label, Main } from "./styles";
 
 export const ProhibitedPage = () => {
   const navigate = useNavigate();
 
   const goToTeamSelector = () => {
-    navigate("/");
+    navigate(routes.mainMenu());
   }
 
   return (

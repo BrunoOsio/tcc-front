@@ -8,6 +8,7 @@ import { DropboxAction } from "../../../../shared/helpers/dropbox/DropboxAction"
 import { runAction } from "../../../../shared/helpers/dropbox/runAction";
 import { useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
+import routes from "../../../../routes/routes";
 
 enum IconEnum {
   DOWN = 0,
@@ -21,11 +22,11 @@ export const NewTeamButton = () => {
   const [menuIcon, setMenuIcon] = useState<IconEnum | undefined>();
 
   const goToCreateTeam = () => {
-    navigate("/createTeam");
+    navigate(routes.createTeam());
   }
 
   const goToSearchTeam = () => {
-    navigate("/searchTeam");
+    navigate(routes.searchTeam());
   }
 
   const menuActions: DropboxAction[] = [

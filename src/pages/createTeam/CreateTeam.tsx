@@ -16,6 +16,7 @@ import { findUser } from "../../states/features/userSlice";
 import { Loading } from "../login/components/loading/Loading";
 import { teamSchema } from "./schemas/teamSchema";
 import { Form, FormGroup, Input, Label, Error, Title, Select, Button, Header, FormContainer, Container } from "./styles";
+import routes from "../../routes/routes";
 
 export const CreateTeam = () => {
   const { value: user, isLoading: isUserLoading, isSuccess: isUserSuccess } = useAppSelector((state) => state.user);
@@ -72,7 +73,7 @@ export const CreateTeam = () => {
   }
 
   const goToTeamDashboard = (teamId: number) => {
-    navigate(`/team/${teamId}/dashboard`)
+    navigate(routes.teamDashboard(teamId))
   }
 
   const resetFormData = () => {

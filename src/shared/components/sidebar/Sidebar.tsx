@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { IconContext } from 'react-icons';
-import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineMenu } from 'react-icons/ai';
+import { TbArrowBackUp } from "react-icons/tb"
 import { SidebarData } from './data/SidebarData';
 import Submenu from './components/submenu/Submenu';
 import { Logo } from '../logo/Logo';
 import { Header, Nav, OpenButton, SidebarNav, SidebarWrap } from './styles';
 import { PositionCoordinates } from './types/PositionCoordinates';
+import { useNavigate } from 'react-router-dom';
+import routes from '../../../routes/routes';
 
 type SidebarProps = {
   openButtonSize?: number;
@@ -14,12 +17,18 @@ type SidebarProps = {
 
 export const Sidebar: React.FC<SidebarProps> = ({openButtonSize, position}) => {
 
+  const navigate = useNavigate();
+  
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
 
   const openButtonCoordinates: PositionCoordinates = {
     top: position.top,
     left: position.left,
+  }
+
+  const goHistoryBack = () => {
+    navigate(routes.backHistory());
   }
 
   return (
@@ -39,10 +48,7 @@ export const Sidebar: React.FC<SidebarProps> = ({openButtonSize, position}) => {
       
       <SidebarWrap>
         <Header>
-          {/* <CloseButton to="#" onClick={showSidebar}>
-            <AiOutlineClose />
-          </CloseButton> */}
-
+          <span onClick={goHistoryBack}><TbArrowBackUp/></span>
           <Logo theme={'white'}/>
         </Header>
         {SidebarData.map((item, index) =><Submenu item={item} key={index} />)}

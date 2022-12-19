@@ -3,6 +3,7 @@ import { RequestJoinDTO } from "../../../pages/searchTeam/components/teamCardSea
 import { NewTeamDTO } from "../../dtos/team/NewTeamDTO";
 import { IsUserOnTeamDTO } from "../../dtos/team/IsUserOnTeamDTO";
 import { Team } from "../../types/team/Team";
+import { RemoveMemberDTO } from "../../../pages/teamMembers/components/dto/RemoveMemberDTO";
 
 const BASE_URL = "http://127.0.0.1:3000/api/teams";
 
@@ -52,6 +53,28 @@ const removeJoin = async (joinRequestDto: RequestJoinDTO): Promise<void> => {
   return data;
 }
 
+const removeMember = async (removeMemberDto: RemoveMemberDTO): Promise<void> => {
+  const {teamId, userId} = removeMemberDto;
+
+  const endpoint = `${BASE_URL}/${teamId}/removeMember/${userId}`;
+  await axios.put(endpoint);
+}
+
+const acceptRequest = async (joinRequestDto: RemoveMemberDTO): Promise<void> => {
+  const {teamId, userId} = joinRequestDto;
+
+  const endpoint = `${BASE_URL}/${teamId}/acceptRequest/${userId}`;
+  await axios.put(endpoint);
+}
+
+const rejectRequest = async (joinRequestDto: RemoveMemberDTO): Promise<void> => {
+  const {teamId, userId} = joinRequestDto;
+
+  const endpoint = `${BASE_URL}/${teamId}/removeRequest/${userId}`;
+  await axios.put(endpoint);
+}
+
+
 const isUserOnTeam = async (verifyUserOnTeamDto: IsUserOnTeamDTO): Promise<boolean> => {
   const {team, user} = verifyUserOnTeamDto;
 
@@ -61,4 +84,4 @@ const isUserOnTeam = async (verifyUserOnTeamDto: IsUserOnTeamDTO): Promise<boole
   return data;
 }
 
-export default { findTeam, findTeams, createTeam, findByKeyword, requestJoin, removeJoin, isUserOnTeam };
+export default { findTeam, findTeams, createTeam, findByKeyword, requestJoin, removeJoin, removeMember, isUserOnTeam, acceptRequest, rejectRequest };

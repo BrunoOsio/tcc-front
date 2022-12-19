@@ -1,12 +1,13 @@
 import { ImBlocked } from "react-icons/im"
 import { useNavigate } from "react-router-dom";
+import routes from "../../routes/routes";
 import { Button, Container, Label, Main } from "./styles";
 
 export const NotLoggedPage = () => {
   const navigate = useNavigate();
 
   const goToLogin = () => {
-    navigate("/login");
+    navigate(routes.login());
   }
 
   return (

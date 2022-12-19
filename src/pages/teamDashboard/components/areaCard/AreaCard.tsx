@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import routes from "../../../../routes/routes";
 import { areaSpecializationData } from "../../../../shared/data/areaSpecializationData";
 import { Area } from "../../../../shared/types";
 import { Container, Specialization, Title } from "./styles";
@@ -20,7 +21,7 @@ export const AreaCard: React.FC<AreaCardProps> = ({area}) => {
   }
 
   const goToAreaBoard = () => {
-    navigate(`/team/${teamIdNumber}/area/${area.id}/board`);
+    navigate(routes.teamAreaBoard(teamIdNumber, area.id));
   }
 
   return (

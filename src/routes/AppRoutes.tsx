@@ -2,12 +2,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { TeamAreaBoard } from "../pages";
 import { CreateArea } from "../pages/createArea/CreateArea";
 import { CreateTeam } from "../pages/createTeam/CreateTeam";
+import { JoinRequests } from "../pages/joinRequests/JoinRequests";
 import { Login } from "../pages/login/Login";
 import { NotLoggedPage } from "../pages/notLoggedPage/NotLoggedPage";
 import { ProhibitedPage } from "../pages/prohibitedPage/ProhibitedPage";
 import { Register } from "../pages/register/Register";
 import { SearchTeam } from "../pages/searchTeam/SearchTeam";
 import { TeamDashboard } from "../pages/teamDashboard/TeamDashboard";
+import { TeamMembers } from "../pages/teamMembers/TeamMembers";
 import { TeamSelector } from "../pages/teamSelector/TeamSelector";
 import { CheckIsLoggedIn } from "../shared/components/privateRoutes/checkIsLoggedIn/CheckIsLoggedIn";
 import { CheckUserTeams } from "../shared/components/privateRoutes/checkUserTeams/CheckUserTeams";
@@ -23,6 +25,9 @@ export const AppRoutes = () => {
             <Route path="/searchTeam" element={<CheckIsLoggedIn><SearchTeam/></CheckIsLoggedIn>}/>
             <Route path="/team/:teamId/dashboard" element={<CheckUserTeams><TeamDashboard/></CheckUserTeams>}/>
             <Route path="/team/:teamId/createArea" element={<CheckUserTeams><CreateArea/></CheckUserTeams>}/>
+            <Route path="/team/:teamId/members" element={<CheckUserTeams><TeamMembers/></CheckUserTeams>}/>
+            <Route path="/team/:teamId/joinRequests" element={<CheckUserTeams><JoinRequests/></CheckUserTeams>}/>
+            {/* <Route path="/team/:teamId/areaLeaders" element={<CheckUserTeams><TeamMembers/></CheckUserTeams>}/> */}
             <Route path="/team/:teamId/area/:areaId/board" element={<CheckUserTeams><TeamAreaBoard/></CheckUserTeams>}/>
             <Route path="/prohibited" element={<ProhibitedPage/>}/>
             <Route path="/notLogged" element={<NotLoggedPage/>}/>

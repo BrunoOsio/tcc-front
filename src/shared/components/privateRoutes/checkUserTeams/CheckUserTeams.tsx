@@ -1,4 +1,5 @@
 import { Navigate, useParams } from "react-router-dom";
+import routes from "../../../../routes/routes";
 import { isLoggedIn, isUserOnTeam } from "../../../helpers/localStorage/localStorageHelpers";
 
 type PrivateRouteProps = {
@@ -12,6 +13,6 @@ export const CheckUserTeams: React.FC<PrivateRouteProps> = ({children}) => {
   const isAuth = isLoggedIn() && isUserOnTeam(teamIdNumber);
   
   return (
-    isAuth ? children : <Navigate to="/prohibited"/>
+    isAuth ? children : <Navigate to={routes.prohibited()}/>
   )
 }

@@ -3,6 +3,7 @@ import { User } from "../../../../shared/types";
 import { Border, Container, Initials } from "./styles";
 import { MdSettings } from "react-icons/md";
 import { useState } from "react";
+import routes from "../../../../routes/routes";
 
 type IconProps = {
   user: User;
@@ -28,7 +29,7 @@ export const Icon: React.FC<IconProps> = ({user}) => {
   }
 
   const goToUserSettings = () => {
-    navigate("/userSettings");
+    navigate(routes.userSettings());
   }
 
   const toggleSettingsIcon = (isShow: boolean) => {
