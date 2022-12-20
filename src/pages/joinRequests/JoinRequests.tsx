@@ -1,11 +1,15 @@
 import { useEffect } from "react";
+import { AiOutlineTeam } from "react-icons/ai";
+import { MdLeaderboard } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import routes from "../../routes/routes";
 import { Navbar } from "../../shared/components/navbar/Navbar";
+import { isUserTeamLeader } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findTeam } from "../../states/features/teamSlice";
+import { Footer, FooterButton, Main, Title, TitleContainer } from "../teamMembers/styles";
 import { JoinRequestCard } from "./components/joinRequestCard/JoinRequestCard";
-import { Container, Divider, Header, HeaderButton, Members, Title } from "./styles";
+import { Container, Divider, Header, HeaderButton, Members } from "./styles";
 
 export const JoinRequests = () => {
   const navigate = useNavigate();
@@ -27,6 +31,10 @@ export const JoinRequests = () => {
     navigate(routes.teamMembers(teamIdNumber));
   }
 
+  const goToAreaLeaders = () => {
+    navigate(routes.areaLeaders(teamIdNumber));
+  }
+
   const joinRequests = team?.joinRequests ? team.joinRequests : [];
   
   return (
@@ -34,22 +42,29 @@ export const JoinRequests = () => {
       <Navbar/>
 
       <Container>
-        <Header>
-          <HeaderButton className="first" onClick={goToMembers}>Ir para membros</HeaderButton>
-          <HeaderButton className="second">Atribuir líderes às áreas</HeaderButton>
-        </Header>
-        <Divider/>
-
-        { isTeamSuccess && (
-          <Title>Solicitações para entrar na equipe {team.name}</Title>
-        )}
-
-        <Members>
+        <TitleContainer>
+          { isTeamSuccess && (
+            <Title>Solicitações para entrar na equipe {team.name}</Title>
+          )}
+        </TitleContainer>
+        
+        <Main>
           {
             joinRequests.map(member => <JoinRequestCard key={member.id} member={member}/>)
           }
-        </Members>
-        
+        </Main>
+
+        <Divider/>
+        <Footer>
+          <FooterButton className="first" onClick={goToMembers}>
+            <span><AiOutlineTeam/></span>
+            <span>Ir aos membros</span>
+          </FooterButton>
+          <FooterButton className="second" onClick={goToAreaLeaders}>
+            <span><MdLeaderboard/></span>
+            <span>Atribuir líderes às áreas</span>
+          </FooterButton>
+        </Footer>
       </Container>
     </>
   );

@@ -10,23 +10,27 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const Header = styled.div`
+export const Footer = styled.div`
   width: 100%;
   display: flex;
   gap: 30px;
 
   .first {
-    background: rgb(52,136,235);
-    background: linear-gradient(90deg, rgba(52,136,235,1) 0%, rgba(96,129,255,1) 100%);
+    background: ${colors.lightGreyBackgroundColumn};
+    color: ${colors.greyScrollbarHover};
   }
 
   .second {
-    background: rgb(96,129,255);
-    background: linear-gradient(90deg, rgba(96,129,255,1) 0%, rgba(52,136,235,1) 100%);
+    background: ${colors.lightGreyBackgroundColumn};
+    color: ${colors.greyScrollbarHover};
   }
 `;
 
-export const HeaderButton = styled.button`
+export const FooterButton = styled.div`
+  justify-content: center;
+  gap: 10px;
+  display: flex;
+  text-align: center;
   width: 100%;
   font-size: 1.3rem;
   padding: 20px 0px;
@@ -43,6 +47,38 @@ export const HeaderButton = styled.button`
   }
 `;
 
+export const Border = styled.div`
+  width: 27px;
+  clip-path: circle();
+  background-color: ${colors.white};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s ease-in-out;
+`;
+
+export const NewRequestsNumber = styled.div`
+  width: 85%;
+  height: 85%;
+  background-color: ${colors.redSalmon};
+  clip-path: circle();
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+
+  span {
+    position: relative;
+    left: -0.5px;
+    top: 1px;
+    color: white;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  }
+`;
+
 export const Divider = styled.div`
   margin: 20px 0px;
   width: 100%;
@@ -50,13 +86,20 @@ export const Divider = styled.div`
   background-color: ${colors.lightGreyBackgroundAddButton};
 `;
 
-export const Title = styled.h1`
-  font-size: 1.5rem;
-  color: ${colors.darkGreyText};
+export const TitleContainer = styled.div`
+  background: rgb(52,136,235);
+  background: linear-gradient(90deg, rgba(52,136,235,1) 0%, rgba(96,129,255,1) 100%);
+  padding: 30px;
+  border-radius: 15px;
 `;
 
-export const Members = styled.div`
-margin-top: 20px;
+export const Title = styled.h1`
+  font-size: 1.5rem;
+  color: ${colors.white};
+`;
+
+export const Main = styled.div`
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;

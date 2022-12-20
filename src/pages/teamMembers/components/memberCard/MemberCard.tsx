@@ -7,13 +7,14 @@ import { findUser } from "../../../../states/features/userSlice";
 import { Container, Email, LeftInformations, Name, RightInformations, UserInformations } from "./styles";
 import { MdClose } from "react-icons/md"
 import { ConfirmDeleteModal } from "../confirmDeleteModal/ConfirmDeleteModal";
-import { getStoredId } from "../../../../shared/helpers/localStorage/localStorageHelpers";
+import { getStoredId, isUserTeamLeader } from "../../../../shared/helpers/localStorage/localStorageHelpers";
 type MemberCardProps = {
   member: User
 }
 
 export const MemberCard: React.FC<MemberCardProps> = ({member}) => {
   const { teamId } = useParams();
+  const teamIdNumber = Number(teamId);
 
   const dispatch = useAppDispatch();
   
@@ -38,7 +39,7 @@ export const MemberCard: React.FC<MemberCardProps> = ({member}) => {
         </UserInformations>
       </LeftInformations>
 
-      {!isOwnCard && (
+      {(!isOwnCard && isUserTeamLeader(teamIdNumber)) && (
         <RightInformations>
           <span className="icon" onClick={toggleModal}><MdClose/></span>
           <ConfirmDeleteModal member={member} isModalVisible={isModalVisible} onBackDropClick={toggleModal}/>

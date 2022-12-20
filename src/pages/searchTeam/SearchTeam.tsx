@@ -8,7 +8,6 @@ import { TeamCardSearch } from "./components/teamCardSearch/TeamCardSearch";
 import { Loading } from "../../shared/components/loading/Loading";
 import { HiOutlineEmojiSad } from "react-icons/hi";
 import { findUser } from "../../states/features/userSlice";
-import { Sidebar } from "../../shared/components/sidebar/Sidebar";
 import { Navbar } from "../../shared/components/navbar/Navbar";
 
 export const SearchTeam = () => {

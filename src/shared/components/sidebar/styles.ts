@@ -18,7 +18,7 @@ export const Nav = styled.div`
 `;
 
 export const SidebarNav = styled.div<{ sidebar: boolean }>`
-  width: 290px;
+  width: 380px;
   height: 100vh;
   background-color: #0B347C;
   position: fixed;
@@ -26,6 +26,7 @@ export const SidebarNav = styled.div<{ sidebar: boolean }>`
   left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
   transition: 0.2s ;
   z-index: 999;
+  overflow-y: scroll;
 `;
 
 export const OpenButton = styled(Link)<OpenButtonProps>`
@@ -71,12 +72,13 @@ export const Header = styled.div`
   margin-bottom: 30px; 
 
   span {
-    position: relative;
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    color: tomato;
     display: flex;
     align-items: center;
     align-content: center;
-    top: -25px;
-    left: -117px;
     font-size: 1.2rem;
     padding: 5px;
     background-color: transparent;
@@ -93,4 +95,11 @@ export const SidebarWrap = styled.div`
   padding-top: 40px;
   display: flex;
   flex-direction: column;
+`;
+
+export const Divider = styled.div`
+  width: 70%;
+  margin-left: 40px;
+  height: 2px;
+  background-color: ${colors.darkGreyText};
 `;

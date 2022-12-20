@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { MdLeaderboard, MdViewList } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import routes from "../../routes/routes";
 import { Navbar } from "../../shared/components/navbar/Navbar";
+import { isUserTeamLeader } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findTeam } from "../../states/features/teamSlice";
 import { MemberCard } from "./components/memberCard/MemberCard";
-import { Container, Divider, Header, HeaderButton, Members, Title } from "./styles";
+import { Border, Container, Divider, Footer, FooterButton, Main, NewRequestsNumber, Title, TitleContainer } from "./styles";
 
 export const TeamMembers = () => {
   const navigate = useNavigate();
@@ -13,9 +15,6 @@ export const TeamMembers = () => {
   const { value: teamArray, isLoading: isTeamLoading} = useAppSelector((state) => state.team);
   const isTeamSuccess = teamArray && teamArray.length === 1;
   const team = teamArray && teamArray[0];
-
-  const [isModalVisible, setModalVisible] = useState(false);
-  const toggleModal = () => setModalVisible(!isModalVisible);
 
   const { teamId } = useParams();
   const teamIdNumber = Number(teamId);
@@ -30,29 +29,64 @@ export const TeamMembers = () => {
     navigate(routes.teamJoinRequests(teamIdNumber));
   }
 
+  const goToAreaLeaders = () => {
+    navigate(routes.areaLeaders(teamIdNumber));
+  }
+
   const teamMembers = team?.members ? team.members : [];
+  const teamJoinRequestsLength = team?.joinRequests ? team.joinRequests?.length : 0;
   
   return (
     <>
       <Navbar/>
 
       <Container>
-        <Header>
-          <HeaderButton className="first" onClick={goToJoinRequests}>Ir às solicitações para entrar na equipe</HeaderButton>
-          <HeaderButton className="second">Atribuir líderes às áreas</HeaderButton>
-        </Header>
-        <Divider/>
+        <TitleContainer>
+          { isTeamSuccess && (
+            <Title>Membros da equipe {team.name}</Title>
+          )}
+        </TitleContainer>
 
-        { isTeamSuccess && (
-          <Title>Membros da equipe {team.name}</Title>
-        )}
 
-        <Members>
+        <Main>
           {
             teamMembers.map(member => <MemberCard key={member.id} member={member}/>)
           }
-        </Members>
-        
+        </Main>
+
+        {
+          isUserTeamLeader(teamIdNumber) && (
+            <>
+              <Divider/>
+
+              <Footer>
+                <FooterButton className="first" onClick={goToJoinRequests}>
+                  {
+                    teamJoinRequestsLength > 0 && (
+                      <Border>
+                        <NewRequestsNumber><span>{teamJoinRequestsLength}</span></NewRequestsNumber>
+                      </Border>
+                    )
+                  }
+
+                  {
+                    teamJoinRequestsLength === 0 && (
+                      <span><MdViewList/></span>
+                    )
+                  }
+              
+                  <span>Ir às solicitações para entrar na equipe</span>
+                </FooterButton>
+            
+                <FooterButton className="second" onClick={goToAreaLeaders}>
+                  <span><MdLeaderboard/></span>
+                  <span>Atribuir líderes às áreas</span>
+                </FooterButton>
+              </Footer>        
+            </>
+          )
+        }
+
       </Container>
     </>
   );

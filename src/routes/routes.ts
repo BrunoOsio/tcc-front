@@ -1,7 +1,7 @@
 const refresh = () => 0;
 const backHistory = () => -1;
 const notLogged = () => `/notLogged`;
-const prohibited = () => `prohibited`;
+const prohibited = () => `/prohibited`;
 const mainMenu = () => `/`;
 const register = () => `/register`;
 const login = () => `/login`;
@@ -11,7 +11,7 @@ const searchTeam = () => `/searchTeam`;
 const teamDashboard = (teamId: number) => `/team/${teamId}/dashboard`;
 const teamMembers = (teamId: number) => `/team/${teamId}/members`;
 const teamJoinRequests = (teamId: number) => `/team/${teamId}/joinRequests`;
-const teamLeaders = (teamId: number) => `/team/${teamId}/leaders`;
+const areaLeaders = (teamId: number) => `/team/${teamId}/areaLeaders`;
 const createArea = (teamId: number) => `/team/${teamId}/createArea`;
 const teamAreaBoard = (teamId: number, areaId: number) => `/team/${teamId}/area/${areaId}/board`;
 
@@ -29,7 +29,7 @@ export default {
   teamDashboard,
   teamMembers,
   teamJoinRequests,
-  teamLeaders,
+  areaLeaders,
   createArea,
   login,
   register,

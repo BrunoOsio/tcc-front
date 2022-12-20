@@ -5,7 +5,7 @@ import { MdSettings } from "react-icons/md";
 import { IoMdExit } from "react-icons/io";
 import { SidebarItem } from "../types/SidebarItem";
 
-export const SidebarData: SidebarItem[] = [
+export const sidebarData: SidebarItem[] = [
   {
     title: "Início",
     path: "/",
@@ -23,7 +23,7 @@ export const SidebarData: SidebarItem[] = [
   },
   {
     title: "Procurar times",
-    path: "/configurations",
+    path: "/searchTeam",
     icon: <AiOutlineTeam />,
   },
   {

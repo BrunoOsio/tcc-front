@@ -6,7 +6,6 @@ import { useAppDispatch } from "../../../../states/app/hooks";
 import { findUser } from "../../../../states/features/userSlice";
 import { Container, Email, LeftInformations, Name, RightInformations, UserInformations } from "./styles";
 import { MdCheck, MdClose } from "react-icons/md"
-import { getStoredId } from "../../../../shared/helpers/localStorage/localStorageHelpers";
 import teamService from "../../../../shared/services/team/teamService";
 import routes from "../../../../routes/routes";
 type MemberCardProps = {
@@ -37,8 +36,6 @@ export const JoinRequestCard: React.FC<MemberCardProps> = ({member}) => {
     navigate(routes.refresh());
   }
 
-  const isOwnCard = member.id === getStoredId();
-  
   return (
     <Container>
       <LeftInformations>
