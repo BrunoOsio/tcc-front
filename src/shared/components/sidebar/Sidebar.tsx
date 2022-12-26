@@ -10,7 +10,6 @@ import { PositionCoordinates } from './types/PositionCoordinates';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../../routes/routes';
 import { useAppDispatch, useAppSelector } from '../../../states/app/hooks';
-import { findTeams } from '../../../states/features/teamSlice';
 import { getStoredId } from '../../helpers/localStorage/localStorageHelpers';
 import { SidebarItem } from "../../components/sidebar/types/SidebarItem";
 import { Team } from '../../types/team/Team';
@@ -92,9 +91,9 @@ export const Sidebar: React.FC<SidebarProps> = ({openButtonSize, position}) => {
           <Logo theme={'white'}/>
         </Header>
 
-        {sidebarTeams()?.map((item, index) => <Submenu isTeam={true} item={item} key={index} />)}
+        {sidebarTeams()?.map((item, index) => <Submenu item={item} key={index} />)}
         <Divider/>
-        {sidebarData.map((item, index) => <Submenu isTeam={false} item={item} key={index} />)}
+        {sidebarData.map((item, index) => <Submenu item={item} key={index} />)}
       </SidebarWrap>
     </SidebarNav>
   </IconContext.Provider>

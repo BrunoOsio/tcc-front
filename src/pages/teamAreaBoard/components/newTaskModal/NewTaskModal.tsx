@@ -1,5 +1,5 @@
 import moment from "moment";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { TaskReferencedToColumnDTO } from "../../../../shared/dtos/task/TaskReferencedToColumnDTO";
 import { notifyError, notifySuccess } from "../../../../shared/helpers/notificationHelpers";
 import { createDateOfNow, createDefaultDateTimeLocalInput, formatDate, formatStringDate, isValidStringDate } from "../../../../shared/helpers/dateHelpers";
@@ -8,7 +8,9 @@ import { useAppDispatch } from "../../../../states/app/hooks";
 import { createTask, patchCreateTask } from "../../../../states/features/columnSlice";
 import { BaseModal } from "./BaseModal";
 import { MdClose } from "react-icons/md";
-import { Button, CheckboxContainer, CheckboxLabel, DateTimeFormGroup, DateTimeInput, DescriptionLabel, DesktopContainer, EnableLimitDate, ExitButton, FormGroup, Header, Input, Label, Placeholder, TextArea } from "./styles";
+import { Button, CheckboxContainer, CheckboxLabel, DateTimeFormGroup, DateTimeInput, EnableLimitDate, ExitButton, Form, FormGroup, Header, Input, Label, Placeholder, Error, TextArea } from "./styles";
+import { trimmed } from "../../../../shared/helpers/stringHelpers";
+import { ImArrowRight } from "react-icons/im";
 
 type BaseModalWrapperProps = {
   columnId: number;
@@ -26,19 +28,28 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
     limitDate: createDefaultDateTimeLocalInput(),
   };
 
-  const [title, setTitle] = useState<string>(defaultState.title);  
+  const [title, setTitle] = useState<string>(defaultState.title);
+  const [titleError, setTitleError] = useState<string | null>(null);
   const [description, setDescription] = useState<string>(defaultState.description);
+  const [descriptionError, setDescriptionError] = useState<string | null>(null);
   const [isLimitDateCheckbox, setLimitDateCheckbox] = useState<boolean>(defaultState.limitDateCheckbox);
   const [limitDate, setLimitDate] = useState<string>(defaultState.limitDate);
 
   const handleTitle = (event: ChangeEvent<HTMLInputElement>) => {
     const newTitle = event.target.value;
     setTitle(newTitle);
+
+    if ((trimmed(newTitle).length === 0) || newTitle === null) setTitleError("Requer título");
+    else if (newTitle.length > 40) setTitleError("Máximo de 40 caracteres");
+    else setTitleError(null);
   }
 
   const handleDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const newDescription = event.target.value;
     setDescription(newDescription);
+
+    if (newDescription.length > 60) setDescriptionError("Máximo de 60 caracteres");
+    else setDescriptionError(null);
   }
 
   const toggleLimitDateCheckbox = () => {
@@ -56,8 +67,26 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
     setLimitDate(limitDate);
   }
 
+  const resetFormData = () => {
+    setTitle(defaultState.title);
+    setDescription(defaultState.description);
+    setLimitDateCheckbox(defaultState.limitDateCheckbox);
+    setLimitDate(defaultState.limitDate);
+  }
+
+  if(!isModalVisible) return null;
+
+  const isTitleInvalid = !!titleError;
+  const isDescriptionInvalid = !!descriptionError;
+
+  const isEnableSend = !isTitleInvalid && !isDescriptionInvalid;
+
   const handleSubmit = async (columnId: number) => {
-    
+    if(!isEnableSend) {
+      notifyError("Há erros no preenchimento do formulário")
+      return;
+    }
+
     const biggestId = await taskService.findBiggestId() + 1;
     const formattedLimitDate = formatStringDate(limitDate);
 
@@ -77,30 +106,33 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
     dispatch(patchCreateTask(newTask));
     dispatch(createTask(newTask));
   }
-
-  const resetFormData = () => {
-    setTitle(defaultState.title);
-    setDescription(defaultState.description);
-    setLimitDateCheckbox(defaultState.limitDateCheckbox);
-    setLimitDate(defaultState.limitDate);
-  }
-
-  if(!isModalVisible) return null;
-
   return (
     <BaseModal onBackDropClick={onBackDropClick}>
-      <DesktopContainer>
+      <Form>
         <ExitButton onClick={onBackDropClick}><MdClose color="#6a6a6a"/></ExitButton>        
         <Header>Adicionar nova tarefa</Header>
 
         <FormGroup>
-          <Label htmlFor="title">Título da tarefa</Label>
-          <Input name="title" type="text" value={title} onChange={handleTitle}/>
-        </FormGroup>
+            <Label htmlFor="title">Título</Label>
+            <Input 
+              name="title"
+              isError={isTitleInvalid}
+              value={title} 
+              onChange={handleTitle}
+            />
+
+            {(isTitleInvalid) && <Error>{titleError}</Error>}
+          </FormGroup>
 
         <FormGroup>
-          <DescriptionLabel htmlFor="description">Descrição</DescriptionLabel>
-          <TextArea name="description" value={description} onChange={handleDescription}></TextArea>
+          <Label htmlFor="description">Descrição</Label>
+          <TextArea 
+            name="description" 
+            value={description} 
+            onChange={handleDescription}
+            isError={isDescriptionInvalid}
+          ></TextArea>
+          {(isDescriptionInvalid) && <Error>{descriptionError}</Error>}
         </FormGroup>
 
         <DateTimeFormGroup>
@@ -113,9 +145,8 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
           { !isLimitDateCheckbox && <Placeholder/>}
         </DateTimeFormGroup>
 
-        <Button onClick={() => handleSubmit(columnId)}>Enviar</Button>
-
-      </DesktopContainer>
+        <Button onClick={() => handleSubmit(columnId)} isEnableSend={isEnableSend}><span><ImArrowRight/></span></Button>
+      </Form>
     </BaseModal>
   );
 }

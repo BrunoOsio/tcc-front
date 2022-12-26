@@ -5,16 +5,15 @@ import { DropdownLink, SidebarLabel, SidebarLink } from "./styles";
 
 type SidebarLinkProps = {
   item: SidebarItem;
-  isTeam: boolean;
 };
 
-const Submenu: React.FC<SidebarLinkProps> = ({ item, isTeam }) => {
+const Submenu: React.FC<SidebarLinkProps> = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
   const showSubnav = () => setSubnav(!subnav);
 
   return (
     <>
-      <SidebarLink isTeam={isTeam} to={item.path} onClick={showSubnav}>
+      <SidebarLink to={item.path} onClick={showSubnav}>
         <div>
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>

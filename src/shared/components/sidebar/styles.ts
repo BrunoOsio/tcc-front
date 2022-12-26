@@ -27,6 +27,27 @@ export const SidebarNav = styled.div<{ sidebar: boolean }>`
   transition: 0.2s ;
   z-index: 999;
   overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 12px;
+    background-color: #0B347C;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
 `;
 
 export const OpenButton = styled(Link)<OpenButtonProps>`
@@ -101,5 +122,5 @@ export const Divider = styled.div`
   width: 70%;
   margin-left: 40px;
   height: 2px;
-  background-color: ${colors.darkGreyText};
+  background: rgba(255, 255, 255, 0.1);
 `;

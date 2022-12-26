@@ -3,6 +3,7 @@ import { colors } from "../../globalStyles/globalValues";
 
 export type BorderProps = {
   size: number
+  enableRoute: boolean;
 }
 
 export const Border = styled.div<BorderProps>`
@@ -14,6 +15,12 @@ export const Border = styled.div<BorderProps>`
   justify-content: center;
   align-items: center;
   transition: all .3s ease-in-out;
+  cursor: ${({enableRoute}) => enableRoute && "pointer"};
+
+  &:hover {
+    opacity: ${({enableRoute}) => enableRoute && "0.8"};
+    transform: ${({enableRoute}) => enableRoute && "scale(1.02)"};
+  }
 `;
 
 export const Container = styled.div`

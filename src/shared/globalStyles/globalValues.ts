@@ -18,7 +18,7 @@ export const colors = {
 export const sizes = {
   navbar: "50px",
   navbarMobile: "130px",
-  column: "220px",
+  column: "270px",
   taskHeight: "80px",
 }
 

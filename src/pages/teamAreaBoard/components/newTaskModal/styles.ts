@@ -1,15 +1,23 @@
 import styled from "styled-components";
 import { colors } from "../../../../shared/globalStyles/globalValues";
 
+type InputProps = {
+  isError?: boolean | "" |undefined;
+}
+
+type ButtonProps = {
+  isEnableSend: boolean;
+}
+
 export const Container = styled.div`
-  background-color: ${colors.lightGreyBackgroundColumn};
+  background-color: ${colors.white};
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 `;
 
-export const DesktopContainer = styled(Container)`
+export const Form = styled(Container)`
   border-radius: 7px;
   box-shadow: 0 0 7px ${colors.lightGreyBackgroundColumn};
   padding: 60px;
@@ -19,44 +27,65 @@ export const DesktopContainer = styled(Container)`
   font-size: 26px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-
-  ::-webkit-scrollbar {
-    width: 5px;
-    height: 30px;
-  }
-
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: inherit;
-  }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: ${colors.greyScrollbar};
-    border-radius: 999px;
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: ${colors.greyScrollbarHover};
-  }
+  gap: 15px;
 `;
 
 export const ExitButton = styled.div`
   transition: all .3s ease-in-out;
-  position: relative;
-  top: -30px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  clip-path: circle();
+  padding: 5px;
   &:hover {
     cursor: pointer;
-    transform: scale(1.2);
+    background-color: ${colors.lightGreyBackgroundAddButton};
   }
 `;
 
-export const FormGroup = styled.div`
+export const FormGroup = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
+`;
+
+export const Label = styled.label`
+  font-size: 1rem;
+  font-weight: lighter;
+  margin-bottom: 3px;
+  color: ${colors.darkGreyText};
+`;
+
+export const Input = styled.input<InputProps>`
+  font-size: 1rem;
+  width: 100%;
+  color: ${colors.darkGreyText};
+  padding: 6px 10px;
+  border: none;
+  outline: none;
+  border-bottom: 3px solid ${colors.lightGreyBackgroundAddButton};
+  border-bottom: ${({isError}) => isError && "3px solid #FF5757"};
+  transition: all .2s ease-in-out;
+  &:focus {
+    border-bottom: 3px solid ${colors.blue};
+  }
+`;
+
+export const TextArea = styled.textarea<InputProps>`
+  outline: none;
+  background: transparent;
+  border: 3px solid ${colors.lightGreyBackgroundAddButton};
+  border: ${({isError}) => isError && "3px solid #FF5757"};
+  color: ${colors.greyScrollbarHover};
+  padding: 10px 20px;
+  margin-top: 5px;
+  font-size: 1rem;
+  resize: vertical;
+  border-radius: 10px;
+
+  &:focus {
+    border: 3px solid ${colors.blue};
+  }
 `;
 
 export const DateTimeFormGroup = styled(FormGroup)`
@@ -65,43 +94,13 @@ export const DateTimeFormGroup = styled(FormGroup)`
   margin-top: 10px;
 `;
 
-export const Input = styled.input`
-  outline: none;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid ${colors.greyScrollbarHover};
-  color: ${colors.greyScrollbarHover};
-  padding: 15px 10px 3px 10px;
-  margin-top: 5px;
-  font-size: 1rem;
-`;
-
-export const Label = styled.label`
-  box-sizing: border-box;
-  font-size: 0.8rem;
-  font-weight: bold;
-  margin-left: 10px;
-  padding: 0 6px;
-  color: ${colors.greyScrollbarHover};
-  z-index: 1;
-  position: relative;
-  top: 15px;
-  background-color: ${colors.lightGreyBackgroundColumn};
-`;
-
-export const DescriptionLabel = styled(Label)`
-  width: 90px;
-`;
-
-export const TextArea = styled.textarea`
-  outline: none;
-  background: transparent;
-  border: 2px solid ${colors.greyScrollbarHover};
-  color: ${colors.greyScrollbarHover};
-  padding: 10px 20px;
-  margin-top: 5px;
-  font-size: 1rem;
-  resize: vertical;
+export const Error = styled.small`
+  width: 100%;
+  font-size: 0.7rem;
+  color: #FF5757;
+  background-color: #F9C2C2;
+  padding: 3px 5px;
+  margin-top: 4px;
   border-radius: 5px;
 `;
 
@@ -139,10 +138,12 @@ export const Placeholder = styled.div`
   height: 40px;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<ButtonProps>`
   background: transparent;
   border: 4px solid ${colors.blue};
+  border-color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
   color: ${colors.blue};
+  color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
   width: 100%;
   font-size: 1rem;
   padding: 10px 20px;
@@ -150,11 +151,31 @@ export const Button = styled.button`
   transition: .2s all ease-in-out;
   font-weight: bold;
   margin-top: 15px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  
+  span {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    transition: .2s all ease-in-out;
+  }
 
   &:hover {
     cursor: pointer;
+    cursor: ${({isEnableSend}) => !isEnableSend && `not-allowed`};
     background: ${colors.blue};
+    background: ${({isEnableSend}) => !isEnableSend && "transparent"};
     color: ${colors.lightGreyBackgroundColumn};
+    color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
+    border-color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
+
+    span {
+      transform: scale(1.4);
+    }
   }
 `;
 

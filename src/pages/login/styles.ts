@@ -74,7 +74,6 @@ export const Error = styled.small`
   padding: 3px 5px;
   margin-top: 4px;
   border-radius: 5px;
-
 `;
 
 export const Button = styled.button`

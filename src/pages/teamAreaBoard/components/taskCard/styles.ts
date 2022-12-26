@@ -18,18 +18,24 @@ export const dateLabelColors = {
 export const Container = styled.article`
   padding: 12px 12px;
   height: auto;
+  min-height: 70px;
   background-color: ${colors.background};
   cursor: grab;
   user-select: none;
   display: flex;
   margin-bottom: 10px;
   word-break: break-all;
-
   border: 4px solid ${colors.white};
   border-radius: 12px;
 
   &:active {
     cursor: grabbing;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    transition: all .1s ease-in-out;
+    background-color: ${colors.taskHover};
   }
 `;
 
@@ -39,6 +45,7 @@ export const Informations = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 80%;
+  gap: 10px;
 `;
 
 export const Title = styled.span`

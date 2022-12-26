@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const Areas = styled.div<AreasProps>`
   display: grid;
   margin: 0 auto;
-  gap: ${({listSize}) => listSize >= 2 ? "30px" : "0px"};
+  column-gap: 10px;
   grid-template-columns: repeat(6, auto);
   justify-content: center;
   margin-bottom: 30px;
@@ -22,7 +22,7 @@ export const Areas = styled.div<AreasProps>`
 
 export const TeamInformationsGroup = styled.div`
   width: 100vw;
-  height: 130px;
+  height: 100px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
@@ -46,7 +46,7 @@ export const NameAndLeaderGroup = styled.div`
 `;
 
 export const Name = styled.div`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: white;
 `;
 

@@ -25,6 +25,9 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column, index 
 
   const toggleModal = () => setModalVisible(!isModalVisible);
 
+  const screenHeight = window.innerHeight;
+  const isSmallScreenHeight = screenHeight < 900;
+
   const currentDroppableId = index + 1;
   return (
     <Container isDone={column.isForDoneTasks}>
@@ -47,6 +50,7 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column, index 
                 {...provided.droppableProps} 
                 ref={provided.innerRef}
                 // style={dragOverStyle(snapshot.isDraggingOver)}
+                isSmallScreenHeight={isSmallScreenHeight}
               >
                 {column.tasks.map((task, index) => {
                   return <TaskCard key={task.id} index={index} task={task} />;

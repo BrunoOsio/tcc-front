@@ -5,6 +5,10 @@ type ContainerProps = {
   isDone: boolean;
 };
 
+type TasksListProps = {
+  isSmallScreenHeight: boolean;
+};
+
 export const Container = styled.section<ContainerProps>`
   background-color: ${colors.lightGreyBackgroundColumn};
 
@@ -118,7 +122,7 @@ export const AddTaskButton = styled.button`
 
     span {
       transition: .3s all ease-in-out;
-      color: ${colors.greyScrollbarHover}
+      color: ${colors.greyScrollbarHover};
     }
   }
 `;
@@ -127,12 +131,13 @@ export const Button = styled.button`
   padding: 0px 20px;
 `;
 
-export const TasksList = styled.div`
+export const TasksList = styled.div<TasksListProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
   min-width: ${sizes.column};
   max-width: 317px;
   margin-top: 10px;
-  min-height: 340px;
+  min-height: 550px;
+  min-height: ${({isSmallScreenHeight}) => isSmallScreenHeight && "340px"};
 `;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors } from "../../../../globalStyles/globalValues";
 
 type Props = {
-  isTeam: boolean;
+  isTeam?: boolean;
 }
 
 export const SidebarLink = styled(Link)<Props>`
@@ -18,9 +18,9 @@ export const SidebarLink = styled(Link)<Props>`
 
     &:hover {
         background-color: ${colors.navyBlue};
-        background-color: ${({isTeam}) => isTeam && "rgba(255, 100, 100, 0.20)"};
+        /* background-color: ${({isTeam}) => isTeam && "rgba(255, 100, 100, 0.20)"}; */
         border-left: 4px solid ${colors.blue};
-        border-left: ${({isTeam}) => isTeam && `4px solid ${colors.redSalmon}`};
+        /* border-left: ${({isTeam}) => isTeam && `4px solid ${colors.redSalmon}`}; */
     }
 `;
 

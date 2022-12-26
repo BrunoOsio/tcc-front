@@ -38,7 +38,7 @@ export const TeamDashboard = () => {
       dispatch(findTeam(teamIdNumber));
       dispatch(findAreas(teamIdNumber));
       dispatch(findUser(userId));
-  }, []);
+  }, [teamId]);
 
   const goToNewArea = () => {
     navigate(routes.createArea(teamIdNumber));
@@ -64,8 +64,8 @@ export const TeamDashboard = () => {
       <TeamInformationsGroup>
         <LeftInformations>
           
-          {isTeamLoading && <TeamPhotoBlank size={90}/>}
-          {isTeamSuccess && <TeamPhoto team={team} size={90}/>}
+          {isTeamLoading && <TeamPhotoBlank size={70}/>}
+          {isTeamSuccess && <TeamPhoto team={team} size={70}/>}
 
           <NameAndLeaderGroup>
             { isTeamLoading && <Name>Carregando nome</Name>}

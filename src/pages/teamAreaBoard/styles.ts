@@ -5,14 +5,20 @@ type InputProps = {
   isBlank: boolean;
 }
 
-export const Container = styled.main`
+export const Container = styled.div`
+  width: 100vw;
+  flex-direction: column;
+`;
+
+
+export const ColumnsContainer = styled.main`
   display: flex;
   flex-direction: row;
   margin-top: ${sizes.navbar};
   margin-left: ${sizes.navbar};
   overflow: auto;
   margin-right: 50px;
-  height: calc(100vh - ${sizes.navbar});
+  height: calc(100vh - 200px);
   max-height: 1200px;
 
   @media (max-width: ${responsivity.mobile}){
@@ -20,27 +26,71 @@ export const Container = styled.main`
     margin-top: ${sizes.navbarMobile};
     height: calc(100vh - ${sizes.navbarMobile});
   }
+`;
 
-  ::-webkit-scrollbar {
-    width: 15px;
-  }
+export const TeamInformationsGroup = styled.div`
+  width: 100vw;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  background: rgb(46,127,222);
+  background: linear-gradient(90deg, rgba(46,127,222,1) 0%, rgba(53,96,210,1) 100%);
+  padding: 30px;
+`;
 
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: ${colors.lightGreyBackgroundAddButton};
-  }
+export const LeftInformations = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+`;
 
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: ${colors.greyScrollbar};
-    border-radius: 999px;
-  }
+export const NameAndLeaderGroup = styled.div`
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+`;
 
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: ${colors.greyScrollbarHover};
-    cursor: pointer;
+export const Name = styled.div`
+  font-size: 1.2rem;
+  color: white;
+`;
+
+export const LeaderGroup = styled.div`
+  display: flex;
+  color: #E4E4E4;
+
+  span {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    font-size: 0.8rem;
+    margin-right: 5px;
   }
+`;
+
+export const Leader = styled.span`
+  font-size: 0.8rem;
+`;
+
+export const RightInformations = styled.div`
+  max-width: 700px;
+  height: 70%;
+  margin: auto 20px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap: 5px;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    color: white;
+    margin-left: 0px;
+}
 `;
 
 export const NoColumnContainer = styled.div`

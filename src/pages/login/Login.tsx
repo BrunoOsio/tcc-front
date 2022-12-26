@@ -10,7 +10,7 @@ import { notifyError, notifySuccess } from "../../shared/helpers/notificationHel
 import { Loading } from "./components/loading/Loading";
 import { UserLoginStorageDTO } from "../../shared/dtos/user/UserLoginStorageDTO";
 import teamService from "../../shared/services/team/teamService";
-import { clearLocalStorage, getStoredId, mapRawTeamsIdsToString, saveLocalStorage } from "../../shared/helpers/localStorage/localStorageHelpers";
+import { clearLocalStorage, mapRawTeamsIdsToString, saveLocalStorage } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { SaveLocalStorageDto } from "../../shared/helpers/localStorage/SaveLocalStorageDto";
 import { useAppSelector } from "../../states/app/hooks";
 import { useDispatch } from "react-redux";

@@ -27,7 +27,7 @@ export const CreateTeam = () => {
     const newTeam: NewTeamDTO = {
       name: values.name,
       modality: values.modality,
-      number: values.number || undefined
+      number: values.number || undefined,
     }
 
     const team = user && await teamService.createTeam(newTeam, user.id);
