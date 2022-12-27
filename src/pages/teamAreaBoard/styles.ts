@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, responsivity, sizes } from "../../shared/globalStyles/globalValues";
+import { appGradient, colors, responsivity, sizes } from "../../shared/globalStyles/globalValues";
 
 type InputProps = {
   isBlank: boolean;
@@ -8,6 +8,8 @@ type InputProps = {
 export const Container = styled.div`
   width: 100vw;
   flex-direction: column;
+  background: url("/background_tasks.png");
+  object-fit: contain;
 `;
 
 
@@ -15,7 +17,7 @@ export const ColumnsContainer = styled.main`
   display: flex;
   flex-direction: row;
   margin-top: ${sizes.navbar};
-  margin-left: ${sizes.navbar};
+  margin-left: calc(${sizes.navbar} + 100px);
   overflow: auto;
   margin-right: 50px;
   height: calc(100vh - 200px);
@@ -34,9 +36,8 @@ export const TeamInformationsGroup = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
-  background: rgb(46,127,222);
-  background: linear-gradient(90deg, rgba(46,127,222,1) 0%, rgba(53,96,210,1) 100%);
-  padding: 30px;
+  background: ${appGradient};
+  padding-left: 12px;
 `;
 
 export const LeftInformations = styled.div`

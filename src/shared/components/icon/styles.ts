@@ -3,6 +3,7 @@ import { colors } from "../../globalStyles/globalValues";
 
 export type BorderProps = {
   size: number
+  isDropdown?: boolean;
 }
 
 export const Border = styled.div<BorderProps>`
@@ -34,8 +35,13 @@ export const Container = styled.div`
   }
 `;
 
-export const Initials = styled.div`
+const calculateSize = (size: number) => {
+  return `${size / 60}rem`;
+}
+export const Initials = styled.div<BorderProps>`
   color: white;
   text-transform: uppercase;
+  font-size: ${({size}) => size && `${calculateSize(size)}`};
   font-weight: bold;
+  pointer-events: none;
 `;

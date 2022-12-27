@@ -7,7 +7,7 @@ type ModalProps = {
   children: React.ReactNode
 }
 
-export const BaseModal: React.FC<ModalProps> = ({onBackDropClick, children}) => {
+export const BaseModal: React.FC<ModalProps> = ({children}) => {
   return ReactDOM.createPortal(
     <>
       <motion.div 
@@ -29,7 +29,6 @@ export const BaseModal: React.FC<ModalProps> = ({onBackDropClick, children}) => 
 
       className="overlay">
 
-        {/* <div onClick={event => event.stopPropagation()}> */}
         <div onClick={event => event.stopPropagation()}>
 
           {children}

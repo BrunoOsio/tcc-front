@@ -51,7 +51,6 @@ export const AreaSettings = () => {
           )}
         </TitleContainer>
 
-
         <Main>
           {
             areas.map(area => <AreaCard key={area.id} area={area} team={team}/>)

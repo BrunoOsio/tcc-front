@@ -1,31 +1,44 @@
 import moment from "moment";
-import { ChangeEvent, useEffect, useState } from "react";
-import { TaskReferencedToColumnDTO } from "../../../../shared/dtos/task/TaskReferencedToColumnDTO";
-import { notifyError, notifySuccess } from "../../../../shared/helpers/notificationHelpers";
-import { createDateOfNow, createDefaultDateTimeLocalInput, formatDate, formatStringDate, isValidStringDate } from "../../../../shared/helpers/dateHelpers";
-import taskService from "../../../../shared/services/task/taskService";
-import { useAppDispatch } from "../../../../states/app/hooks";
-import { createTask, patchCreateTask } from "../../../../states/features/columnSlice";
-import { BaseModal } from "./BaseModal";
-import { MdClose } from "react-icons/md";
-import { Button, CheckboxContainer, CheckboxLabel, DateTimeFormGroup, DateTimeInput, EnableLimitDate, ExitButton, Form, FormGroup, Header, Input, Label, Placeholder, Error, TextArea, ConfirmButton, ButtonGroup } from "./styles";
-import { trimmed } from "../../../../shared/helpers/stringHelpers";
+import { ChangeEvent, useState } from "react";
 import { ImArrowRight } from "react-icons/im";
+import { MdClose } from "react-icons/md";
+import { TbArrowsJoin } from "react-icons/tb";
+import { BaseModal } from "../../../../../../shared/components/baseModal/BaseModal";
+import { TaskReferencedToColumnDTO } from "../../../../../../shared/dtos/task/TaskReferencedToColumnDTO";
+import { UpdatedTaskReferencedToColumnDTO } from "../../../../../../shared/dtos/task/UpdatedTaskReferencedToColumnDTO";
+import { createDateOfNow, createDefaultDateTimeLocalInput, formatDate, formatStringDate, isValidStringDate } from "../../../../../../shared/helpers/dateHelpers";
+import { notifyError, notifySuccess, notifyWarning } from "../../../../../../shared/helpers/notificationHelpers";
+import { trimmed } from "../../../../../../shared/helpers/stringHelpers";
+import taskService from "../../../../../../shared/services/task/taskService";
+import { Task } from "../../../../../../shared/types";
+import { useAppDispatch } from "../../../../../../states/app/hooks";
+import { patchUpdateTask, updateTask } from "../../../../../../states/features/columnSlice";
+import { Form, ExitButton, FormGroup, Header, Input, Label, Error, TextArea, DateTimeFormGroup, CheckboxContainer, EnableLimitDate, CheckboxLabel, DateTimeInput, Placeholder, Button, ButtonGroup, RemoveButton, ConfirmButton } from "../../../newTaskModal/styles";
+import { IoMdTrash } from "react-icons/io";
 
 type BaseModalWrapperProps = {
+  task: Task;
   columnId: number;
   isModalVisible: boolean;
   onBackDropClick: () => void;
+  setShowEditButton: (isShow: boolean) => void;
 }
 
-export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModalVisible, onBackDropClick}) => {
+export const TaskDetailsModal: React.FC<BaseModalWrapperProps> = ({
+  task,
+  columnId,
+  isModalVisible, 
+  onBackDropClick, 
+  setShowEditButton,
+}) => {
+
   const dispatch = useAppDispatch();
 
   const defaultState = {
-    title: undefined,
-    description: undefined,
-    limitDateCheckbox: false,
-    limitDate: createDefaultDateTimeLocalInput(),
+    title: task.title,
+    description: task.description,
+    limitDateCheckbox: !!task.limitAt,
+    limitDate: task.limitAt || createDefaultDateTimeLocalInput(),
   };
 
   const [title, setTitle] = useState<string | undefined>(defaultState.title);
@@ -33,7 +46,7 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
   const [description, setDescription] = useState<string | undefined>(defaultState.description);
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
   const [isLimitDateCheckbox, setLimitDateCheckbox] = useState<boolean>(defaultState.limitDateCheckbox);
-  const [limitDate, setLimitDate] = useState<string>(defaultState.limitDate);
+  const [limitDate, setLimitDate] = useState<string | null>(defaultState.limitDate);
 
   const handleTitle = (event: ChangeEvent<HTMLInputElement>) => {
     const newTitle = event.target.value;
@@ -76,41 +89,57 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
 
   if(!isModalVisible) return null;
 
-  const isTitleInvalid = !!titleError || title === undefined;
+  const isTitleInvalid = !!titleError && title === undefined;
   const isDescriptionInvalid = !!descriptionError;
 
-  const isEnableSend = !isTitleInvalid && !isDescriptionInvalid;
+  const isValuesToSave = (task.title !== title) || (task.description !== description) || (task.limitAt !== limitDate);
+  const isFieldError = isTitleInvalid || isDescriptionInvalid;
+  const isEnableSend = !isFieldError && isValuesToSave;
+  console.log(isValuesToSave);
+  const closeModal = () => {
+    setShowEditButton(false);
+    onBackDropClick();
+  }
 
-  const handleSubmit = async (columnId: number) => {
-    if(!isEnableSend) {
-      notifyError("Há erros no preenchimento do formulário")
+  const handleSubmit = async () => {
+    if (!isValuesToSave) {
+      notifyWarning("Não há alterações para serem salvas");
       return;
     }
 
-    const biggestId = await taskService.findBiggestId() + 1;
-    const formattedLimitDate = formatStringDate(limitDate);
+    if (isFieldError) {
+      notifyError("Há erros no preenchimento do formulário");
+      return;
+    }
 
-    const newTask: TaskReferencedToColumnDTO = {
+    const formattedLimitDate = limitDate ? formatStringDate(limitDate) : null;
+
+    const updatedTask: UpdatedTaskReferencedToColumnDTO = {
       columnId: columnId,
-      temporaryReduxId: biggestId,
+      id: task.id,
       title: title || "Sem título",
       description: description || "Sem descrição",
       createdAt: createDateOfNow(),
+      isFinished: false,
       limitAt: isLimitDateCheckbox ? formattedLimitDate : null,
+      // members: task.members
     }
 
     resetFormData();
-    onBackDropClick();
-    notifySuccess("Tarefa criada");
 
-    dispatch(patchCreateTask(newTask));
-    dispatch(createTask(newTask));
+    closeModal();
+
+    notifySuccess("Tarefa atualizada");
+
+    dispatch(patchUpdateTask(updatedTask));
+    dispatch(updateTask(updatedTask));
   }
+  
   return (
-    <BaseModal onBackDropClick={onBackDropClick}>
+    <BaseModal onBackDropClick={closeModal}>
       <Form>
         <ExitButton onClick={onBackDropClick}><MdClose color="#6a6a6a"/></ExitButton>        
-        <Header>Adicionar nova tarefa</Header>
+        <Header>{task.title}</Header>
 
         <FormGroup>
             <Label htmlFor="title">Título</Label>
@@ -141,12 +170,14 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
             <CheckboxLabel htmlFor="isLimitDate">Habilitar data limite?</CheckboxLabel>
           </CheckboxContainer>
 
-          { isLimitDateCheckbox && <DateTimeInput type="datetime-local" value={formatStringDate(limitDate)} onChange={handleLimitDate}/>}
+          { isLimitDateCheckbox && <DateTimeInput type="datetime-local" value={limitDate ? formatStringDate(limitDate) : undefined} onChange={handleLimitDate}/>}
           { !isLimitDateCheckbox && <Placeholder/>}
         </DateTimeFormGroup>
 
         <ButtonGroup>
-          <ConfirmButton onClick={() => handleSubmit(columnId)} isEnableSend={isEnableSend}><span><ImArrowRight/></span></ConfirmButton>
+          <RemoveButton><span><IoMdTrash/></span></RemoveButton>
+          <ConfirmButton onClick={() => handleSubmit()} isEnableSend={isEnableSend}><span><ImArrowRight/></span></ConfirmButton>
+
         </ButtonGroup>
       </Form>
     </BaseModal>

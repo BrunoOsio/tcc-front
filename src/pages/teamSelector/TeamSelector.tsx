@@ -13,6 +13,7 @@ import { Sidebar } from "../../shared/components/sidebar/Sidebar";
 import { PositionCoordinates } from "../../shared/components/sidebar/types/PositionCoordinates";
 import { useNavigate } from "react-router-dom";
 import routes from "../../routes/routes";
+import { UserDropdown } from "../../shared/components/userDropdown/UserDropdown";
 
 export const TeamSelector = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export const TeamSelector = () => {
         {
           isUserLoading &&
           <UserCard>
-            <IconBlank/>
+            <UserDropdown user={user} size={80}/>
             <Name>Carregando</Name>
           </UserCard>
         }
@@ -53,7 +54,7 @@ export const TeamSelector = () => {
         {
           user &&
           <UserCard>
-            <Icon user={user}/>
+            <UserDropdown user={user} size={80}/>
             <Name>{user.name}</Name>
           </UserCard>
         }

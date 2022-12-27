@@ -1,7 +1,7 @@
 import { BaseModal } from "../../../../shared/components/baseModal/BaseModal";
 import { Area, User } from "../../../../shared/types";
 import { Container, BackButton, ButtonGroup, ConfirmButton, Title, Members, Member } from "./styles";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import routes from "../../../../routes/routes";
 import { useEffect, useState } from "react";
 import { UpdateLeaderDTO } from "../../../../shared/dtos/area/UpdateLeaderDTO";

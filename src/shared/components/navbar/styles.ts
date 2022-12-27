@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import { colors, sizes } from "../../globalStyles/globalValues";
+import { appGradient, sizes } from "../../globalStyles/globalValues";
 
 export const Container = styled.div`
   width: 100%;
   height: ${sizes.navbar};
-  background-color: ${colors.navyBlue};
+  background: ${appGradient};
   display: flex;
   position: relative;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  padding-right: 12px;
 `;
 
 export const LogoContainer = styled.div`

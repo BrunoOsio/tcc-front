@@ -146,10 +146,6 @@ export const TeamAreaBoard = () => {
           </NameAndLeaderGroup>
         </LeftInformations>
         <RightInformations>
-          <LabelGroup onClick={goToTeamDashboard}>
-            <span><AiOutlineTeam/></span>
-            <Label>Áreas</Label>
-          </LabelGroup>
           {isAreaSuccess && (
 
             areas.map((area, index) => { 
@@ -160,6 +156,12 @@ export const TeamAreaBoard = () => {
           )}
           
           {areasLengthReached && <span className="icon"><GoPlus /></span>}
+
+          <LabelGroup onClick={goToTeamDashboard}>
+            <span><AiOutlineTeam/></span>
+            <Label>Áreas</Label>
+          </LabelGroup>
+          
         </RightInformations>
       </TeamInformationsGroup>
 

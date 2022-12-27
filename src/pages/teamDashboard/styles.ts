@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { appGradient } from "../../shared/globalStyles/globalValues";
 
 type AreasProps = {
   listSize: number;
@@ -26,9 +27,8 @@ export const TeamInformationsGroup = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
-  background: rgb(46,127,222);
-  background: linear-gradient(90deg, rgba(46,127,222,1) 0%, rgba(53,96,210,1) 100%);
-  padding: 30px;
+  background: ${appGradient};
+  padding: 12px;
 `;
 
 export const LeftInformations = styled.div`
@@ -70,7 +70,7 @@ export const Leader = styled.span`
 export const RightInformations = styled.div`
   max-width: 700px;
   height: 70%;
-  margin: auto 20px;
+  margin: auto 0px;
   display: flex;
   align-items: center;
   align-content: center;
@@ -115,8 +115,7 @@ export const Label = styled.span`
 `;
 
 export const Header = styled.div`
-  background: rgb(46,127,222);
-  background: linear-gradient(90deg, rgba(46,127,222,1) 0%, rgba(53,96,210,1) 100%);
+  background: ${appGradient};
   width: calc(100% - 80px);
   margin: 0 auto;
   padding: 30px 30px 30px 30px;

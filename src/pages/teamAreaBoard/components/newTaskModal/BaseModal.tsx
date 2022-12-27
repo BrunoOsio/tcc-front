@@ -29,7 +29,6 @@ export const BaseModal: React.FC<ModalProps> = ({onBackDropClick, children}) => 
 
       className="overlay">
 
-        {/* <div onClick={event => event.stopPropagation()}> */}
         <div onClick={event => event.stopPropagation()}>
 
           {children}

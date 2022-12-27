@@ -53,7 +53,7 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column, index 
                 isSmallScreenHeight={isSmallScreenHeight}
               >
                 {column.tasks.map((task, index) => {
-                  return <TaskCard key={task.id} index={index} task={task} />;
+                  return <TaskCard key={task.id} index={index} task={task} columnId={column.id}/>;
                 })}
 
                 {provided.placeholder}

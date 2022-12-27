@@ -4,13 +4,14 @@ import { User } from "../../types";
 type IconProps = {
   user: User;
   size: number;
+  isDropdown?: boolean;
 }
 
 const SPACE = " ";
 const FIRST_LETTER_INDEX = 0;
 const NO_SPACE_BETWEEN_LETTERS = "";
 const MAX_INITIALS_LENGTH = 2;
-export const Icon: React.FC<IconProps> = ({user, size}) => {
+export const Icon: React.FC<IconProps> = ({user, size, isDropdown}) => {
 
   const getFullnameInitials = () => {
       const fullnameArray = user.name.split(SPACE);
@@ -24,9 +25,9 @@ export const Icon: React.FC<IconProps> = ({user, size}) => {
   }
 
   return (
-    <Border size={size}>
+    <Border size={size} isDropdown={isDropdown}>
       <Container>
-        <Initials>{getFullnameInitials()}</Initials>
+        <Initials size={size}>{getFullnameInitials()}</Initials>
       </Container>
     </Border>
   );

@@ -82,8 +82,9 @@ export const NewTeamButton = () => {
   return (
     <Dropdown
       overlay={menu}
+      trigger={['click']}
     >
-      <Container onMouseEnter={() => setMenuIcon(IconEnum.DOWN)}> 
+      <Container> 
         <article><span>
           {setButtonIcon()}
         </span></article>  

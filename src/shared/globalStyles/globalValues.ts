@@ -1,12 +1,12 @@
 export const colors = {
   background: "#E4EBFF",
   taskHover: "#DAE4FF",
-  blue: "#1688FF",
+  blue: "#3488EB",
   darkBlue: "#3579D2",
   navyBlue: "#0F4092",
   purpleBlue: "#3561D2",
-  lightGreyBackgroundColumn: "#EFEFEF",
-  lightGreyBackgroundAddButton: "#E4E4E4",
+  lightGreyBackgroundColumn: "rgba(197, 197, 197, 0.21)",
+  lightGreyBackgroundAddButton: "rgba(197, 197, 197, 0.31)",
   greyBorderAddButton: "#A2A2A2",
   greyScrollbar: "#ACACAC",
   greyScrollbarHover: "#909090",
@@ -14,6 +14,8 @@ export const colors = {
   white: "#FFFFFF",
   redSalmon: "#FF5757"
 }
+
+export const appGradient = "linear-gradient(90deg, rgba(19,118,233,1) 0%, rgba(26,75,201,1) 100%);";
 
 export const sizes = {
   navbar: "50px",

@@ -2,6 +2,8 @@ import { Task } from "../../types";
 import axios from "axios";
 import { NewTaskDTO } from "../../dtos/task/NewTaskDTO";
 import { TaskReferencedToColumnDTO } from "../../dtos/task/TaskReferencedToColumnDTO";
+import { UpdateTaskDTO } from "../../dtos/task/UpdateTaskDTO";
+import { UpdatedTaskReferencedToColumnDTO } from "../../dtos/task/UpdatedTaskReferencedToColumnDTO";
 
 const BASE_URL = "http://127.0.0.1:3000/api/tasks/";
 
@@ -36,6 +38,22 @@ const createTask = async (taskReferencedToColumnDTO: TaskReferencedToColumnDTO) 
   return data;
 }
 
+const updateTask = async (updatedTaskReferencedToColumnDTO: UpdatedTaskReferencedToColumnDTO) => {
+  const endpoint = `${BASE_URL}${updatedTaskReferencedToColumnDTO.id}`;
+
+  const updateTaskDTO: UpdateTaskDTO = {
+    title: updatedTaskReferencedToColumnDTO.title,
+    description: updatedTaskReferencedToColumnDTO.description,
+    createdAt: updatedTaskReferencedToColumnDTO.createdAt,
+    limitAt: updatedTaskReferencedToColumnDTO.limitAt,
+    isFinished: false
+  }
+
+  const { data } = await axios.patch(endpoint, updateTaskDTO);
+
+  return data;
+}
+
 const findBiggestId = async () => {
   const endpoint = `${BASE_URL}biggestId`;
 
@@ -44,4 +62,10 @@ const findBiggestId = async () => {
   return data;
 }
 
-export default { findTaskById, findTasksByColumnId, createTask, findBiggestId };
+export default { 
+  findTaskById, 
+  findTasksByColumnId, 
+  createTask, 
+  updateTask, 
+  findBiggestId 
+};

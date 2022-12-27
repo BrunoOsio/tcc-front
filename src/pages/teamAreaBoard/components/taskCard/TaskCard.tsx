@@ -1,22 +1,39 @@
 import { Draggable } from "@hello-pangea/dnd";
 import { draggableId } from "../../../../shared/helpers/area/beautifulDndIdHelpers";
 import { Task } from "../../../../shared/types";
-import { Container, dateLabelColors, Informations, LimitAt, LimitDateLabel, MemberPhoto, Members, Title } from "./styles";
+import { Container, dateLabelColors, EditContainer, Informations, LimitAt, LimitDateLabel, MemberPhoto, Members, Title } from "./styles";
 import { RiTimer2Fill } from "react-icons/ri";
 import { draggingStyle } from "./snapshot/draggingStyle";
 import moment from "moment";
 import { colors } from "../../../../shared/globalStyles/globalValues";
+import { useEffect, useState } from "react";
+import { TaskDetailsModal } from "./components/taskDetailsModal/TaskDetailsModal";
+import { BsArrowsAngleExpand } from "react-icons/bs";
 
 type TaskCardProps = {
-  index: number
-  task: Task
+  index: number;
+  task: Task;
+  columnId: number
 }
 
-export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
+export const TaskCard: React.FC<TaskCardProps> = ({ task, index, columnId }) => {
+  const [showEditButton, setShowEditButton] = useState(false);
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => { 
+    setModalVisible(!isModalVisible);
+  };
+
+  useEffect(() => {
+    if(!isModalVisible) {
+      setShowEditButton(false);
+    }
+    
+  }, [isModalVisible]);
 
   const handleLimitDateLabel = (limitDate: string): string => {
     const date = moment(limitDate).toDate();
-
+    
     return `${date.getDate()}/${date.getMonth() + 1}`;
   }
 
@@ -31,6 +48,10 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
     return color;
   }
 
+  const toggleEditButton = () => {
+    setShowEditButton(!showEditButton);
+  }
+
   return (
     <Draggable key={task.id} draggableId={draggableId(task.id)} index={index}>
       {
@@ -40,6 +61,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
             {...provided.dragHandleProps} 
             ref={provided.innerRef}
             style={draggingStyle(snapshot.isDragging, provided.draggableProps.style)}
+            onMouseEnter={toggleEditButton}
+            onMouseLeave={toggleEditButton}
           >
             <Informations>
               <Title>{task.title}</Title>
@@ -52,20 +75,34 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index }) => {
               }
               
             </Informations>
-            <Members>
+            
+            {showEditButton && (
+              <EditContainer onClick={toggleModal}>
+                <span><BsArrowsAngleExpand/></span>
+                <TaskDetailsModal 
+                  task={task} 
+                  columnId={columnId}
+                  setShowEditButton={setShowEditButton} 
+                  isModalVisible={isModalVisible} 
+                  onBackDropClick={toggleModal}
+                />
+              </EditContainer>
+            )}
 
-              {task.members &&
-                task.members.map((member, index) => {
-                  const membersAmount = index + 1;
+            {!showEditButton && (
+              <Members>
+                {task.members &&
+                  task.members.map((member, index) => {
+                    const membersAmount = index + 1;
 
-                  //TODO SET MAX AMOUNT MEMBERS
-                  return (
-                        <MemberPhoto key={index} amount={index}>{member.id}</MemberPhoto>
-                  );
-                })
-              }
-
-            </Members>
+                    //TODO SET MAX AMOUNT MEMBERS
+                    return (
+                          <MemberPhoto key={index} amount={index}>{member.id}</MemberPhoto>
+                    );
+                  })
+                }
+              </Members>
+            )}
           </Container>
         )
       }

@@ -33,8 +33,6 @@ export const Container = styled.article`
   }
 
   &:hover {
-    transform: translateY(-3px);
-    transition: all .1s ease-in-out;
     background-color: ${colors.taskHover};
   }
 `;
@@ -78,6 +76,31 @@ export const Members = styled.div`
   flex-direction: column;
   align-items: flex-end;
   width: 20%;
+`;
+
+export const EditContainer = styled.div`
+  display: flex;
+  align-content: flex-end;
+  align-items: center;
+  justify-content: flex-end;
+  width: 20%;
+
+  span {
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: ${colors.darkGreyText};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.8);;
+    }
+  }
 `;
 
 export const MemberPhoto = styled.div<MemberPhotoProps>`

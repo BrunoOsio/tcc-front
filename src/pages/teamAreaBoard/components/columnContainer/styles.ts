@@ -10,7 +10,7 @@ type TasksListProps = {
 };
 
 export const Container = styled.section<ContainerProps>`
-  background-color: ${colors.lightGreyBackgroundColumn};
+  background-color: rgba(89, 151, 190, 0.1);
 
   max-height: calc(100vh - ${sizes.navbar} - 20px);
   display: flex;

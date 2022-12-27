@@ -20,8 +20,9 @@ export const Container = styled.div`
 export const Form = styled(Container)`
   border-radius: 7px;
   box-shadow: 0 0 7px ${colors.lightGreyBackgroundColumn};
-  padding: 60px;
-  width: 550px;
+  padding: 100px 130px;
+  width: 1000px;
+  max-width: 1000px;
   max-height: 90vh;
   overflow-y: auto;
   font-size: 26px;
@@ -80,8 +81,10 @@ export const TextArea = styled.textarea<InputProps>`
   padding: 10px 20px;
   margin-top: 5px;
   font-size: 1rem;
+  height: 150px;
   resize: vertical;
   border-radius: 10px;
+  transition: all .2s ease-in-out;
 
   &:focus {
     border: 3px solid ${colors.blue};
@@ -114,6 +117,9 @@ export const EnableLimitDate = styled.input`
   font-size:1.3rem;
   height: 27px;
   width: 27px;
+  accent-color: ${colors.blue};
+  border-radius: 10px;
+  outline: none;
 `;
 export const CheckboxLabel = styled.label`
   box-sizing: border-box;
@@ -138,13 +144,15 @@ export const Placeholder = styled.div`
   height: 40px;
 `;
 
-export const Button = styled.button<ButtonProps>`
-  background: transparent;
-  border: 4px solid ${colors.blue};
-  border-color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
-  color: ${colors.blue};
-  color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
+export const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: row;
   width: 100%;
+  gap: 20px;
+`;
+
+export const Button = styled.button`
+  background: transparent;
   font-size: 1rem;
   padding: 10px 20px;
   border-radius: 10px;
@@ -166,16 +174,44 @@ export const Button = styled.button<ButtonProps>`
 
   &:hover {
     cursor: pointer;
+
+    span {
+      transform: scale(1.4);
+    }
+  }
+
+`;
+
+export const RemoveButton = styled(Button)`
+  border: 4px solid ${colors.darkGreyText};
+  width: 50px;
+
+
+  &:hover {
+    border-color: ${colors.redSalmon};
+    background-color: ${colors.redSalmon};
+    color: ${colors.white};
+
+    span {
+      transform: scale(1.4);
+    }
+  }
+`;
+
+export const ConfirmButton = styled(Button)<ButtonProps>`
+  border: 4px solid ${colors.blue};
+  border-color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
+  color: ${colors.blue};
+  color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
+  flex: 1;
+
+  &:hover {
     cursor: ${({isEnableSend}) => !isEnableSend && `not-allowed`};
     background: ${colors.blue};
     background: ${({isEnableSend}) => !isEnableSend && "transparent"};
     color: ${colors.lightGreyBackgroundColumn};
     color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
     border-color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
-
-    span {
-      transform: scale(1.4);
-    }
   }
 `;
 

@@ -78,10 +78,6 @@ export const TeamDashboard = () => {
           </NameAndLeaderGroup>
         </LeftInformations>
         <RightInformations>
-          <LabelGroup onClick={goToTeamMembers}>
-            <span><AiOutlineTeam/></span>
-            <Label>Membros</Label>
-          </LabelGroup>
           {isTeamSuccess && (
 
             teamMembers.map((member, index) => { 
@@ -92,6 +88,11 @@ export const TeamDashboard = () => {
           )}
           
           {membersLengthReached && <span className="icon"><GoPlus /></span>}
+
+          <LabelGroup onClick={goToTeamMembers}>
+            <span><AiOutlineTeam/></span>
+            <Label>Membros</Label>
+          </LabelGroup>
         </RightInformations>
       </TeamInformationsGroup>
 

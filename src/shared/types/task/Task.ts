@@ -5,7 +5,7 @@ export type Task = {
   title: string;
   description?: string;
   createdAt: string;
-  limitAt?: string;
+  limitAt: string | null;
   isFinished: boolean;
   owner?: User;
   members: User[];
