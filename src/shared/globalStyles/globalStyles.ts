@@ -37,18 +37,18 @@ export const GlobalStyle = createGlobalStyle`
   /* Track */
   ::-webkit-scrollbar-track {
     border-radius: 12px;
-    background-color: ${colors.background};
+    background-color: ${colors.lightBlue};
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: ${colors.greyScrollbar};
+    background: ${colors.greyLighter};
     border-radius: 999px;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: ${colors.greyScrollbarHover};
+    background: ${colors.greyDarker};
     cursor: pointer;
   }
 

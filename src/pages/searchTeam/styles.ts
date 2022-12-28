@@ -70,7 +70,7 @@ export const SearchBar = styled.input`
   overflow: hidden;
 
   &::placeholder {
-    color: ${colors.lightGreyBackgroundAddButton};
+    color: ${colors.lightGreyAlmostTransparent};
     font-size: 1.2rem;
   }
 
@@ -106,7 +106,7 @@ export const NoTeamsGroup = styled.div`
   align-items: center;
   align-content: center;
   padding: 160px;
-  color: ${colors.greyScrollbar};
+  color: ${colors.greyLighter};
   .icon {
     font-size: 1.6rem;
   }

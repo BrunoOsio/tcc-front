@@ -15,6 +15,14 @@ const findTaskById = async (taskId: number): Promise<Task> => {
   return data;
 }
 
+const isTaskExist = async (taskId: number): Promise<boolean> => {
+  const endpoint = `${BASE_URL}${taskId}/isExist`;
+
+  const { data } = await axios.get(endpoint);
+
+  return data;
+}
+
 const findTasksByColumnId = async (columnId: number): Promise<Task[]> => {
   const endpoint = `${BASE_URL}find?columnId=${columnId}`;
   const { data } = await axios.get(endpoint);
@@ -54,7 +62,7 @@ const updateTask = async (updatedTaskReferencedToColumnDTO: UpdatedTaskReference
   return data;
 }
 
-const findBiggestId = async () => {
+const findBiggestId = async (): Promise<number> => {
   const endpoint = `${BASE_URL}biggestId`;
 
   const { data } = await axios.get(endpoint);
@@ -62,10 +70,20 @@ const findBiggestId = async () => {
   return data;
 }
 
+const remove = async (id: number): Promise<void> => {
+  const endpoint = `${BASE_URL}${id}`;
+
+  const { data } = await axios.delete(endpoint);
+
+  return data;
+}
+
 export default { 
   findTaskById, 
+  isTaskExist,
   findTasksByColumnId, 
   createTask, 
   updateTask, 
-  findBiggestId 
+  findBiggestId,
+  remove 
 };

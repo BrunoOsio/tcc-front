@@ -19,7 +19,7 @@ export const Container = styled.article`
   padding: 12px 12px;
   height: auto;
   min-height: 70px;
-  background-color: ${colors.background};
+  background-color: ${colors.lightBlue};
   cursor: grab;
   user-select: none;
   display: flex;
@@ -33,7 +33,7 @@ export const Container = styled.article`
   }
 
   &:hover {
-    background-color: ${colors.taskHover};
+    background-color: ${colors.purpleBlue};
   }
 `;
 
@@ -49,6 +49,11 @@ export const Informations = styled.div`
 export const Title = styled.span`
   display: inline;
   font-size: 0.8rem;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 export const LimitAt = styled.div`

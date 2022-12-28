@@ -8,13 +8,13 @@ export const Border = styled.div<BorderProps>`
   width: ${({size}) => `${size}px`};
   height: ${({size}) => `${size}px`};
   clip-path: circle();
-  background-color: ${colors.lightGreyBackgroundAddButton};
+  background-color: ${colors.lightGrey};
 `;
 
 export const Container = styled.div`
   width: 90%;
   height: 90%;
-  background-color: ${colors.lightGreyBackgroundAddButton};
+  background-color: ${colors.lightGrey};
   clip-path: circle();
   display: flex;
   justify-content: center;

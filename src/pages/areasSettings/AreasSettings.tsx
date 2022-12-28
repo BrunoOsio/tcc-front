@@ -37,7 +37,6 @@ export const AreaSettings = () => {
     navigate(routes.teamMembers(teamIdNumber));
   }
 
-  const teamAreas = team?.areas ? team.areas : [];
   const teamJoinRequestsLength = team?.joinRequests ? team.joinRequests?.length : 0;
 
   return (

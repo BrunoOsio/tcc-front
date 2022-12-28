@@ -41,7 +41,7 @@ export const Name = styled.span`
 
 const headerOverlayPx = "-50px";
 export const Teams = styled.section<TeamsProps>`
-  background-color: ${colors.background};
+  background-color: ${colors.lightBlue};
   border: 5px solid rgba(176,197,247,0.68);
   width: 800px;
   height: 490px;

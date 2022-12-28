@@ -11,7 +11,7 @@ const searchTeam = () => `/searchTeam`;
 const teamDashboard = (teamId: number) => `/team/${teamId}/dashboard`;
 const teamMembers = (teamId: number) => `/team/${teamId}/members`;
 const teamJoinRequests = (teamId: number) => `/team/${teamId}/joinRequests`;
-const areaLeaders = (teamId: number) => `/team/${teamId}/areaLeaders`;
+const areasSettings = (teamId: number) => `/team/${teamId}/areasSettings`;
 const createArea = (teamId: number) => `/team/${teamId}/createArea`;
 const teamAreaBoard = (teamId: number, areaId: number) => `/team/${teamId}/area/${areaId}/board`;
 
@@ -29,7 +29,7 @@ export default {
   teamDashboard,
   teamMembers,
   teamJoinRequests,
-  areaLeaders,
+  areasSettings,
   createArea,
   login,
   register,

@@ -11,6 +11,8 @@ import { TaskReferencedToColumnDTO } from "../../shared/dtos/task/TaskReferenced
 import taskService from "../../shared/services/task/taskService";
 import { ColumnReferencedToAreaDTO } from "../../shared/dtos/column/ColumnReferencedToAreaDTO";
 import { UpdatedTaskReferencedToColumnDTO } from "../../shared/dtos/task/UpdatedTaskReferencedToColumnDTO";
+import { RemoveTaskDTO } from "../../shared/dtos/task/RemoveTaskDTO";
+import { UpdateColumnDTO } from "../../shared/dtos/column/UpdateColumnDTO";
 
 type ColumnState = BaseState<Column>;
 
@@ -82,11 +84,35 @@ const patchUpdateTask = createAsyncThunk(
   }
 );
 
+const patchRemoveTask = createAsyncThunk(
+  "column/patchRemoveTask",
+
+  async (taskId: number) => {
+    await taskService.remove(taskId);
+  }
+);
+
 const patchCreateColumn = createAsyncThunk(
   "column/patchCreateColumn",
 
   async (columnReferencedToAreaDTO: ColumnReferencedToAreaDTO) => {
     await columnService.createColumn(columnReferencedToAreaDTO);
+  }
+);
+
+const patchUpdateColumn = createAsyncThunk(
+  "column/patchUpdateColumn",
+
+  async (updateColumnDTO: UpdateColumnDTO) => {
+    await columnService.updateColumn(updateColumnDTO);
+  }
+);
+
+const patchRemoveColumn = createAsyncThunk(
+  "column/patchRemoveColumn",
+
+  async (columnId: number) => {
+    await columnService.removeColumn(columnId);
   }
 );
 
@@ -118,11 +144,11 @@ export const columnSlice = createSlice({
 
     createTask(state, action: PayloadAction<TaskReferencedToColumnDTO>) {
       const  { columnId, temporaryReduxId, title, description, createdAt, limitAt } = action.payload;
-  
+
       const columnIndexState = state.value.findIndex(column => column.id === columnId);
   
       const newTask: Task = {
-        id: temporaryReduxId,
+        id: temporaryReduxId!,
         title: title,
         description: description,
         createdAt: createdAt,
@@ -169,6 +195,38 @@ export const columnSlice = createSlice({
       }
 
       state.value[columnIndexState].tasks[oldTaskIndexState] = updatedTask;
+    },
+
+    removeTask(state, action: PayloadAction<RemoveTaskDTO>) {
+      const {columnId, task: targetRemoveTask} = action.payload;
+
+      const columnIndexState = state.value.findIndex(column => column.id === columnId);
+      const columnState = state.value[columnIndexState];
+
+      let newTasks = Array.from(columnState.tasks);
+
+      const targetRemoveTaskIndexState = state.value[columnIndexState].tasks.findIndex(task => task.id === targetRemoveTask.id);
+      newTasks.splice(targetRemoveTaskIndexState, 1);
+
+      columnState.tasks = newTasks;
+    },
+
+    updateColumn(state, action: PayloadAction<UpdateColumnDTO>) {
+      const {id, title, isForDoneTasks} = action.payload;
+
+      const columnIndexState = state.value.findIndex(column => column.id === id);
+      let columnState = state.value[columnIndexState];
+
+      columnState.title = title;
+      columnState.isForDoneTasks = isForDoneTasks;
+    },
+
+    removeColumn(state, action: PayloadAction<Column>) {
+      const { id } = action.payload;
+      // const columnIndexState = state.value.findIndex(column => column.id === id);
+      const newColumns = state.value.filter(column => column.id != id);
+
+      state.value = newColumns;
     }
   },
 
@@ -203,14 +261,26 @@ export const columnSlice = createSlice({
   } 
 });
 
-export const { reorder, createTask, createColumn, updateTask } = columnSlice.actions;
+export const { 
+  reorder, 
+  createTask, 
+  updateTask, 
+  removeTask,
+  createColumn, 
+  updateColumn,
+  removeColumn,
+} = columnSlice.actions;
+
 export { 
   findColumns, 
   findColumnById, 
   patchReorder, 
   patchCreateTask, 
-  patchCreateColumn, 
-  patchUpdateTask
+  patchUpdateTask,
+  patchRemoveTask,
+  patchCreateColumn,
+  patchUpdateColumn,
+  patchRemoveColumn
 };
 
 export default columnSlice.reducer;

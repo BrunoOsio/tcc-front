@@ -87,7 +87,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index, columnId }) => 
                   onBackDropClick={toggleModal}
                 />
               </EditContainer>
-            )}
+            )}  
 
             {!showEditButton && (
               <Members>

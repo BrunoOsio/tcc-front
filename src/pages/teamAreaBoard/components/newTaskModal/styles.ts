@@ -6,7 +6,11 @@ type InputProps = {
 }
 
 type ButtonProps = {
-  isEnableSend: boolean;
+  isEnableSend?: boolean;
+}
+
+type FormProps = {
+  isLoading?: boolean;
 }
 
 export const Container = styled.div`
@@ -17,9 +21,9 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const Form = styled(Container)`
+export const Form = styled(Container)<FormProps>`
   border-radius: 7px;
-  box-shadow: 0 0 7px ${colors.lightGreyBackgroundColumn};
+  box-shadow: 0 0 7px ${colors.lightGreyFullTransparent};
   padding: 100px 130px;
   width: 1000px;
   max-width: 1000px;
@@ -29,6 +33,8 @@ export const Form = styled(Container)`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  opacity: ${({isLoading}) => isLoading && "0.7"};
+  transition: all .3s ease-in-out;
 `;
 
 export const ExitButton = styled.div`
@@ -40,7 +46,7 @@ export const ExitButton = styled.div`
   padding: 5px;
   &:hover {
     cursor: pointer;
-    background-color: ${colors.lightGreyBackgroundAddButton};
+    background-color: ${colors.lightGreyAlmostTransparent};
   }
 `;
 
@@ -64,7 +70,7 @@ export const Input = styled.input<InputProps>`
   padding: 6px 10px;
   border: none;
   outline: none;
-  border-bottom: 3px solid ${colors.lightGreyBackgroundAddButton};
+  border-bottom: 3px solid ${colors.lightGreyAlmostTransparent};
   border-bottom: ${({isError}) => isError && "3px solid #FF5757"};
   transition: all .2s ease-in-out;
   &:focus {
@@ -75,9 +81,9 @@ export const Input = styled.input<InputProps>`
 export const TextArea = styled.textarea<InputProps>`
   outline: none;
   background: transparent;
-  border: 3px solid ${colors.lightGreyBackgroundAddButton};
+  border: 3px solid ${colors.lightGreyAlmostTransparent};
   border: ${({isError}) => isError && "3px solid #FF5757"};
-  color: ${colors.greyScrollbarHover};
+  color: ${colors.greyDarker};
   padding: 10px 20px;
   margin-top: 5px;
   font-size: 1rem;
@@ -126,7 +132,7 @@ export const CheckboxLabel = styled.label`
   font-size: 0.8rem;
   font-weight: bold;
   margin-left: 8px;
-  color: ${colors.greyScrollbarHover};
+  color: ${colors.greyDarker};
 `;
 
 export const DateTimeInput = styled.input`
@@ -151,7 +157,7 @@ export const ButtonGroup = styled.div`
   gap: 20px;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<ButtonProps>`
   background: transparent;
   font-size: 1rem;
   padding: 10px 20px;
@@ -200,18 +206,18 @@ export const RemoveButton = styled(Button)`
 
 export const ConfirmButton = styled(Button)<ButtonProps>`
   border: 4px solid ${colors.blue};
-  border-color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
+  border-color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyAlmostTransparent}`};
   color: ${colors.blue};
-  color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
+  color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyAlmostTransparent}`};
   flex: 1;
 
   &:hover {
     cursor: ${({isEnableSend}) => !isEnableSend && `not-allowed`};
     background: ${colors.blue};
     background: ${({isEnableSend}) => !isEnableSend && "transparent"};
-    color: ${colors.lightGreyBackgroundColumn};
-    color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
-    border-color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyBackgroundAddButton}`};
+    color: ${colors.lightGreyFullTransparent};
+    color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyAlmostTransparent}`};
+    border-color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyAlmostTransparent}`};
   }
 `;
 

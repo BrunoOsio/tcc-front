@@ -60,19 +60,23 @@ export const TeamAreaBoard = () => {
   const isNewColumnInputBlank = newColumnInput.length === 0;
 
   const handleSubmitNewColumn = async () => {
-    const biggestId = await columnService.findBiggestId() + 1;
-
     const newColumn: ColumnReferencedToAreaDTO = {
       areaId: areaIdNumber,
-      temporaryReduxId: biggestId,
+      title: newColumnInput
+    }
+
+    const createdColumn = await columnService.createColumn(newColumn);
+
+    const newColumnRender: ColumnReferencedToAreaDTO = {
+      areaId: areaIdNumber,
+      temporaryReduxId: createdColumn.id,
       title: newColumnInput
     }
 
     resetFormData();
     notifySuccess("Lista criada");
 
-    dispatch(patchCreateColumn(newColumn));
-    dispatch(createColumn(newColumn));
+    dispatch(createColumn(newColumnRender));
   }
 
   const resetFormData = () => {

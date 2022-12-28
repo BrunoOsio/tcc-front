@@ -16,13 +16,13 @@ export const Footer = styled.div`
   gap: 30px;
 
   .first {
-    background: ${colors.lightGreyBackgroundColumn};
-    color: ${colors.greyScrollbarHover};
+    background: ${colors.lightGreyFullTransparent};
+    color: ${colors.greyDarker};
   }
 
   .second {
-    background: ${colors.lightGreyBackgroundColumn};
-    color: ${colors.greyScrollbarHover};
+    background: ${colors.lightGreyFullTransparent};
+    color: ${colors.greyDarker};
   }
 `;
 
@@ -83,7 +83,7 @@ export const Divider = styled.div`
   margin: 20px 0px;
   width: 100%;
   height: 3px;
-  background-color: ${colors.lightGreyBackgroundAddButton};
+  background-color: ${colors.lightGreyAlmostTransparent};
 `;
 
 export const TitleContainer = styled.div`

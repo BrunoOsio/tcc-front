@@ -6,7 +6,7 @@ type MemberProps = {
 } 
 
 export const Container = styled.div`
-  background-color: ${colors.lightGreyBackgroundColumn};
+  background-color: ${colors.lightGrey};
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,7 @@ export const Member = styled.span<MemberProps>`
   width: 100%;
   padding: 30px;
   background-color: transparent;
-  background-color: ${({isSelected}) => isSelected && `${colors.greyBorderAddButton}`};
+  background-color: ${({isSelected}) => isSelected && `${colors.grey}`};
   color: ${colors.darkGreyText};
   color: ${({isSelected}) => isSelected && `${colors.white}`};
   transition: all .3s ease-in-out;
@@ -43,8 +43,8 @@ export const Member = styled.span<MemberProps>`
   border-radius: 10px 0px 0px 10px;
 
   &:hover {
-    background-color: ${colors.lightGreyBackgroundAddButton};
-    background-color: ${({isSelected}) => isSelected && `${colors.greyBorderAddButton}`};
+    background-color: ${colors.lightGreyAlmostTransparent};
+    background-color: ${({isSelected}) => isSelected && `${colors.grey}`};
   }
 `;
 

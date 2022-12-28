@@ -9,7 +9,7 @@ export const Container = styled.div`
   width: 100vw;
   flex-direction: column;
   background: url("/background_tasks.png");
-  object-fit: contain;
+  object-fit: fill;
 `;
 
 
@@ -105,18 +105,18 @@ export const NoColumnContainer = styled.div`
 export const NewColumnLabel = styled.h1`
   font-size: 1.2rem;
   text-align: left;
-  font-weight: 400;
-  color: ${colors.darkGreyText};
+  font-weight: 500;
+  color: ${colors.grey};
 `;
 
 export const NewColumnPlaceholder = styled.div`
   height: 100%;
-  min-width: ${sizes.column};
-  width: 317px;
+  width: 100%;
+  max-width: 480px;
   display: flex;
   flex-direction: column;
   align-content: center;
-  background-color: ${colors.lightGreyBackgroundColumn};
+  background-color: ${colors.lightGreyFullTransparent};
   margin-right: auto;
   border-radius: 10px 10px 0px 0px;
 `;
@@ -138,12 +138,12 @@ export const Input = styled.input<InputProps>`
   color: ${colors.white};
 
   &::selection {
-    background-color: ${colors.lightGreyBackgroundAddButton};
+    background-color: ${colors.lightGreyAlmostTransparent};
     color: ${colors.darkGreyText};
   }
 
   &::placeholder {
-    color: ${colors.lightGreyBackgroundAddButton};
+    color: ${colors.lightGreyAlmostTransparent};
   }
 `;
 
@@ -173,16 +173,17 @@ export const PlaceholderBody = styled.div`
 export const NewColumnButton = styled.button`
   height: 50px;
   min-width: ${sizes.column};
-  width: 317px;
+  width: 100%;
+  max-width: 480px;
   font-size: 1.4rem;
   border-radius: 5px;
   border: none;
-  background-color: ${colors.lightGreyBackgroundColumn};
+  background-color: ${colors.lightGreyFullTransparent};
   transition: .3s all ease-in-out;
 
   &:hover {
     cursor: pointer;
-    background-color: ${colors.lightGreyBackgroundAddButton}
+    background-color: ${colors.lightGreyAlmostTransparent}
 
   }
 
@@ -197,6 +198,6 @@ export const NewColumnButton = styled.button`
     justify-content: center;
     align-items: center;
     transition: .3s all ease-in-out;
-    color: ${colors.greyBorderAddButton}
+    color: ${colors.grey}
   }
 `;

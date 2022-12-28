@@ -73,7 +73,7 @@ export const Name = styled.span`
 export const Modality = styled.span`
   text-align: center;
   font-weight: bold;
-  color: ${colors.greyScrollbar};
+  color: ${colors.greyLighter};
   font-style: italic;
 `;
 
@@ -123,6 +123,6 @@ export const EnterButton = styled(EnterButtonPlaceholder)`
 `;
 
 export const WaitingLabel = styled(EnterButtonPlaceholder)`
-  background-color: ${colors.greyBorderAddButton};
+  background-color: ${colors.grey};
   padding: 3px 10px;
 `;

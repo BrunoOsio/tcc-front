@@ -3,7 +3,7 @@ import { colors } from "../../../../shared/globalStyles/globalValues";
 
 export const Container = styled.div`
   width: 100%;
-  background-color: ${colors.lightGreyBackgroundColumn};
+  background-color: ${colors.lightGreyFullTransparent};
   padding: 10px;
   border-radius: 15px;
   display: flex;
@@ -16,12 +16,12 @@ export const Container = styled.div`
     transform: translateY(-2px);
 
     .changeLeaderButton {
-      color: ${colors.greyScrollbarHover};
-      background-color: ${colors.lightGreyBackgroundAddButton};
+      color: ${colors.greyDarker};
+      background-color: ${colors.lightGreyAlmostTransparent};
     }
 
     .icon {
-      color: ${colors.greyBorderAddButton};
+      color: ${colors.grey};
     }
   }
 `;
@@ -45,7 +45,7 @@ export const Name = styled.span`
 `;
 
 export const LeaderGroup = styled.div`
-  color: ${colors.greyScrollbarHover};
+  color: ${colors.greyDarker};
   display: flex;
   flex-direction: row;
   align-items: center;

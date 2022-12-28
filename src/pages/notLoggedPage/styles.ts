@@ -31,6 +31,6 @@ export const Button = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${colors.lightGreyBackgroundAddButton};
+    background-color: ${colors.lightGreyAlmostTransparent};
   }
 `;

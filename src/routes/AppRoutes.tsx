@@ -29,7 +29,7 @@ export const AppRoutes = () => {
             <Route path="/team/:teamId/createArea" element={<CheckUserTeams><CreateArea/></CheckUserTeams>}/>
             <Route path="/team/:teamId/members" element={<CheckUserTeams><TeamMembers/></CheckUserTeams>}/>
             <Route path="/team/:teamId/joinRequests" element={<CheckIsTeamLeader><JoinRequests/></CheckIsTeamLeader>}/>
-            <Route path="/team/:teamId/areaLeaders" element={<CheckIsTeamLeader><AreaSettings/></CheckIsTeamLeader>}/>
+            <Route path="/team/:teamId/areasSettings" element={<CheckIsTeamLeader><AreaSettings/></CheckIsTeamLeader>}/>
             <Route path="/team/:teamId/area/:areaId/board" element={<CheckUserTeams><TeamAreaBoard/></CheckUserTeams>}/>
             <Route path="/prohibited" element={<ProhibitedPage/>}/>
             <Route path="/notLogged" element={<NotLoggedPage/>}/>

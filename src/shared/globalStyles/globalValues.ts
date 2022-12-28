@@ -1,17 +1,18 @@
 export const colors = {
-  background: "#E4EBFF",
-  taskHover: "#DAE4FF",
+  white: "#FFFFFF",
+  lightGreyFullTransparent: "rgba(197, 197, 197, 0.21)",
+  lightGreyAlmostTransparent: "rgba(197, 197, 197, 0.31)",
+  lightGrey: "#F5F5F5",
+  greyLighter: "#ACACAC",
+  grey: "#A2A2A2",
+  greyDarker: "#909090",
+  darkGreyText: "#292929",
+  purpleBlue: "#DAE4FF",
+  purpleDarkBlue: "#3561D2",
+  lightBlue: "#E4EBFF",
   blue: "#3488EB",
   darkBlue: "#3579D2",
   navyBlue: "#0F4092",
-  purpleBlue: "#3561D2",
-  lightGreyBackgroundColumn: "rgba(197, 197, 197, 0.21)",
-  lightGreyBackgroundAddButton: "rgba(197, 197, 197, 0.31)",
-  greyBorderAddButton: "#A2A2A2",
-  greyScrollbar: "#ACACAC",
-  greyScrollbarHover: "#909090",
-  darkGreyText: "#292929",
-  white: "#FFFFFF",
   redSalmon: "#FF5757"
 }
 

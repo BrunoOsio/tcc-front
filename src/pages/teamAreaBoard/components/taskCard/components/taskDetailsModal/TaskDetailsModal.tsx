@@ -1,20 +1,21 @@
 import moment from "moment";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { ImArrowRight } from "react-icons/im";
 import { MdClose } from "react-icons/md";
-import { TbArrowsJoin } from "react-icons/tb";
 import { BaseModal } from "../../../../../../shared/components/baseModal/BaseModal";
-import { TaskReferencedToColumnDTO } from "../../../../../../shared/dtos/task/TaskReferencedToColumnDTO";
 import { UpdatedTaskReferencedToColumnDTO } from "../../../../../../shared/dtos/task/UpdatedTaskReferencedToColumnDTO";
 import { createDateOfNow, createDefaultDateTimeLocalInput, formatDate, formatStringDate, isValidStringDate } from "../../../../../../shared/helpers/dateHelpers";
 import { notifyError, notifySuccess, notifyWarning } from "../../../../../../shared/helpers/notificationHelpers";
 import { trimmed } from "../../../../../../shared/helpers/stringHelpers";
-import taskService from "../../../../../../shared/services/task/taskService";
 import { Task } from "../../../../../../shared/types";
 import { useAppDispatch } from "../../../../../../states/app/hooks";
-import { patchUpdateTask, updateTask } from "../../../../../../states/features/columnSlice";
+import { patchRemoveTask, patchUpdateTask, removeTask, updateTask } from "../../../../../../states/features/columnSlice";
 import { Form, ExitButton, FormGroup, Header, Input, Label, Error, TextArea, DateTimeFormGroup, CheckboxContainer, EnableLimitDate, CheckboxLabel, DateTimeInput, Placeholder, Button, ButtonGroup, RemoveButton, ConfirmButton } from "../../../newTaskModal/styles";
 import { IoMdTrash } from "react-icons/io";
+import taskService from "../../../../../../shared/services/task/taskService";
+import { Loading } from "../../../../../../shared/components/loading/Loading";
+import { useNavigate } from "react-router-dom";
+import routes from "../../../../../../routes/routes";
 
 type BaseModalWrapperProps = {
   task: Task;
@@ -33,6 +34,7 @@ export const TaskDetailsModal: React.FC<BaseModalWrapperProps> = ({
 }) => {
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const defaultState = {
     title: task.title,
@@ -47,6 +49,7 @@ export const TaskDetailsModal: React.FC<BaseModalWrapperProps> = ({
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
   const [isLimitDateCheckbox, setLimitDateCheckbox] = useState<boolean>(defaultState.limitDateCheckbox);
   const [limitDate, setLimitDate] = useState<string | null>(defaultState.limitDate);
+  const [loading, setLoading] = useState(false);
 
   const handleTitle = (event: ChangeEvent<HTMLInputElement>) => {
     const newTitle = event.target.value;
@@ -95,20 +98,44 @@ export const TaskDetailsModal: React.FC<BaseModalWrapperProps> = ({
   const isValuesToSave = (task.title !== title) || (task.description !== description) || (task.limitAt !== limitDate);
   const isFieldError = isTitleInvalid || isDescriptionInvalid;
   const isEnableSend = !isFieldError && isValuesToSave;
-  console.log(isValuesToSave);
+
   const closeModal = () => {
     setShowEditButton(false);
     onBackDropClick();
   }
 
+  const handleRemove = async () => {
+    setLoading(true);
+
+    const isTaskOnDatabase = await taskService.isTaskExist(task.id);
+    console.log(isTaskOnDatabase);
+    
+    if (!isTaskOnDatabase) {
+        notifyError("Erro, reiniciando a página");
+        setLoading(false);
+        navigate(routes.refresh());
+    }
+
+    dispatch(removeTask({columnId, task}));
+    dispatch(patchRemoveTask(task.id));
+    
+    notifySuccess(`Tarefa "${task.title}" removida`);
+    closeModal();
+    setLoading(false);
+  }
+
   const handleSubmit = async () => {
+    setLoading(true);
+
     if (!isValuesToSave) {
       notifyWarning("Não há alterações para serem salvas");
+      setLoading(false);
       return;
     }
 
     if (isFieldError) {
       notifyError("Há erros no preenchimento do formulário");
+      setLoading(false);
       return;
     }
 
@@ -125,19 +152,22 @@ export const TaskDetailsModal: React.FC<BaseModalWrapperProps> = ({
       // members: task.members
     }
 
+    dispatch(patchUpdateTask(updatedTask));
+    dispatch(updateTask(updatedTask));
+
     resetFormData();
 
     closeModal();
 
     notifySuccess("Tarefa atualizada");
 
-    dispatch(patchUpdateTask(updatedTask));
-    dispatch(updateTask(updatedTask));
+    setLoading(false);
   }
   
   return (
     <BaseModal onBackDropClick={closeModal}>
-      <Form>
+      <Form isLoading={loading}>
+        {loading && (<Loading size={100}/>)}
         <ExitButton onClick={onBackDropClick}><MdClose color="#6a6a6a"/></ExitButton>        
         <Header>{task.title}</Header>
 
@@ -175,7 +205,7 @@ export const TaskDetailsModal: React.FC<BaseModalWrapperProps> = ({
         </DateTimeFormGroup>
 
         <ButtonGroup>
-          <RemoveButton><span><IoMdTrash/></span></RemoveButton>
+          <RemoveButton onClick={() => handleRemove()}><span><IoMdTrash/></span></RemoveButton>
           <ConfirmButton onClick={() => handleSubmit()} isEnableSend={isEnableSend}><span><ImArrowRight/></span></ConfirmButton>
 
         </ButtonGroup>

@@ -19,9 +19,16 @@ const findArea = async (areaId: number): Promise<Area> => {
   return data;
 }
 
-const createArea = async(newArea: NewAreaDTO, teamId: number): Promise<Area> => {
+const createArea = async (newArea: NewAreaDTO, teamId: number): Promise<Area> => {
   const endpoint = `${BASE_URL}?teamId=${teamId}`;
   const { data } = await axios.post(endpoint, newArea);
+
+  return data;
+}
+
+const removeArea = async (areaId: number): Promise<void> => {
+  const endpoint = `${BASE_URL}/${areaId}`;
+  const { data } = await axios.delete(endpoint);
 
   return data;
 }
@@ -33,4 +40,4 @@ const updateLeader = async(updateLeaderDTO: UpdateLeaderDTO): Promise<Area> => {
   return data;
 }
 
-export default { findAreas, findArea, createArea, updateLeader };
+export default { findAreas, findArea, createArea, updateLeader, removeArea };

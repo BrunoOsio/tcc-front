@@ -5,13 +5,18 @@ type ContainerProps = {
   isDone: boolean;
 };
 
+type HeaderProps = {
+  isHovering: boolean;
+}
+
 type TasksListProps = {
   isSmallScreenHeight: boolean;
 };
 
 export const Container = styled.section<ContainerProps>`
-  background-color: rgba(89, 151, 190, 0.1);
-
+  background-color: rgba(226, 237, 255, 0.35);
+  width: 100% ;
+  max-width: 480px;
   max-height: calc(100vh - ${sizes.navbar} - 20px);
   display: flex;
   flex-direction: column;
@@ -30,29 +35,55 @@ export const Container = styled.section<ContainerProps>`
   }
 `;
 
-export const Header = styled.article`
+export const Header = styled.article<HeaderProps>`
   width: 100%;
   background-color: ${colors.blue};
-  text-align: center;
-  text-transform: capitalize;
   border-radius: 10px 10px 0px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+
+  span {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    color: transparent;
+    color: ${({isHovering}) => isHovering && `${colors.white}`};
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+  }
 `;
 
-export const ColumnTitleInput = styled.input`
+export const FormGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ColumnTitle = styled.h2`
+  user-select: none;
+  font-weight: 500;
   width: 100%;
   height: 100%;
-
+  text-align: center;
   font-size: 1.3rem;
   padding: 10px 10px;
   background-color: transparent;
   color: ${colors.white};
   outline: none;
   border: none;
-  text-align: center;
 
-  &:focus {
-    color: ${colors.lightGreyBackgroundAddButton}
-  }
+  position: relative;
+  left: 15px;
 `;
 
 export const Scrollable = styled.div`
@@ -65,20 +96,17 @@ export const Scrollable = styled.div`
     height: 30px;
   }
 
-  /* Track */
   ::-webkit-scrollbar-track {
     background: inherit;
   }
 
-  /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: ${colors.greyScrollbar};
+    background: ${colors.greyLighter};
     border-radius: 999px;
   }
 
-  /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: ${colors.greyScrollbarHover};
+    background: ${colors.greyDarker};
   }
 `;
 
@@ -99,10 +127,10 @@ export const AddTaskButton = styled.button`
 
   border-style: dashed;
   border-width: 2px;
-  border-color: ${colors.greyBorderAddButton};
+  border-color: ${colors.grey};
   border-radius: 10px;
 
-  background-color: ${colors.lightGreyBackgroundAddButton};
+  background-color: ${colors.lightGreyAlmostTransparent};
   color: ${colors.white};
 
   transition: 2s all ease-in-out;
@@ -122,7 +150,7 @@ export const AddTaskButton = styled.button`
 
     span {
       transition: .3s all ease-in-out;
-      color: ${colors.greyScrollbarHover};
+      color: ${colors.greyDarker};
     }
   }
 `;
@@ -136,7 +164,7 @@ export const TasksList = styled.div<TasksListProps>`
   flex-direction: column;
   width: 100%;
   min-width: ${sizes.column};
-  max-width: 317px;
+  margin: 0 auto;
   margin-top: 10px;
   min-height: 550px;
   min-height: ${({isSmallScreenHeight}) => isSmallScreenHeight && "340px"};

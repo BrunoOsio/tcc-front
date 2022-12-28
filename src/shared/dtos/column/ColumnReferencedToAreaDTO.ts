@@ -1,5 +1,5 @@
 export type ColumnReferencedToAreaDTO = {
   areaId: number,
-  temporaryReduxId: number,
+  temporaryReduxId?: number,
   title: string,
 }

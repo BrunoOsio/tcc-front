@@ -47,7 +47,7 @@ export const Divider = styled.div`
   margin: 20px 0px;
   width: 100%;
   height: 3px;
-  background-color: ${colors.lightGreyBackgroundAddButton};
+  background-color: ${colors.lightGreyAlmostTransparent};
 `;
 
 export const Title = styled.h1`

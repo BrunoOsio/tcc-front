@@ -11,6 +11,7 @@ import { MdClose } from "react-icons/md";
 import { Button, CheckboxContainer, CheckboxLabel, DateTimeFormGroup, DateTimeInput, EnableLimitDate, ExitButton, Form, FormGroup, Header, Input, Label, Placeholder, Error, TextArea, ConfirmButton, ButtonGroup } from "./styles";
 import { trimmed } from "../../../../shared/helpers/stringHelpers";
 import { ImArrowRight } from "react-icons/im";
+import { Loading } from "../../../../shared/components/loading/Loading";
 
 type BaseModalWrapperProps = {
   columnId: number;
@@ -34,6 +35,8 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
   const [descriptionError, setDescriptionError] = useState<string | null>(null);
   const [isLimitDateCheckbox, setLimitDateCheckbox] = useState<boolean>(defaultState.limitDateCheckbox);
   const [limitDate, setLimitDate] = useState<string>(defaultState.limitDate);
+
+  const [loading, setLoading] = useState(false);
 
   const handleTitle = (event: ChangeEvent<HTMLInputElement>) => {
     const newTitle = event.target.value;
@@ -82,33 +85,48 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
   const isEnableSend = !isTitleInvalid && !isDescriptionInvalid;
 
   const handleSubmit = async (columnId: number) => {
+    setLoading(true);
+
     if(!isEnableSend) {
-      notifyError("Há erros no preenchimento do formulário")
+      notifyError("Há erros no preenchimento do formulário");
+      setLoading(false);
       return;
     }
 
-    const biggestId = await taskService.findBiggestId() + 1;
     const formattedLimitDate = formatStringDate(limitDate);
 
     const newTask: TaskReferencedToColumnDTO = {
       columnId: columnId,
-      temporaryReduxId: biggestId,
+      title: title || "Sem título",
+      description: description || "Sem descrição",
+      createdAt: createDateOfNow(),
+      limitAt: isLimitDateCheckbox ? formattedLimitDate : null,
+    };
+
+    const createdTask = await taskService.createTask(newTask);
+
+    console.log(createdTask);
+    const newTaskRender: TaskReferencedToColumnDTO = {
+      columnId: columnId,
+      temporaryReduxId: createdTask.id,
       title: title || "Sem título",
       description: description || "Sem descrição",
       createdAt: createDateOfNow(),
       limitAt: isLimitDateCheckbox ? formattedLimitDate : null,
     }
-
+    
     resetFormData();
-    onBackDropClick();
     notifySuccess("Tarefa criada");
 
-    dispatch(patchCreateTask(newTask));
-    dispatch(createTask(newTask));
+    dispatch(createTask(newTaskRender));
+    
+    setLoading(false);
+    onBackDropClick();
   }
   return (
     <BaseModal onBackDropClick={onBackDropClick}>
-      <Form>
+      <Form isLoading={loading}>
+        {loading && (<Loading size={100}/>)}
         <ExitButton onClick={onBackDropClick}><MdClose color="#6a6a6a"/></ExitButton>        
         <Header>Adicionar nova tarefa</Header>
 

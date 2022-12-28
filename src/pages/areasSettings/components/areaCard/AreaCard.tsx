@@ -8,6 +8,8 @@ import { useState } from "react";
 import { useAppSelector } from "../../../../states/app/hooks";
 import { Team } from "../../../../shared/types/team/Team";
 import { ChangeLeaderModal } from "../changeLeaderModal/ChangeLeaderModal";
+import areaService from "../../../../shared/services/area/areaService";
+import { ConfirmDeleteAreaModal } from "../confirmDeleteAreaModal/ConfirmDeleteAreaModal";
 
 type AreaCardProps = {
   area: Area,
@@ -16,17 +18,17 @@ type AreaCardProps = {
 
 export const AreaCard: React.FC<AreaCardProps> = ({area, team}) => {
 
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [isLeaderModalVisible, setLeaderModalVisible] = useState(false);
+  const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
 
-  const toggleModal = () => setModalVisible(!isModalVisible);
-  
+  const toggleLeaderModal = () => setLeaderModalVisible(!isLeaderModalVisible);
+  const toggleDeleteModal = () => setDeleteModalVisible(!isDeleteModalVisible);
+
   const formatAreaLeader = () => {
     if(!area.leader) return "Nenhum líder";
 
     return area.leader.name;
   };
-
-  console.log("area", area);
 
   const teamMembers = team?.members ? team.members : [];
 
@@ -47,9 +49,11 @@ export const AreaCard: React.FC<AreaCardProps> = ({area, team}) => {
       </LeftInformations>
 
       <RightInformations>
-        <ChangeLeaderButton className="changeLeaderButton" onClick={toggleModal}>Mudar líder</ChangeLeaderButton>
-        <ChangeLeaderModal members={teamMembers} area={area} isModalVisible={isModalVisible} onBackDropClick={toggleModal}/>
-        <CloseIcon className="icon"><MdClose/></CloseIcon>
+        <ChangeLeaderButton className="changeLeaderButton" onClick={toggleLeaderModal}>Mudar líder</ChangeLeaderButton>
+        <ChangeLeaderModal members={teamMembers} area={area} isModalVisible={isLeaderModalVisible} onBackDropClick={toggleLeaderModal}/>
+        
+        <CloseIcon className="icon" onClick={toggleDeleteModal}><MdClose/></CloseIcon>
+        <ConfirmDeleteAreaModal area={area} isModalVisible={isDeleteModalVisible} onBackDropClick={toggleDeleteModal}/>
       </RightInformations>
 
     </Container>

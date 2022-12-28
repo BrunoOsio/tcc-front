@@ -31,8 +31,8 @@ export const JoinRequests = () => {
     navigate(routes.teamMembers(teamIdNumber));
   }
 
-  const goToAreaLeaders = () => {
-    navigate(routes.areaLeaders(teamIdNumber));
+  const goToAreasSettings = () => {
+    navigate(routes.areasSettings(teamIdNumber));
   }
 
   const joinRequests = team?.joinRequests ? team.joinRequests : [];
@@ -60,9 +60,9 @@ export const JoinRequests = () => {
             <span><AiOutlineTeam/></span>
             <span>Ir aos membros</span>
           </FooterButton>
-          <FooterButton className="second" onClick={goToAreaLeaders}>
+          <FooterButton className="second" onClick={goToAreasSettings}>
             <span><MdLeaderboard/></span>
-            <span>Atribuir líderes às áreas</span>
+            <span>Ir à configuração das áreas</span>
           </FooterButton>
         </Footer>
       </Container>

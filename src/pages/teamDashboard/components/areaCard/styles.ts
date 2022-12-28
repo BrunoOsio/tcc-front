@@ -17,9 +17,9 @@ export const Container = styled.div`
 
   &:hover {
     transform: scale(1.01);
-    border-color: ${colors.purpleBlue};
+    border-color: ${colors.purpleDarkBlue};
     span {
-      color: ${colors.purpleBlue};
+      color: ${colors.purpleDarkBlue};
     }
   }
 `;

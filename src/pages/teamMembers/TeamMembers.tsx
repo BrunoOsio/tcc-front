@@ -29,8 +29,8 @@ export const TeamMembers = () => {
     navigate(routes.teamJoinRequests(teamIdNumber));
   }
 
-  const goToAreaLeaders = () => {
-    navigate(routes.areaLeaders(teamIdNumber));
+  const goToAreasSettings = () => {
+    navigate(routes.areasSettings(teamIdNumber));
   }
 
   const teamMembers = team?.members ? team.members : [];
@@ -78,9 +78,9 @@ export const TeamMembers = () => {
                   <span>Ir às solicitações para entrar na equipe</span>
                 </FooterButton>
             
-                <FooterButton className="second" onClick={goToAreaLeaders}>
+                <FooterButton className="second" onClick={goToAreasSettings}>
                   <span><MdLeaderboard/></span>
-                  <span>Atribuir líderes às áreas</span>
+                  <span>Ir à configuração das áreas</span>
                 </FooterButton>
               </Footer>        
             </>

@@ -70,7 +70,7 @@ export const Input = styled.input<InputProps>`
   padding: 6px 10px;
   outline: none;
   border: none;
-  border-bottom: 3px solid ${colors.lightGreyBackgroundAddButton};
+  border-bottom: 3px solid ${colors.lightGreyAlmostTransparent};
   border-bottom: ${({ isError }) => isError && "3px solid #FF5757"};
   transition: all 0.2s ease-in-out;
 
@@ -86,7 +86,7 @@ export const Select = styled.select<InputProps>`
   color: ${colors.darkGreyText};
   padding: 6px 10px;
   border: none;
-  border-bottom: 3px solid ${colors.lightGreyBackgroundAddButton};
+  border-bottom: 3px solid ${colors.lightGreyAlmostTransparent};
   border-bottom: ${({ isError }) => isError && "3px solid #FF5757"};
   outline: none;
   transition: all 0.2s ease-in-out;

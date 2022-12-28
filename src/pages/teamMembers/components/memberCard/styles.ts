@@ -3,7 +3,7 @@ import { colors } from "../../../../shared/globalStyles/globalValues";
 
 export const Container = styled.div`
   width: 100%;
-  background-color: ${colors.lightGreyBackgroundColumn};
+  background-color: ${colors.lightGreyFullTransparent};
   padding: 10px;
   border-radius: 15px;
   display: flex;
@@ -16,7 +16,7 @@ export const Container = styled.div`
     transform: translateY(-2px);
 
     .icon {
-      color: ${colors.greyBorderAddButton};
+      color: ${colors.grey};
     }
   }
 `;
