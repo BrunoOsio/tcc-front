@@ -34,6 +34,15 @@ export const Container = styled.div`
   }
 `;
 
+export const PhotoCard = styled.img`
+  width: 100%;
+  height: 100%;
+  max-width: 220px;
+  max-height: 220px;
+  object-fit: fill;
+  aspect-ratio: 1/1;
+`;
+
 export const Initials = styled.div`
   color: white;
   text-transform: uppercase;

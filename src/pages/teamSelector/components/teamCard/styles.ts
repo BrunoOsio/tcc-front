@@ -3,7 +3,6 @@ import { colors } from "../../../../shared/globalStyles/globalValues";
 
 
 export const Container = styled.article`
-
   width: 240px;
   border-radius: 10px;
   height: 200px;

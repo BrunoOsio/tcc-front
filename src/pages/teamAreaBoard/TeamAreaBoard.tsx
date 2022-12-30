@@ -1,12 +1,12 @@
-import { ColumnsContainer, Container, FormGroup, Input, Leader, LeaderGroup, LeftInformations, Name, NameAndLeaderGroup, NewColumnButton, NewColumnLabel, NewColumnPlaceholder, NoColumnContainer, PlaceholderBody, RightInformations, Submit, TeamInformationsGroup } from "./styles";
+import { ColumnsContainer, Container, FormGroup, Input, Leader, LeaderGroup, LeftInformations, Name, NameAndLeaderGroup, NewColumnBody, NewColumnButton, NewColumnLabel, NewColumnPlaceholder, NoColumnContainer, PlaceholderBody, QuestionContainer, RightInformations, Submit, TeamInformationsGroup } from "./styles";
 import { ColumnContainer } from "./components/columnContainer/ColumnContainer";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { createColumn, findColumns, patchCreateColumn, patchReorder, reorder } from "../../states/features/columnSlice";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 import { Loading } from "./components/loading/Loading";
 import { useNavigate, useParams } from "react-router-dom";
-import { BsArrowRight } from "react-icons/bs";
+import { BsArrowRight, BsQuestionSquare } from "react-icons/bs";
 import { ColumnReferencedToAreaDTO } from "../../shared/dtos/column/ColumnReferencedToAreaDTO";
 import { notifySuccess } from "../../shared/helpers/notificationHelpers";
 import columnService from "../../shared/services/column/columnService";
@@ -21,6 +21,8 @@ import { Label, LabelGroup } from "../teamDashboard/styles";
 import { AiOutlineTeam } from "react-icons/ai";
 import { GoPlus } from "react-icons/go";
 import { IconBlank } from "../../shared/components/iconBlank/IconBlank";
+import { QuestionButton } from "./components/questionButton/QuestionButton";
+import { ColumnHelpModal } from "./components/columnHelpModal/ColumnHelpModal";
 
 export const TeamAreaBoard = () => {
   const { areaId } = useParams();
@@ -30,6 +32,9 @@ export const TeamAreaBoard = () => {
   const teamIdNumber = Number(teamId);
 
   const navigate = useNavigate();
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => setModalVisible(!isModalVisible);
 
   const {value: areas, isSuccess: isAreaSuccess} = useAppSelector((state) => state.area);
   const [mainArea, setMainArea] = useState<Area>();
@@ -127,6 +132,13 @@ export const TeamAreaBoard = () => {
     navigate(routes.teamDashboard(teamIdNumber));
   }
 
+  const handleKeyEnterSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
+    const keyName = event.key;
+
+    if (keyName === "Enter")
+      handleSubmitNewColumn()
+  }
+
   const screenWidth = window.innerWidth;
   const MAX_AREAS_ON_LIST = (screenWidth > 1500) ? 6 : 5;
   const areasLengthReached = areas ? areas.length > MAX_AREAS_ON_LIST : false;
@@ -184,11 +196,22 @@ export const TeamAreaBoard = () => {
                       value={newColumnInput} 
                       onChange={handleNewColumnInputChange}
                       isBlank={isNewColumnInputBlank}
+                      onKeyDown={(event) => handleKeyEnterSubmit(event)}
                     />
-                    {!isNewColumnInputBlank && <Submit onClick={handleSubmitNewColumn}><BsArrowRight size={30}/></Submit>}
+                    {!isNewColumnInputBlank && (
+                      <Submit 
+                        onClick={handleSubmitNewColumn}
+                      >
+                        <BsArrowRight size={30}/>
+                      </Submit>)}
                   </FormGroup>
                   <PlaceholderBody>
-                    <NewColumnLabel>Isto é sua primeira lista, nomeie-a no cabeçalho azul.</NewColumnLabel>
+
+                    <QuestionContainer onClick={toggleModal}>
+                      <QuestionButton/>
+                      <NewColumnLabel>Isto é sua primeira lista, nomeie-a no cabeçalho azul.</NewColumnLabel>
+                      <ColumnHelpModal area={mainArea!} isModalVisible={isModalVisible} onBackDropClick={toggleModal}/>
+                    </QuestionContainer>
                   </PlaceholderBody>
                 </NewColumnPlaceholder>
               </NoColumnContainer>
@@ -209,11 +232,16 @@ export const TeamAreaBoard = () => {
                     onChange={handleNewColumnInputChange}
                     isBlank={isNewColumnInputBlank}
                     onFocus={(event) => event.target.select()}
+                    onKeyDown={(event) => handleKeyEnterSubmit(event)}
                   />
                   {!isNewColumnInputBlank && <Submit onClick={handleSubmitNewColumn}><BsArrowRight size={30}/></Submit>}
                 </FormGroup>
                 <PlaceholderBody>
-                  <button>dsfds</button>
+                  <NewColumnBody onClick={toggleModal}>
+                    <QuestionButton/>
+                    <NewColumnLabel>Que tipo de listas posso criar?</NewColumnLabel>
+                    <ColumnHelpModal area={mainArea!} isModalVisible={isModalVisible} onBackDropClick={toggleModal}/>
+                  </NewColumnBody>
                 </PlaceholderBody>
               </NewColumnPlaceholder>
           )

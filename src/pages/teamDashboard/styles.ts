@@ -14,11 +14,11 @@ export const Container = styled.div`
 export const Areas = styled.div<AreasProps>`
   display: grid;
   margin: 0 auto;
-  column-gap: 10px;
-  grid-template-columns: repeat(6, auto);
+  column-gap: 25px;
+  row-gap: 25px;
+  grid-template-columns: repeat(5, auto);
   justify-content: center;
-  margin-bottom: 30px;
-  padding: 50px;
+  padding: 40px;
 `;
 
 export const TeamInformationsGroup = styled.div`

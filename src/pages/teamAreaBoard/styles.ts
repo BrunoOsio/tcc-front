@@ -102,11 +102,26 @@ export const NoColumnContainer = styled.div`
   
 `;
 
+export const NewColumnBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  gap: 13px;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+`;
+
 export const NewColumnLabel = styled.h1`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-align: left;
   font-weight: 500;
-  color: ${colors.grey};
+  color: ${colors.lightBlueDarker};
+  opacity: 0.;
 `;
 
 export const NewColumnPlaceholder = styled.div`
@@ -116,7 +131,7 @@ export const NewColumnPlaceholder = styled.div`
   display: flex;
   flex-direction: column;
   align-content: center;
-  background-color: ${colors.lightGreyFullTransparent};
+  background-color: ${colors.lightBlueAlmostTransparent};
   margin-right: auto;
   border-radius: 10px 10px 0px 0px;
 `;
@@ -166,8 +181,24 @@ export const PlaceholderBody = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   padding: 20px;
+  gap: 10px;
+`;
+
+export const QuestionContainer = styled.div`
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
 `;
 
 export const NewColumnButton = styled.button`
@@ -175,10 +206,10 @@ export const NewColumnButton = styled.button`
   min-width: ${sizes.column};
   width: 100%;
   max-width: 480px;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   border-radius: 5px;
   border: none;
-  background-color: ${colors.lightGreyFullTransparent};
+  background-color: ${colors.lightBlueAlmostTransparent};
   transition: .3s all ease-in-out;
 
   &:hover {

@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
+import photoService from "../../services/photo/photoService";
+import { Photo } from "../../types";
 import { Team } from "../../types/team/Team";
-import { Border, Container, Initials } from "./styles";
+import { Border, Container, Initials, PhotoCard } from "./styles";
 
 type TeamPhotoProps = {
   team: Team;
@@ -12,21 +15,16 @@ const NO_SPACE_BETWEEN_LETTERS = "";
 const MAX_INITIALS_LENGTH = 3;
 
 export const TeamPhoto: React.FC<TeamPhotoProps> = ({team, size}) => {
-  const getFullnameInitials = () => {
-    const fullnameArray = team.name.split(SPACE);
-    let initials = fullnameArray.map(word => word.charAt(FIRST_LETTER_INDEX));
 
-    if (initials.length > MAX_INITIALS_LENGTH) {
-      initials = [initials[0], initials[1], initials[2]];
-    }
-
-    return initials.join(NO_SPACE_BETWEEN_LETTERS).toUpperCase();
+  const getFullname = () => {
+    return team.name.toUpperCase();
   }
 
   return (
     <Border size={size}>
       <Container>
-        <Initials>{getFullnameInitials()}</Initials>
+        {team.photo && (<PhotoCard src={team.photo.url}/>)}
+        {!team.photo && (<Initials>{getFullname()}</Initials>)}
       </Container>
     </Border>
   );

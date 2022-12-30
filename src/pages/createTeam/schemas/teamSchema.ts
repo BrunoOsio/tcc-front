@@ -14,13 +14,18 @@ const negativeNumberMessage = "O número da equipe precisa ser positivo";
 const maximumNumberLength = 20000;
 const maximumNumberMessage = `Requer um número de até ${maximumNumberLength}`;
 
-const requiredNumberMessage = "Requer um número";
-
 const modalityNotMatchedMessage = "Isso não é uma modalidade";
 const requiredModalityMessage = "Requer uma modalidade";
 
-
 const getModalityInitials = modalityData.map((modality => modality.initials));
+
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
+
+const maxFileSize = 1024 * 1024;
+const fileIsTooLarge = "A foto não pode ser maior que 1MB";
+const notAcceptedExtension = "A foto deve ser do tipo [ .jpg / .jpeg / .png ]";
+
+const fileDoesNotExist = () => true;
 
 export const teamSchema = yup.object().shape({
   name: 
@@ -38,5 +43,25 @@ export const teamSchema = yup.object().shape({
   modality: 
     yup.string()
     .oneOf(getModalityInitials, modalityNotMatchedMessage)
-    .required(requiredModalityMessage)
+    .required(requiredModalityMessage),
+
+  file: yup.mixed() 
+    .nullable()
+    .test(
+      'fileSize', 
+      fileIsTooLarge, 
+      (value) => {
+        if (!value) return fileDoesNotExist();
+
+        return value.size <= maxFileSize
+      }) 
+
+    .test(
+      'fileType', 
+      notAcceptedExtension, 
+      (value) => {
+        if (!value) return fileDoesNotExist();
+
+        return SUPPORTED_FORMATS.includes(value.type)
+      })
 })

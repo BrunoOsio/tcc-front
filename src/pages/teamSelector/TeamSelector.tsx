@@ -14,6 +14,7 @@ import { PositionCoordinates } from "../../shared/components/sidebar/types/Posit
 import { useNavigate } from "react-router-dom";
 import routes from "../../routes/routes";
 import { UserDropdown } from "../../shared/components/userDropdown/UserDropdown";
+import photoService from "../../shared/services/photo/photoService";
 
 export const TeamSelector = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export const TeamSelector = () => {
   const { value: teams, isLoading: isTeamLoading, isSuccess: isTeamSuccess } = useAppSelector((state) => state.team);  const dispatch = useAppDispatch();
 
   const listSize = teams && teams.length;
-  
+
   const userId = getStoredId();
   useEffect(() => {
     dispatch(findUser(userId));

@@ -5,6 +5,10 @@ type InputProps = {
   isError?: boolean | "" | undefined;
 };
 
+type FormContainerProps = {
+  isLoading: boolean;
+}
+
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -12,7 +16,7 @@ export const Container = styled.div`
   background: linear-gradient(43deg, rgba(42,115,255,1) 0%, rgba(126,172,255,1) 67%);
 `;
 
-export const FormContainer = styled.div`
+export const FormContainer = styled.div<FormContainerProps>`
   width: 80%;
   max-width: 750px;
   margin: 0 auto;
@@ -24,7 +28,9 @@ export const FormContainer = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   margin-top: 20px;
-  
+
+  opacity: ${({isLoading}) => isLoading && "0.7"};
+  transition: all .3s ease-in-out;
 `;
 
 export const Header = styled.div`
@@ -96,6 +102,38 @@ export const Select = styled.select<InputProps>`
   }
 `;
 
+export const PhotoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+  align-content: center;
+`;
+
+
+export const FileUploadButton = styled.button`
+  padding: 15px;
+  background-color: ${colors.lightGreyAlmostTransparent};
+  border: 3px solid ${colors.lightGrey};
+  border-radius: 10px;
+  color: ${colors.greyDarker};
+  font-weight: bold;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+`;
+
+export const FileRemoveButton = styled(FileUploadButton)`
+
+`;
+
+export const FileUpload = styled.input`
+
+`;
+
 
 export const Error = styled.small`
   width: 100%;
@@ -107,7 +145,7 @@ export const Error = styled.small`
   border-radius: 5px;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<FormContainerProps>`
   width: 100%;
   font-size: 1rem;
   padding: 8px 30px;
@@ -117,6 +155,8 @@ export const Button = styled.button`
   border-radius: 10px;
   outline: none;
   transition: all 0.4s ease-in-out;
+  pointer-events: ${({isLoading}) => isLoading && "none"};
+  opacity: ${({isLoading}) => isLoading && "0.4"};
 
   span {
     display: flex;

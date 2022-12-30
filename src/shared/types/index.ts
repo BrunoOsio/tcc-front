@@ -4,3 +4,4 @@ export * from "./user/User";
 export * from "./area/Area";
 export * from "./area/column/Column";
 export * from "./task/Task";
+export * from "./photo/Photo";

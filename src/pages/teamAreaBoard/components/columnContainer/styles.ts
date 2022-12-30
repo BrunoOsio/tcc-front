@@ -14,7 +14,7 @@ type TasksListProps = {
 };
 
 export const Container = styled.section<ContainerProps>`
-  background-color: rgba(226, 237, 255, 0.35);
+  background-color: ${colors.lightBlueAlmostTransparent};
   width: 100% ;
   max-width: 480px;
   max-height: calc(100vh - ${sizes.navbar} - 20px);

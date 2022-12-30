@@ -18,7 +18,6 @@ import routes from "../../routes/routes";
 
 export const TeamDashboard = () => {
   const navigate = useNavigate();
-
   const { teamId } = useParams();
   const teamIdNumber = Number(teamId);
 
