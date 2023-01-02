@@ -11,6 +11,7 @@ export const Container = styled.main`
   display: flex;
   flex-direction: column;
   background-color: ${colors.white};
+  background: url("main_background.png");
   `;
 
 export const Header = styled.section`

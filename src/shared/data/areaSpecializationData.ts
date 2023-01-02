@@ -52,3 +52,9 @@ export const areaSpecializationData = [
     icon: BsCalendar2EventFill
   },
 ];
+
+export const findSpecializationValueByType = (type: string) => {
+  const target = areaSpecializationData.find(specialization => specialization.type === type)!;
+
+  return target.value;
+}

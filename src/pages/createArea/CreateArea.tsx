@@ -9,7 +9,7 @@ import { NewAreaDTO } from "../../shared/dtos/area/NewAreaDTO";
 import { getStoredId } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { notifyError, notifySuccess } from "../../shared/helpers/notificationHelpers";
 import areaService from "../../shared/services/area/areaService";
-import { areaSpecializationData } from "../../shared/data/areaSpecializationData";
+import { areaSpecializationData, findSpecializationValueByType } from "../../shared/data/areaSpecializationData";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findTeam } from "../../states/features/teamSlice";
 import { findUser } from "../../states/features/userSlice";
@@ -61,6 +61,11 @@ export const CreateArea = () => {
     onSubmit
   });
 
+  
+  useEffect(() => {
+    values.name = findSpecializationValueByType(values.specialization);
+  }, [values.specialization])
+
   const userId = getStoredId();
   useEffect(() => {
     dispatch(findUser(userId));
@@ -89,18 +94,6 @@ export const CreateArea = () => {
           {user && <Icon user={user} size={40}/>}
         </Header>
         <Form onSubmit={handleSubmit} autoComplete="off">
-          <FormGroup>
-            <Label htmlFor="name">Nome da área</Label>
-              <Input 
-                name="name"
-                isError={isNameInvalid}
-                value={values.name} 
-                onChange={handleChange} 
-                onBlur={handleBlur}
-          />
-
-              {(isNameInvalid) && <Error>{errors.name}</Error>}
-          </FormGroup>
 
           <FormGroup>
             <Label htmlFor="modality">Tipo de especialização</Label>
@@ -115,6 +108,19 @@ export const CreateArea = () => {
             </Select>
 
             {(isSpecializationInvalid) && <Error>{errors.specialization}</Error>}
+          </FormGroup>
+
+          <FormGroup>
+            <Label htmlFor="name">Nome da área</Label>
+              <Input 
+                name="name"
+                isError={isNameInvalid}
+                value={values.name} 
+                onChange={handleChange} 
+                onBlur={handleBlur}
+          />
+
+              {(isNameInvalid) && <Error>{errors.name}</Error>}
           </FormGroup>
 
           <Button type="submit"><span>{isSubmitting ? <Loading/> : <ImArrowRight/>}</span></Button>
