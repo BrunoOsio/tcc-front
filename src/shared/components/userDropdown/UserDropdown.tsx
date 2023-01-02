@@ -18,7 +18,7 @@ export const UserDropdown: React.FC<UserDropdownProps> = ({ user, size }) => {
   const navigate = useNavigate();
 
   const goToUserSettings = () => {
-    navigate(routes.userSettings());
+    navigate(routes.editUser());
   };
 
   const goToLogin = () => {

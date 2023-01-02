@@ -6,10 +6,9 @@ import { Navbar } from "../../shared/components/navbar/Navbar";
 import { isUserTeamLeader } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findTeam } from "../../states/features/teamSlice";
-import { MemberCard } from "./components/memberCard/MemberCard";
 import { Border, Container, Divider, Footer, FooterButton, Main, NewRequestsNumber, Title, TitleContainer } from "./styles";
 
-export const TeamMembers = () => {
+export const TeamConfigurations = () => {
   const navigate = useNavigate();
 
   const { value: teamArray, isLoading: isTeamLoading} = useAppSelector((state) => state.team);
@@ -29,12 +28,16 @@ export const TeamMembers = () => {
     navigate(routes.teamJoinRequests(teamIdNumber));
   }
 
+  const goToEditTeam = () => {
+    navigate(routes.editTeam(teamIdNumber));
+  }
+
   const goToAreasSettings = () => {
     navigate(routes.areasSettings(teamIdNumber));
   }
 
-  const goToEditTeam = () => {
-    navigate(routes.editTeam(teamIdNumber));
+  const goToTeamMembers = () => {
+    navigate(routes.teamMembers(teamIdNumber));
   }
 
   const teamMembers = team?.members ? team.members : [];
@@ -47,16 +50,9 @@ export const TeamMembers = () => {
       <Container>
         <TitleContainer>
           { isTeamSuccess && (
-            <Title>Membros da equipe {team.name}</Title>
+            <Title>Configurações da equipe {team.name}</Title>
           )}
         </TitleContainer>
-
-
-        <Main>
-          {
-            teamMembers.map(member => <MemberCard key={member.id} member={member}/>)
-          }
-        </Main>
 
         {
           isUserTeamLeader(teamIdNumber) && (
@@ -64,6 +60,11 @@ export const TeamMembers = () => {
               <Divider/>
 
               <Footer>
+                <FooterButton className="first" onClick={goToEditTeam}>
+                  <span><MdLeaderboard/></span>
+                  <span>Ir à Edição do time</span>
+                </FooterButton>
+
                 <FooterButton className="first" onClick={goToJoinRequests}>
                   {
                     teamJoinRequestsLength > 0 && (
@@ -87,9 +88,9 @@ export const TeamMembers = () => {
                   <span>Ir à configuração das áreas</span>
                 </FooterButton>
 
-                <FooterButton className="second" onClick={goToEditTeam}>
+                <FooterButton className="second" onClick={goToTeamMembers}>
                   <span><MdLeaderboard/></span>
-                  <span>Ir à edição da equipe</span>
+                  <span>Ir à configuração das áreas</span>
                 </FooterButton>
               </Footer>        
             </>

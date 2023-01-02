@@ -12,7 +12,8 @@ export const Container = styled.div`
 
 export const Footer = styled.div`
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
   gap: 30px;
 
   .first {
@@ -27,15 +28,13 @@ export const Footer = styled.div`
 `;
 
 export const FooterButton = styled.div`
+  justify-content: center;
   gap: 10px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
   text-align: center;
   width: 100%;
-  font-size: 1.1rem;
-  padding: 20px;
+  font-size: 1.3rem;
+  padding: 20px 0px;
   border-radius: 15px;
   border: none;
   outline: none;

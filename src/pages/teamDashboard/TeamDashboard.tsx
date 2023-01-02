@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Navbar } from "../../shared/components/navbar/Navbar";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findAreas } from "../../states/features/areaSlice";
 import { AreaCard } from "./components/areaCard/AreaCard";
-import { Areas, ButtonGroup, ButtonGroupPlaceholder, Container, Header, Label, LabelGroup, Leader, LeaderGroup, LeftInformations, Name, NameAndLeaderGroup, RightInformations, TeamInformationsGroup, Title } from "./styles";
+import { Areas, ButtonGroup, ButtonGroupPlaceholder, Container, Header, Label, LabelGroup, Leader, LeaderGroup, LeftInformations, Name, NameAndLeaderGroup, RightInformations, SettingsIcon, TeamInformationsGroup, Title } from "./styles";
 import { RiVipCrownFill } from "react-icons/ri";
 import { Icon } from "../../shared/components/icon/Icon";
 import { findTeam } from "../../states/features/teamSlice";
@@ -15,6 +15,7 @@ import { GoPlus } from "react-icons/go";
 import { getStoredId, isUserTeamLeader } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { findUser } from "../../states/features/userSlice";
 import routes from "../../routes/routes";
+import { MdSettings } from "react-icons/md";
 
 export const TeamDashboard = () => {
   const navigate = useNavigate();
@@ -30,6 +31,12 @@ export const TeamDashboard = () => {
 
   const { value: user, isLoading: isUserLoading } = useAppSelector((state) => state.user);
   const userId = getStoredId();
+
+  const [showteamSettingsButton, toggleTeamSettingsButton] = useState(false);
+
+  const handleTeamSettingsButton = () => {
+    toggleTeamSettingsButton(!showteamSettingsButton);
+  }
 
   const dispatch = useAppDispatch();
   
@@ -47,6 +54,10 @@ export const TeamDashboard = () => {
     navigate(routes.teamMembers(teamIdNumber));
   }
 
+  const goToTeamConfiguration = () => {
+    navigate(routes.teamConfigurations(teamIdNumber));
+  }
+
   const screenWidth = window.innerWidth;
   const MAX_MEMBERS_ON_LIST = (screenWidth > 1500) ? 6 : 5;
   const membersLengthReached = team ? team.members?.length > MAX_MEMBERS_ON_LIST : false;
@@ -61,8 +72,7 @@ export const TeamDashboard = () => {
     <Container>
       <Navbar />
       <TeamInformationsGroup>
-        <LeftInformations>
-          
+        <LeftInformations onMouseEnter={handleTeamSettingsButton} onMouseLeave={handleTeamSettingsButton}>
           {isTeamLoading && <TeamPhotoBlank size={70}/>}
           {isTeamSuccess && <TeamPhoto team={team} size={70}/>}
 
@@ -75,6 +85,8 @@ export const TeamDashboard = () => {
               { isTeamSuccess && <Leader>{teamLeader}</Leader>}
             </LeaderGroup>
           </NameAndLeaderGroup>
+
+          {isUserTeamLeader(teamIdNumber) && (<SettingsIcon isShow={showteamSettingsButton} onClick={goToTeamConfiguration}><MdSettings/></SettingsIcon>)}
         </LeftInformations>
         <RightInformations>
           {isTeamSuccess && (

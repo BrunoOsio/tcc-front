@@ -15,10 +15,9 @@ export const TeamCard: React.FC<TeamCardProps> = ({team}) => {
     navigate(routes.teamDashboard(team.id));
   }
 
-  console.log(team);
   return (
     <Container onClick={navigateToAreas}>
-      <TeamPhoto team={team} size={280}/>
+      <TeamPhoto team={team} size={220}/>
     </Container>
   );
 }

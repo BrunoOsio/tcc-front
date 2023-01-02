@@ -1,9 +1,14 @@
 import styled from "styled-components";
-import { appGradient } from "../../shared/globalStyles/globalValues";
+import { appGradient, colors } from "../../shared/globalStyles/globalValues";
 
 type AreasProps = {
   listSize: number;
 }
+
+type SettingsIconProps = {
+  isShow: boolean;
+}
+
 export const Container = styled.div`
   margin: 0 auto;
   display: flex;
@@ -65,6 +70,26 @@ export const LeaderGroup = styled.div`
 
 export const Leader = styled.span`
   font-size: 0.8rem;
+`;
+
+export const SettingsIcon = styled.span<SettingsIconProps>`
+  margin-left: 15px;
+  font-size: 1.3rem;
+  position: relative;
+  top: -8px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  color: transparent;
+  color: ${({isShow}) => isShow && `${colors.white}`};
+  transition: all .3s ease-in-out;
+  padding: 4px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 
 export const RightInformations = styled.div`

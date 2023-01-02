@@ -4,6 +4,7 @@ import { NewTeamDTO } from "../../dtos/team/NewTeamDTO";
 import { IsUserOnTeamDTO } from "../../dtos/team/IsUserOnTeamDTO";
 import { Team } from "../../types/team/Team";
 import { RemoveMemberDTO } from "../../../pages/teamMembers/components/dto/RemoveMemberDTO";
+import { UpdateTeamDTO } from "../../dtos/team/UpdateTeamDTO";
 
 const BASE_URL = "http://127.0.0.1:3000/api/teams";
 
@@ -24,6 +25,14 @@ const findTeams = async (userId: number): Promise<Team[]> => {
 const createTeam = async (newTeamDto: NewTeamDTO, leaderId: number): Promise<Team> => {
   const endpoint = `${BASE_URL}?userId=${leaderId}`;
   const { data } = await axios.post(endpoint, newTeamDto)
+
+  return data;
+}
+
+const updateTeam = async (updateTeamDto: UpdateTeamDTO, teamId: number): Promise<Team> => {
+  const endpoint = `${BASE_URL}/${teamId}`;
+
+  const { data } = await axios.patch(endpoint, updateTeamDto)
 
   return data;
 }
@@ -84,4 +93,4 @@ const isUserOnTeam = async (verifyUserOnTeamDto: IsUserOnTeamDTO): Promise<boole
   return data;
 }
 
-export default { findTeam, findTeams, createTeam, findByKeyword, requestJoin, removeJoin, removeMember, isUserOnTeam, acceptRequest, rejectRequest };
+export default { findTeam, findTeams, createTeam, updateTeam, findByKeyword, requestJoin, removeJoin, removeMember, isUserOnTeam, acceptRequest, rejectRequest };

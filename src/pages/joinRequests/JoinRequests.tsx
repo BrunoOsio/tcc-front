@@ -27,12 +27,20 @@ export const JoinRequests = () => {
     dispatch(findTeam(teamIdNumber))
   }, [])
 
-  const goToMembers = () => {
-    navigate(routes.teamMembers(teamIdNumber));
+  const goToJoinRequests = () => {
+    navigate(routes.teamJoinRequests(teamIdNumber));
+  }
+
+  const goToEditTeam = () => {
+    navigate(routes.editTeam(teamIdNumber));
   }
 
   const goToAreasSettings = () => {
     navigate(routes.areasSettings(teamIdNumber));
+  }
+
+  const goToTeamMembers = () => {
+    navigate(routes.teamMembers(teamIdNumber));
   }
 
   const joinRequests = team?.joinRequests ? team.joinRequests : [];
@@ -56,13 +64,19 @@ export const JoinRequests = () => {
 
         <Divider/>
         <Footer>
-          <FooterButton className="first" onClick={goToMembers}>
+          <FooterButton className="first" onClick={goToTeamMembers}>
             <span><AiOutlineTeam/></span>
             <span>Ir aos membros</span>
           </FooterButton>
+
           <FooterButton className="second" onClick={goToAreasSettings}>
             <span><MdLeaderboard/></span>
             <span>Ir à configuração das áreas</span>
+          </FooterButton>
+
+          <FooterButton className="second" onClick={goToEditTeam}>
+            <span><MdLeaderboard/></span>
+            <span>Ir à edição de time</span>
           </FooterButton>
         </Footer>
       </Container>

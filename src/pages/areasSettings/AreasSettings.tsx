@@ -33,7 +33,15 @@ export const AreaSettings = () => {
     navigate(routes.teamJoinRequests(teamIdNumber));
   }
 
-  const goToMembers = () => {
+  const goToEditTeam = () => {
+    navigate(routes.editTeam(teamIdNumber));
+  }
+
+  const goToAreasSettings = () => {
+    navigate(routes.areasSettings(teamIdNumber));
+  }
+
+  const goToTeamMembers = () => {
     navigate(routes.teamMembers(teamIdNumber));
   }
 
@@ -77,9 +85,14 @@ export const AreaSettings = () => {
             <span>Ir às solicitações para entrar na equipe</span>
           </FooterButton>
           
-          <FooterButton className="second" onClick={goToMembers}>
+          <FooterButton className="second" onClick={goToTeamMembers}>
             <span><AiOutlineTeam/></span>
             <span>Ir aos membros</span>
+          </FooterButton>
+
+          <FooterButton className="second" onClick={goToEditTeam}>
+            <span><AiOutlineTeam/></span>
+            <span>Ir à edição da equipe</span>
           </FooterButton>
         </Footer>        
       </Container>

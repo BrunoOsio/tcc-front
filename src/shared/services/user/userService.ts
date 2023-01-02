@@ -1,4 +1,5 @@
 import axios from "axios";
+import { EditUserDTO } from "../../dtos/user/EditUserDTO";
 import { NewUserDTO } from "../../dtos/user/NewUserDTO";
 import { UserLoginDTO } from "../../dtos/user/UserLoginDTO";
 import { User } from "../../types";
@@ -16,6 +17,13 @@ const isUniqueEmail = async (email: string): Promise<boolean> => {
 const register = async (user: NewUserDTO): Promise<boolean> => {
   const endpoint = `${BASE_URL}`;
   const { data } = await axios.post(endpoint, user);
+
+  return data;
+}
+
+const update = async (editUserDto: EditUserDTO, userId: number): Promise<User> => {
+  const endpoint = `${BASE_URL}/${userId}`;
+  const { data } = await axios.patch(endpoint, editUserDto);
 
   return data;
 }
@@ -41,4 +49,4 @@ const findLeaderedTeams = async (userId: number): Promise<Team[]> => {
   return data;
 }
 
-export default { isUniqueEmail, register, checkLogin, findUser, findLeaderedTeams };
+export default { isUniqueEmail, register, update, checkLogin, findUser, findLeaderedTeams };
