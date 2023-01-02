@@ -12,7 +12,7 @@ export const AccountDropdown = () => {
   const navigate = useNavigate();
 
   const goToUserSettings = () => {
-    navigate(routes.userSettings());
+    navigate(routes.editUser());
   };
 
   const goToLogin = () => {

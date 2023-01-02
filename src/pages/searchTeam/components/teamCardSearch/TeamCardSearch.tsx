@@ -13,6 +13,7 @@ import { patchRemoveJoinUser, patchRequestJoinUser } from "../../../../states/fe
 import { findUser } from "../../../../states/features/userSlice";
 import { notifySuccess, notifyWarning } from "../../../../shared/helpers/notificationHelpers";
 import { getModalityInitials } from "../../../../shared/types/modality/helpers/getModalityInitials";
+import { TeamPhoto } from "../../../../shared/components/teamPhoto/TeamPhoto";
 
 export type TeamCardProps = {
   team: Team;
@@ -110,7 +111,7 @@ export const TeamCardSearch: React.FC<TeamCardProps> = ({team}) => {
 
         {(user) && 
         <>
-          <Icon team={team} size={90}/>
+          <TeamPhoto team={team} size={90}/>
           <ColumnWrapper>
             <ExtraInformations>
               <Modality>{getModalityInitials(team.modality)}</Modality>

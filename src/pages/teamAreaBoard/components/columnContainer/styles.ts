@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, responsivity, sizes } from "../../../../shared/globalStyles/globalValues";
+import { colors, columnGradient, responsivity, sizes } from "../../../../shared/globalStyles/globalValues";
 
 type ContainerProps = {
   isDone: boolean;
@@ -14,12 +14,15 @@ type TasksListProps = {
 };
 
 export const Container = styled.section<ContainerProps>`
-  background-color: ${colors.lightBlueAlmostTransparent};
+  background: ${columnGradient};
   width: 100% ;
   max-width: 480px;
   max-height: calc(100vh - ${sizes.navbar} - 20px);
   display: flex;
   flex-direction: column;
+  border: 3px solid ${colors.lightBlue};
+  border-radius: 13px 13px 0px 0px;
+
 
   padding: 0px 0px;
   margin-right: 10px;
@@ -56,12 +59,20 @@ export const Header = styled.article<HeaderProps>`
     transition: all .3s ease-in-out;
     cursor: pointer;
     user-select: none;
-    z-index: 10;
+    z-index: 0;
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.15);
     }
   }
+`;
+
+export const Divider = styled.div`
+  margin: 10px 10px;
+  height: 4px;
+  background-color: ${colors.lightBlueAlmostTransparent};
+  border: none;
+  outline: none;
 `;
 
 export const FormGroup = styled.div`
@@ -71,7 +82,6 @@ export const FormGroup = styled.div`
 
 export const ColumnTitle = styled.h2`
   user-select: none;
-  font-weight: 500;
   width: 100%;
   height: 100%;
   text-align: center;
@@ -101,12 +111,12 @@ export const Scrollable = styled.div`
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${colors.greyLighter};
+    background: ${colors.purpleBlue};
     border-radius: 999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: ${colors.greyDarker};
+    background: ${colors.lightBlueDarker};
   }
 `;
 
@@ -127,13 +137,13 @@ export const AddTaskButton = styled.button`
 
   border-style: dashed;
   border-width: 2px;
-  border-color: ${colors.grey};
+  border-color: ${colors.white};
   border-radius: 10px;
 
-  background-color: ${colors.lightGreyAlmostTransparent};
+  background-color: ${colors.lightBlue};
   color: ${colors.white};
 
-  transition: 2s all ease-in-out;
+  transition: .3s all ease-in-out;
 
   span {
     width: 100%;
@@ -146,11 +156,11 @@ export const AddTaskButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    transition: 2s all ease-in-out;
-
+    transition: .3s all ease-in-out;
+    border-color: ${colors.lightBlueDarker};
     span {
       transition: .3s all ease-in-out;
-      color: ${colors.greyDarker};
+      color: ${colors.lightBlueDarker};
     }
   }
 `;

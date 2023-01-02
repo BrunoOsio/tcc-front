@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../shared/globalStyles/globalValues";
+import { appGradient, colors } from "../../shared/globalStyles/globalValues";
 
 export type BodyProps = {
   listSize: number
@@ -14,7 +14,7 @@ export const SearchBarGroup = styled.article`
   display: flex;
   flex-direction: column;
   background-color: ${colors.darkBlue};
-  background: linear-gradient(180deg, rgba(42,115,255,1) 23%, rgba(87,147,255,1) 69%);
+  background: ${appGradient};
   width: 100%;
   transition: all .1s ease-in-out;
   

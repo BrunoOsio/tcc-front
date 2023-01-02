@@ -14,16 +14,6 @@ export const Header = styled.div`
   width: 100%;
   display: flex;
   gap: 30px;
-
-  .first {
-    background: rgb(52,136,235);
-    background: linear-gradient(90deg, rgba(52,136,235,1) 0%, rgba(96,129,255,1) 100%);
-  }
-
-  .second {
-    background: rgb(96,129,255);
-    background: linear-gradient(90deg, rgba(96,129,255,1) 0%, rgba(52,136,235,1) 100%);
-  }
 `;
 
 export const HeaderButton = styled.button`

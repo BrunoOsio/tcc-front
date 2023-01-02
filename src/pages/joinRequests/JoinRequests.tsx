@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { AiOutlineTeam } from "react-icons/ai";
 import { MdLeaderboard } from "react-icons/md";
+import { RiPencilFill } from "react-icons/ri";
 import { useNavigate, useParams } from "react-router-dom";
 import routes from "../../routes/routes";
 import { Navbar } from "../../shared/components/navbar/Navbar";
@@ -75,7 +76,7 @@ export const JoinRequests = () => {
           </FooterButton>
 
           <FooterButton className="second" onClick={goToEditTeam}>
-            <span><MdLeaderboard/></span>
+            <span><RiPencilFill/></span>
             <span>Ir à edição de time</span>
           </FooterButton>
         </Footer>

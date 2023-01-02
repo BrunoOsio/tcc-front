@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { appGradient, colors, responsivity, sizes } from "../../shared/globalStyles/globalValues";
+import { appGradient, colors, columnGradient, responsivity, sizes } from "../../shared/globalStyles/globalValues";
 
 type InputProps = {
   isBlank: boolean;
@@ -38,6 +38,12 @@ export const TeamInformationsGroup = styled.div`
   margin-bottom: 40px;
   background: ${appGradient};
   padding-left: 12px;
+  transition: all .3s ease-in-out;
+  
+  &:hover {
+    box-shadow: 0px 21px 45px -29px rgba(0,0,0,0.40);
+    transform: translateY(-1px);
+  }
 `;
 
 export const LeftInformations = styled.div`
@@ -131,7 +137,8 @@ export const NewColumnPlaceholder = styled.div`
   display: flex;
   flex-direction: column;
   align-content: center;
-  background-color: ${colors.lightBlueAlmostTransparent};
+  background: ${columnGradient};
+  border: 3px solid ${colors.lightBlue};
   margin-right: auto;
   border-radius: 10px 10px 0px 0px;
 `;
@@ -214,12 +221,11 @@ export const NewColumnButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    background-color: ${colors.lightGreyAlmostTransparent}
-
+    background-color: ${colors.lightBlue};
   }
 
   &:hover span {
-    color: ${colors.darkGreyText};
+    color: ${colors.lightBlueDarker};
   }
 
   span {

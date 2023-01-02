@@ -31,7 +31,7 @@ export const AppRoutes = () => {
             <Route path="/searchTeam" element={<CheckIsLoggedIn><SearchTeam/></CheckIsLoggedIn>}/>
             <Route path="/team/:teamId/dashboard" element={<CheckUserTeams><TeamDashboard/></CheckUserTeams>}/>
             <Route path="/team/:teamId/createArea" element={<CheckUserTeams><CreateArea/></CheckUserTeams>}/>
-            <Route path="/team/:teamId/configurations" element={<CheckUserTeams><TeamConfigurations/></CheckUserTeams>}/>
+            <Route path="/team/:teamId/configurations" element={<CheckIsTeamLeader><TeamConfigurations/></CheckIsTeamLeader>}/>
             <Route path="/team/:teamId/configurations/edit" element={<CheckUserTeams><EditTeam/></CheckUserTeams>}/>
             <Route path="/team/:teamId/configurations/members" element={<CheckUserTeams><TeamMembers/></CheckUserTeams>}/>
             <Route path="/team/:teamId/configurations/joinRequests" element={<CheckIsTeamLeader><JoinRequests/></CheckIsTeamLeader>}/>

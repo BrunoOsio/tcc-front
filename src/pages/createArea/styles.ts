@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, sizes } from "../../shared/globalStyles/globalValues";
+import { appGradient, colors, headerGradient, sizes } from "../../shared/globalStyles/globalValues";
 
 type InputProps = {
   isError?: boolean | "" | undefined;
@@ -8,8 +8,7 @@ type InputProps = {
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background: rgb(42,115,255);
-  background: linear-gradient(43deg, rgba(42,115,255,1) 0%, rgba(126,172,255,1) 67%);
+  background: ${appGradient};
 `;
 
 export const FormContainer = styled.div`
@@ -35,8 +34,7 @@ export const Header = styled.div`
   color: white;
   border-radius: 10px;
   padding: 25px 30px;
-  background: rgb(83,142,255);
-  background: linear-gradient(83deg, rgba(83,142,255,1) 0%, rgba(126,172,255,1) 67%);
+  background: ${headerGradient};
 `;
 
 export const Title = styled.h1`

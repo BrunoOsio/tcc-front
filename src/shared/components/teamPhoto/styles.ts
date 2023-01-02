@@ -5,6 +5,10 @@ export type BorderProps = {
   size: number
 }
 
+export type NameProps = {
+  size: number
+}
+
 export const Border = styled.div<BorderProps>`
   width: ${({size}) => `${size}px`};
   height: ${({size}) => `${size}px`};
@@ -43,8 +47,14 @@ export const PhotoCard = styled.img`
   aspect-ratio: 1/1;
 `;
 
-export const Initials = styled.div`
+const calculateSize = (size: number) => {
+  return `${size / 200}rem`;
+}
+
+export const Name = styled.div<NameProps>`
   color: white;
   text-transform: uppercase;
   font-weight: bold;
+  text-align: center;
+  font-size: ${({size}) => size && `${calculateSize(size)}`};
 `;

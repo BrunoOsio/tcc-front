@@ -9,6 +9,7 @@ import { Loading } from "../../shared/components/loading/Loading";
 import { HiOutlineEmojiSad } from "react-icons/hi";
 import { findUser } from "../../states/features/userSlice";
 import { Navbar } from "../../shared/components/navbar/Navbar";
+import { NoItemsFound } from "../../shared/components/noItemsFound/NoItemsFound";
 
 export const SearchTeam = () => {
   const dispatch = useAppDispatch();
@@ -66,10 +67,7 @@ export const SearchTeam = () => {
             :
             (notFound && !isTeamLoading)
             ? (
-              <NoTeamsGroup>
-                <span className="icon"><HiOutlineEmojiSad/></span>
-                <span>Não encontrado</span>
-              </NoTeamsGroup>
+              <NoItemsFound message="Nenhum time encontrado"/>
             )
             : null
           ) 

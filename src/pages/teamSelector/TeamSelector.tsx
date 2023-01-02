@@ -14,7 +14,7 @@ import { PositionCoordinates } from "../../shared/components/sidebar/types/Posit
 import { useNavigate } from "react-router-dom";
 import routes from "../../routes/routes";
 import { UserDropdown } from "../../shared/components/userDropdown/UserDropdown";
-import photoService from "../../shared/services/photo/photoService";
+import { NoItemsFound } from "../../shared/components/noItemsFound/NoItemsFound";
 
 export const TeamSelector = () => {
   const navigate = useNavigate();
@@ -73,6 +73,12 @@ export const TeamSelector = () => {
           {
             isTeamSuccess && (
               teams.map((team, index) => <TeamCard key={index} team={team} />)
+            )
+          }
+
+          {
+            (isTeamSuccess && teams.length === 0) && (
+              <NoItemsFound message="Você não está em nenhum time ainda"/>
             )
           }
         </Teams>

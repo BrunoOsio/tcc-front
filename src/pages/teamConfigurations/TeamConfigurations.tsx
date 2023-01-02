@@ -1,12 +1,14 @@
 import { useEffect } from "react";
+import { AiOutlineTeam } from "react-icons/ai";
 import { MdLeaderboard, MdViewList } from "react-icons/md";
+import { RiPencilFill } from "react-icons/ri";
 import { useNavigate, useParams } from "react-router-dom";
 import routes from "../../routes/routes";
 import { Navbar } from "../../shared/components/navbar/Navbar";
 import { isUserTeamLeader } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findTeam } from "../../states/features/teamSlice";
-import { Border, Container, Divider, Footer, FooterButton, Main, NewRequestsNumber, Title, TitleContainer } from "./styles";
+import { Border, Container, Divider, Footer, FooterButton, NewRequestsNumber, Title, TitleContainer } from "./styles";
 
 export const TeamConfigurations = () => {
   const navigate = useNavigate();
@@ -61,7 +63,7 @@ export const TeamConfigurations = () => {
 
               <Footer>
                 <FooterButton className="first" onClick={goToEditTeam}>
-                  <span><MdLeaderboard/></span>
+                  <span><RiPencilFill/></span>
                   <span>Ir à Edição do time</span>
                 </FooterButton>
 
@@ -89,8 +91,8 @@ export const TeamConfigurations = () => {
                 </FooterButton>
 
                 <FooterButton className="second" onClick={goToTeamMembers}>
-                  <span><MdLeaderboard/></span>
-                  <span>Ir à configuração das áreas</span>
+                  <span><AiOutlineTeam/></span>
+                  <span>Ir à membros</span>
                 </FooterButton>
               </Footer>        
             </>

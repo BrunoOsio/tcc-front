@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../shared/globalStyles/globalValues";
+import { appGradient, colors } from "../../shared/globalStyles/globalValues";
 
 type TeamsProps = {
   listSize: number
@@ -14,8 +14,7 @@ export const Container = styled.main`
   `;
 
 export const Header = styled.section`
-  background: rgb(42,115,255);
-  background: linear-gradient(180deg, rgba(42,115,255,1) 23%, rgba(87,147,255,1) 69%);
+  background: ${appGradient};
   width: 100%;
   height: 230px;
   display: flex;
@@ -40,11 +39,12 @@ export const Name = styled.span`
 `;
 
 const headerOverlayPx = "-50px";
+
 export const Teams = styled.section<TeamsProps>`
   background-color: ${colors.lightBlue};
   border: 5px solid rgba(176,197,247,0.68);
   width: 800px;
-  height: 490px;
+  height: 530px;
   margin: 0 auto;
   padding: ${({listSize}) => listSize >= 5 && "100px"};
   padding-bottom: 20px;

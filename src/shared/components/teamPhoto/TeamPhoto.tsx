@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import photoService from "../../services/photo/photoService";
 import { Photo } from "../../types";
 import { Team } from "../../types/team/Team";
-import { Border, Container, Initials, PhotoCard } from "./styles";
+import { Border, Container, Name, PhotoCard } from "./styles";
 
 type TeamPhotoProps = {
   team: Team;
@@ -24,7 +24,7 @@ export const TeamPhoto: React.FC<TeamPhotoProps> = ({team, size}) => {
     <Border size={size}>
       <Container>
         {team.photo && (<PhotoCard src={team.photo.url}/>)}
-        {!team.photo && (<Initials>{getFullname()}</Initials>)}
+        {!team.photo && (<Name size={size}>{getFullname()}</Name>)}
       </Container>
     </Border>
   );

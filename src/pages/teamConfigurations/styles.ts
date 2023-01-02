@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../shared/globalStyles/globalValues";
+import { appGradient, colors, lighterAppGradient } from "../../shared/globalStyles/globalValues";
 
 export const Container = styled.div`
   width: 100vw;
@@ -88,8 +88,7 @@ export const Divider = styled.div`
 `;
 
 export const TitleContainer = styled.div`
-  background: rgb(52,136,235);
-  background: linear-gradient(90deg, rgba(52,136,235,1) 0%, rgba(96,129,255,1) 100%);
+  background: ${lighterAppGradient};
   padding: 30px;
   border-radius: 15px;
 `;

@@ -9,6 +9,7 @@ import { Border, Container, Divider, Footer, FooterButton, Main, NewRequestsNumb
 import routes from "../../routes/routes";
 import { findAreas } from "../../states/features/areaSlice";
 import { AreaCard } from "./components/areaCard/AreaCard";
+import { RiPencilFill } from "react-icons/ri";
 
 export const AreaSettings = () => {
   const navigate = useNavigate();
@@ -91,7 +92,7 @@ export const AreaSettings = () => {
           </FooterButton>
 
           <FooterButton className="second" onClick={goToEditTeam}>
-            <span><AiOutlineTeam/></span>
+            <span><RiPencilFill/></span>
             <span>Ir à edição da equipe</span>
           </FooterButton>
         </Footer>        

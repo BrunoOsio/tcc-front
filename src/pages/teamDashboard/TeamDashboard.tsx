@@ -16,13 +16,15 @@ import { getStoredId, isUserTeamLeader } from "../../shared/helpers/localStorage
 import { findUser } from "../../states/features/userSlice";
 import routes from "../../routes/routes";
 import { MdSettings } from "react-icons/md";
+import { NoItemsFound } from "../../shared/components/noItemsFound/NoItemsFound";
+import { Loading } from "../../shared/components/loading/Loading";
 
 export const TeamDashboard = () => {
   const navigate = useNavigate();
   const { teamId } = useParams();
   const teamIdNumber = Number(teamId);
 
-  const { value: areas, isLoading: isAreaLoading } = useAppSelector((state) => state.area);
+  const { value: areas, isLoading: isAreaLoading, isSuccess: isAreaSuccess} = useAppSelector((state) => state.area);
   const listSize = areas && areas.length;
 
   const { value: teamArray, isLoading: isTeamLoading} = useAppSelector((state) => state.team);
@@ -66,13 +68,14 @@ export const TeamDashboard = () => {
   const teamMembers = team?.members ? team.members : [];
 
   const isTeamLeader = team ? isUserTeamLeader(team.id) : false;
+  console.log(listSize);
 
   return (
     
     <Container>
       <Navbar />
-      <TeamInformationsGroup>
-        <LeftInformations onMouseEnter={handleTeamSettingsButton} onMouseLeave={handleTeamSettingsButton}>
+      <TeamInformationsGroup onMouseEnter={handleTeamSettingsButton} onMouseLeave={handleTeamSettingsButton}>
+        <LeftInformations>
           {isTeamLoading && <TeamPhotoBlank size={70}/>}
           {isTeamSuccess && <TeamPhoto team={team} size={70}/>}
 
@@ -118,8 +121,20 @@ export const TeamDashboard = () => {
           )
         }
       </Header>
+    
       <Areas listSize={listSize}>
-        {areas.map(area => <AreaCard key={area.id} area={area}/>)}
+
+        {isAreaLoading && (
+          <Loading size={100}/>
+        )}
+
+        {isAreaSuccess && (
+          areas.map(area => <AreaCard key={area.id} area={area}/>)
+        )}
+
+        {(!isAreaLoading && isAreaSuccess && areas.length === 0) && (
+          <NoItemsFound message="Nenhuma área foi criada"/>
+        )}
       </Areas>
     </Container>
   );

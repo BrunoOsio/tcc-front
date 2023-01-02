@@ -19,8 +19,8 @@ export const Container = styled.div`
 export const Areas = styled.div<AreasProps>`
   display: grid;
   margin: 0 auto;
-  column-gap: 25px;
-  row-gap: 25px;
+  gap: 25px;
+  column-gap: ${({listSize}) => listSize < 2 && "0px"};
   grid-template-columns: repeat(5, auto);
   justify-content: center;
   padding: 40px;
@@ -34,6 +34,12 @@ export const TeamInformationsGroup = styled.div`
   margin-bottom: 40px;
   background: ${appGradient};
   padding: 12px;
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 21px 45px -29px rgba(0,0,0,0.40);
+    transform: translateY(-1px);
+  }
 `;
 
 export const LeftInformations = styled.div`

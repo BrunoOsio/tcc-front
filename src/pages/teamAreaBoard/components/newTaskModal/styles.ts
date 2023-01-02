@@ -215,7 +215,7 @@ export const ConfirmButton = styled(Button)<ButtonProps>`
     cursor: ${({isEnableSend}) => !isEnableSend && `not-allowed`};
     background: ${colors.blue};
     background: ${({isEnableSend}) => !isEnableSend && "transparent"};
-    color: ${colors.lightGreyFullTransparent};
+    color: ${colors.white};
     color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyAlmostTransparent}`};
     border-color: ${({isEnableSend}) => !isEnableSend && `${colors.lightGreyAlmostTransparent}`};
   }

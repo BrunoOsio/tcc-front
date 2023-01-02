@@ -38,6 +38,7 @@ export const Container = styled.div`
 const calculateSize = (size: number) => {
   return `${size / 60}rem`;
 }
+
 export const Initials = styled.div<BorderProps>`
   color: white;
   text-transform: uppercase;

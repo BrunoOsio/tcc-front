@@ -3,6 +3,7 @@ import {
   Body,
   ColumnTitle,
   Container,
+  Divider,
   Header,
   Scrollable,
   TasksList,
@@ -53,6 +54,7 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column, index 
           <>
             <AddTaskButton onClick={toggleNewTaskModal}><span><GoPlus /></span></AddTaskButton>
             <NewTaskModal columnId={column.id} isModalVisible={isNewTaskModalVisible} onBackDropClick={toggleNewTaskModal}/>
+            <Divider/>
           </>
           }
 
@@ -65,7 +67,7 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column, index 
                 isSmallScreenHeight={isSmallScreenHeight}
               >
                 {column.tasks.map((task, index) => {
-                  return <TaskCard key={task.id} index={index} task={task} columnId={column.id}/>;
+                  return <TaskCard key={task.id} index={index} task={task} columnId={column.id} isDone={column.isForDoneTasks}/>;
                 })}
 
                 {provided.placeholder}

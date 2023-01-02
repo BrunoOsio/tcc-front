@@ -13,10 +13,11 @@ import { BsArrowsAngleExpand } from "react-icons/bs";
 type TaskCardProps = {
   index: number;
   task: Task;
-  columnId: number
+  columnId: number;
+  isDone: boolean;
 }
 
-export const TaskCard: React.FC<TaskCardProps> = ({ task, index, columnId }) => {
+export const TaskCard: React.FC<TaskCardProps> = ({ task, index, columnId, isDone }) => {
   const [showEditButton, setShowEditButton] = useState(false);
 
   const [isModalVisible, setModalVisible] = useState(false);
@@ -33,8 +34,14 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index, columnId }) => 
 
   const handleLimitDateLabel = (limitDate: string): string => {
     const date = moment(limitDate).toDate();
-    
-    return `${date.getDate()}/${date.getMonth() + 1}`;
+
+    let day: unknown = date.getDate();
+    day = String(day).padStart(2, "0");
+
+    let month: unknown = date.getMonth() + 1;
+    month = String(month).padStart(2, "0");
+
+    return `${day}/${month}`;
   }
 
   const handleDateColorLabel = (limitAt: string) => {
@@ -42,7 +49,9 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index, columnId }) => 
     const limit = moment(limitAt);
 
     let color = dateLabelColors.normal;
-    if (now.isSame(limit, "day")) color = dateLabelColors.warning;
+
+    if (isDone) color = dateLabelColors.done;
+    else if (now.isSame(limit, "day")) color = dateLabelColors.warning;
     else if (now.isAfter(limit)) color = dateLabelColors.late;
 
     return color;
@@ -68,9 +77,9 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index, columnId }) => 
               <Title>{task.title}</Title>
 
               {task.limitAt &&
-                <LimitAt>
-                  <RiTimer2Fill color={colors.darkGreyText}/>
-                  <LimitDateLabel color={handleDateColorLabel(task.limitAt)}>{handleLimitDateLabel(task.limitAt)}</LimitDateLabel>
+                <LimitAt isDone={isDone} color={handleDateColorLabel(task.limitAt)}>
+                  <span><RiTimer2Fill/></span>
+                  <LimitDateLabel>{handleLimitDateLabel(task.limitAt)}</LimitDateLabel>
                 </LimitAt>
               }
               
@@ -88,21 +97,6 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, index, columnId }) => 
                 />
               </EditContainer>
             )}  
-
-            {!showEditButton && (
-              <Members>
-                {task.members &&
-                  task.members.map((member, index) => {
-                    const membersAmount = index + 1;
-
-                    //TODO SET MAX AMOUNT MEMBERS
-                    return (
-                          <MemberPhoto key={index} amount={index}>{member.id}</MemberPhoto>
-                    );
-                  })
-                }
-              </Members>
-            )}
           </Container>
         )
       }

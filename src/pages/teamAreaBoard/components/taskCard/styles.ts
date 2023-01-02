@@ -7,12 +7,14 @@ type MemberPhotoProps = {
 
 type LimitDateLabelProps = {
   color: string;
+  isDone: boolean;
 }
 
 export const dateLabelColors = {
-  normal: "#AEC4FF",
+  normal: `${colors.lightBlueDarker}`,
   warning: "#FFBF80",
-  late: "#FF9999"
+  late: `rgba(255, 147, 147, 1)`,
+  done: `rgba(167, 210, 186, 1)`
 }
 
 export const Container = styled.article`
@@ -56,20 +58,29 @@ export const Title = styled.span`
   overflow: hidden;
 `;
 
-export const LimitAt = styled.div`
-  background-color: inherit;
+const isDarkFont = (color: string): boolean => false;
+
+export const LimitAt = styled.div<LimitDateLabelProps>`
+  background-color: ${({ color }) => color};
+  color: ${({color}) => isDarkFont(color) ? colors.white : colors.darkGreyText};
+  width: 80px;
   display: flex;
-  gap: 5px;
   font-size: 0.8rem;
   color: ${colors.darkGreyText};
   align-items: center;
+  align-content: center;
+  justify-content: center;
+  padding: 3px 5px;
+  border-radius: 5px;
+
+  span {
+    position: relative;
+    top: 1px;
+  }
 `;
 
-const isDarkFont = (color: string): boolean => false;
 
-export const LimitDateLabel = styled.small<LimitDateLabelProps>`
-  background-color: ${({ color }) => color};
-  color: ${({color}) => isDarkFont(color) ? colors.white : colors.darkGreyText};
+export const LimitDateLabel = styled.small`
   padding: 3px 5px 3px;
   border-radius: 3px;
   font-weight: 600;
