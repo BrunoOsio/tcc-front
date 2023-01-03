@@ -68,7 +68,6 @@ export const TeamDashboard = () => {
   const teamMembers = team?.members ? team.members : [];
 
   const isTeamLeader = team ? isUserTeamLeader(team.id) : false;
-  console.log(listSize);
 
   return (
     

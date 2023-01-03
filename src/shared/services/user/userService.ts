@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AreasInformationsDTO } from "../../dtos/area/AreasInformationsDTO";
 import { EditUserDTO } from "../../dtos/user/EditUserDTO";
 import { NewUserDTO } from "../../dtos/user/NewUserDTO";
 import { UserLoginDTO } from "../../dtos/user/UserLoginDTO";
@@ -49,4 +50,12 @@ const findLeaderedTeams = async (userId: number): Promise<Team[]> => {
   return data;
 }
 
-export default { isUniqueEmail, register, update, checkLogin, findUser, findLeaderedTeams };
+
+const countLeaderedAreaTasks = async (userId: number, teamId: number): Promise<AreasInformationsDTO> => {
+  const endpoint = `${BASE_URL}/${userId}/countLeaderedAreaTasksByTeam/${teamId}`;
+  const { data } = await axios.get(endpoint);
+
+  return data;
+}
+
+export default { isUniqueEmail, register, update, checkLogin, findUser, findLeaderedTeams, countLeaderedAreaTasks };

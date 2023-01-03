@@ -88,7 +88,7 @@ export const NewTeamButton = () => {
         <article><span>
           {setButtonIcon()}
         </span></article>  
-        <article><ButtonLabel>Novo time</ButtonLabel></article>
+        <article><ButtonLabel>Novo</ButtonLabel></article>
       </Container>
     </Dropdown>
   );

@@ -2,11 +2,12 @@ import { storage } from "../../globalStyles/globalValues"
 import { SaveLocalStorageDto } from "./SaveLocalStorageDto"
 
 export const saveLocalStorage = (localStorageDto: SaveLocalStorageDto) => {
-  const {id, teamsIds, leaderedTeamsIds} = localStorageDto;
+  const {id, name, teamsIds, leaderedTeamsIds} = localStorageDto;
 
   clearLocalStorage();
 
   localStorage.setItem(storage.id, id);
+  localStorage.setItem(storage.name, name);
   localStorage.setItem(storage.teamsIds, teamsIds);
   localStorage.setItem(storage.leaderedTeamsIds, leaderedTeamsIds);
 }
@@ -27,6 +28,7 @@ export const addLocalStorageWhenCreatedTeam = (newTeamId: number) => {
 
   saveLocalStorage({
     id: String(getStoredId()), 
+    name: getStoredName(),
     teamsIds: formattedTeamsIds,
     leaderedTeamsIds: formattedLeaderedTeamsIds
   });
@@ -39,7 +41,8 @@ export const addLocalStorageWhenEnteredTeam = (newLeaderedTeamId: number) => {
   const formattedTeamsIds = mapToString(teamsIds);
 
   saveLocalStorage({
-    id: String(getStoredId()), 
+    id: String(getStoredId()),
+    name: getStoredName(),
     teamsIds: formattedTeamsIds,
     leaderedTeamsIds: getStoredLeaderedTeamIds() || ""
   });
@@ -47,6 +50,10 @@ export const addLocalStorageWhenEnteredTeam = (newLeaderedTeamId: number) => {
 
 export const getStoredId = (): number => {
   return Number(localStorage.getItem(storage.id))
+}
+
+export const getStoredName = (): string => {
+  return String(localStorage.getItem(storage.name));
 }
 
 export const getStoredTeamIds = (): string | null => {

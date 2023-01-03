@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../shared/globalStyles/globalValues";
+import { colors, loginGradient } from "../../shared/globalStyles/globalValues";
 
 type InputProps = {
   isError?: boolean | "" |undefined;
@@ -15,8 +15,7 @@ export const Container = styled.main`
 export const LeftSide = styled.div`
   width: 37%;
   height: 100%;
-  background: rgb(42,115,255);
-  background: linear-gradient(180deg, rgba(42,115,255,1) 9%, rgba(126,172,255,1) 67%);  
+  background: ${loginGradient};  
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -123,10 +122,10 @@ export const Line = styled.div`
 
 export const TextDivider = styled.span`
   position: relative;
-  top: -12px;
-  z-index: 1;
-  background-color: rgba(126,172,255,1);
-  padding: 0px 5px;
+  top: -13px;
+  z-index: 2;
+  background-color: rgba(23, 90, 202, 1);
+  padding: 0px 8px;
   font-weight: bolder;
   color: white;
 `;

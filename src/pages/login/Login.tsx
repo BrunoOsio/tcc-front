@@ -86,7 +86,8 @@ export const Login = () => {
     const leaderedTeamsIds = mapRawTeamsIdsToString(leaderedTeams.map(team => team.id));
 
     const localStorageDto: SaveLocalStorageDto = {
-      id: String(user.id), 
+      id: String(user.id),
+      name: user.name,
       teamsIds: teamsIds,
       leaderedTeamsIds: leaderedTeamsIds
     }
@@ -153,7 +154,7 @@ export const Login = () => {
         <NotRegisteredText onClick={goToRegister}>Não tenho cadastro</NotRegisteredText>
       </LeftSide>
       <RightSide>
-        Right Side
+        <img src="login.svg" alt="" />
       </RightSide>
     </Container>
   );

@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RequestJoinDTO } from "../../pages/searchTeam/components/teamCardSearch/dto/RequestJoinDTO";
 import userService from "../../shared/services/user/userService";
 import { User } from "../../shared/types";
+import { RootState } from "../app/store";
 
 type UserState = {
   value: User | undefined;
@@ -88,6 +89,8 @@ export const userSlice = createSlice({
 
   } 
 });
+
+export const userSelector = (state: RootState) => state.user;
 
 export const { requestJoinUser, removeJoinUser } = userSlice.actions;
 export { findUser };

@@ -20,14 +20,14 @@ export const Areas = styled.div<AreasProps>`
   display: grid;
   margin: 0 auto;
   gap: 25px;
-  column-gap: ${({listSize}) => listSize < 2 && "0px"};
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: ${({listSize}) => `repeat(${listSize}, auto);`};
+  grid-template-columns: ${({listSize}) => listSize > 5 && `repeat(5, auto);`};
   justify-content: center;
   padding: 40px;
 `;
 
 export const TeamInformationsGroup = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100px;
   display: flex;
   justify-content: space-between;

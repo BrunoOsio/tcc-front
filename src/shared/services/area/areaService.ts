@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AreasInformationsDTO } from "../../dtos/area/AreasInformationsDTO";
 import { NewAreaDTO } from "../../dtos/area/NewAreaDTO";
 import { UpdateLeaderDTO } from "../../dtos/area/UpdateLeaderDTO";
 import { Area } from "../../types";

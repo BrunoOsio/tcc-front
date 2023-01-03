@@ -19,6 +19,7 @@ export const colors = {
 }
 
 export const appGradient = "linear-gradient(90deg, rgba(19,118,233,1) 0%, rgba(26,75,201,1) 100%);";
+export const loginGradient = "linear-gradient(180deg, rgba(19,118,233,1) 0%, rgba(26,75,201,1) 100%);";
 export const lighterAppGradient = "linear-gradient(90deg, rgba(19,118,233,0.97) 0%, rgba(26,75,201,0.97) 100%);";
 export const headerGradient = "linear-gradient(90deg, rgba(22,104,223,0.9) 0%, rgba(23,89,211,0.9) 100%);";
 export const columnGradient = "linear-gradient(180deg, rgba(249,251,255,0.70) 0%, rgba(243,247,255,0.70) 100%);";
@@ -36,6 +37,7 @@ export const responsivity = {
 
 export const storage = {
   id: "id",
+  name: "name",
   teamsIds: "teamsIds",
   leaderedTeamsIds: "leaderedTeamsIds"
 }

@@ -132,6 +132,7 @@ export const NewColumnLabel = styled.h1`
 
 export const NewColumnPlaceholder = styled.div`
   height: 100%;
+  min-width: ${sizes.column};
   width: 100%;
   max-width: 480px;
   display: flex;

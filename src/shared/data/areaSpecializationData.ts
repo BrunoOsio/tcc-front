@@ -1,9 +1,8 @@
 import { BsCalendar2EventFill, BsFillAwardFill, BsGearFill } from "react-icons/bs";
-import { BiMicrochip } from "react-icons/bi";
 import { MdOutlineAir, MdPhotoCamera } from "react-icons/md";
 import { AiFillCode } from "react-icons/ai";
 import { HiChip } from "react-icons/hi";
-import { FaCube, FaDraftingCompass } from "react-icons/fa";
+import { FaChessKnight, FaCube, FaDraftingCompass, FaHandsHelping } from "react-icons/fa";
 
 export const areaSpecializationData = [
   {
@@ -44,13 +43,18 @@ export const areaSpecializationData = [
   {
     type: "strategy",
     value: "Estratégia",
-    icon: FaDraftingCompass
+    icon: FaChessKnight
   },
   {
     type: "workshops",
     value: "Oficinas",
     icon: BsCalendar2EventFill
   },
+  {
+    type: "sponsorship",
+    value: "Patrocínio",
+    icon: FaHandsHelping
+  }
 ];
 
 export const findSpecializationValueByType = (type: string) => {

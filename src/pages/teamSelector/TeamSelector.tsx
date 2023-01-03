@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../states/app/hooks";
 import { findTeams } from "../../states/features/teamSlice";
 import { TeamCard } from "./components/teamCard/TeamCard";
-import { Container, GridWrapper, Header, Name, Teams, UserCard } from "./styles";
+import { Body, Container, GridWrapper, Header, Name, Teams, Title, TitleContainer, UserCard } from "./styles";
 import { Icon } from "./components/icon/Icon";
 import { getStoredId } from "../../shared/helpers/localStorage/localStorageHelpers";
 import { NewTeamButton } from "./components/newTeamButton/NewTeamButton";
@@ -60,10 +60,14 @@ export const TeamSelector = () => {
           </UserCard>
         }
         
-        <NewTeamButton/>
-
       </Header>
-      <GridWrapper>
+      
+      <Body>
+        <TitleContainer>
+          <Title>Seus times</Title>
+          <NewTeamButton/>
+        </TitleContainer>
+        
         <Teams listSize={listSize}>
           {
             isTeamLoading && (
@@ -82,7 +86,8 @@ export const TeamSelector = () => {
             )
           }
         </Teams>
-      </GridWrapper>
+      </Body>
+        
     </Container>
   );
 }

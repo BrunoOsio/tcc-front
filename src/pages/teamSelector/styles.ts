@@ -6,17 +6,22 @@ type TeamsProps = {
 }
 
 export const Container = styled.main`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: ${colors.white};
   background: url("main_background.png");
-  `;
+`;
+
+export const Body = styled.main`
+  width: 95.5%;
+  margin: 0 auto;
+`; 
 
 export const Header = styled.section`
   background: ${appGradient};
   width: 100%;
+  min-height: 230px;
   height: 230px;
   display: flex;
   flex-direction: column;
@@ -39,43 +44,30 @@ export const Name = styled.span`
   font-size: 1.2rem;
 `;
 
-const headerOverlayPx = "-50px";
+export const TitleContainer = styled.div`
+  width: 100%;
+  margin: 40px 0px;
+
+  background: ${appGradient};
+  padding: 30px 40px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+`;
+
+export const Title = styled.h1`
+  font-size: 1.4rem;
+  color: ${colors.white};
+`;
 
 export const Teams = styled.section<TeamsProps>`
-  background-color: ${colors.lightBlue};
-  border: 5px solid rgba(176,197,247,0.68);
-  width: 800px;
-  height: 530px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
-  padding: ${({listSize}) => listSize >= 5 && "100px"};
-  padding-bottom: 20px;
-  position: relative;
-  top: ${headerOverlayPx};
-  border-radius: 20px;
-  overflow-y: auto;
-
-  ::-webkit-scrollbar-track {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-  }
-
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-template-columns: ${({listSize}) => listSize == 1 && "none"}; 
-
-  grid-template-rows: ${({listSize}) => listSize > 2 && "repeat(2, 120px)"};
-
-  justify-content: center;
-  align-items: center;
-  place-items: center;
-
-  place-content: center;
-  place-content: ${({listSize}) => listSize >= 5 && "inherit"};
-  
-  column-gap: ${({listSize}) => listSize ? "50px" : "0px"};
-  row-gap: ${({listSize}) => listSize ? "100px" : "0px"};
+  gap: 10px;
 `;
 
 export const GridWrapper = styled.div`

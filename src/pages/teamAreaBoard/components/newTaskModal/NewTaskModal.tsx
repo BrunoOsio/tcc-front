@@ -105,7 +105,6 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
 
     const createdTask = await taskService.createTask(newTask);
 
-    console.log(createdTask);
     const newTaskRender: TaskReferencedToColumnDTO = {
       columnId: columnId,
       temporaryReduxId: createdTask.id,

@@ -108,7 +108,6 @@ export const TaskDetailsModal: React.FC<BaseModalWrapperProps> = ({
     setLoading(true);
 
     const isTaskOnDatabase = await taskService.isTaskExist(task.id);
-    console.log(isTaskOnDatabase);
     
     if (!isTaskOnDatabase) {
         notifyError("Erro, reiniciando a página");
