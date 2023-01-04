@@ -1,6 +1,6 @@
 import { useFormik } from "formik"
 import { loginSchema } from "./schemas/loginSchema";
-import { Button, Container, Form, FormGroup, Error, Input, Label, LeftSide, RightSide, Title, DividerContainer, Line, TextDivider, NotRegisteredText } from "./styles";
+import { Button, Container, Form, FormGroup, Error, Input, Label, LeftSide, RightSide, Title, DividerContainer, Line, TextDivider, NotRegisteredText, Top, LogoContainer, Subtitle, Image, ImageContainer } from "./styles";
 import { ImArrowRight } from "react-icons/im";
 import { trimmed } from "../../shared/helpers/stringHelpers";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { findUser } from "../../states/features/userSlice";
 import { useEffect } from "react";
 import routes from "../../routes/routes";
+import { Logo } from "../../shared/components/logo/Logo";
 
 export type LoginFormValues = {
   email: string,
@@ -154,7 +155,15 @@ export const Login = () => {
         <NotRegisteredText onClick={goToRegister}>Não tenho cadastro</NotRegisteredText>
       </LeftSide>
       <RightSide>
-        <img src="login.svg" alt="" />
+        <Top>
+          <LogoContainer>
+            <Logo theme={"dark"} pointerEvents={false}/>
+          </LogoContainer>
+          <Subtitle>Gerenciador de tarefas para equipes de robótica</Subtitle>
+        </Top>
+        <ImageContainer>
+          <Image src="login.svg"/>
+        </ImageContainer>
       </RightSide>
     </Container>
   );

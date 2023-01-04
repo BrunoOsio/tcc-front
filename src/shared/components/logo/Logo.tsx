@@ -6,9 +6,10 @@ type LogoTheme = "dark" | "white";
 
 type LogoProps = {
   theme: LogoTheme;
+  pointerEvents: boolean;
 };
 
-export const Logo: React.FC<LogoProps> = ({ theme }) => {
+export const Logo: React.FC<LogoProps> = ({ theme, pointerEvents }) => {
 
   const navigate = useNavigate();
 
@@ -19,5 +20,5 @@ export const Logo: React.FC<LogoProps> = ({ theme }) => {
   const themeChoosen =
     theme === "white" ? "/darkbg_logo.png" : "/lightbg_logo.png";
 
-  return <Container onClick={goToMainPage} src={themeChoosen} alt="Logo Teamlist"/>;
+  return <Container onClick={goToMainPage} src={themeChoosen} pointerEvents={pointerEvents} alt="Logo Teamlist"/>;
 };

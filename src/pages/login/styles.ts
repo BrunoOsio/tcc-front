@@ -10,6 +10,7 @@ export const Container = styled.main`
   height: 100vh;
   display: flex;
   flex-direction: row;
+  overflow: hidden;
 `;
 
 export const LeftSide = styled.div`
@@ -149,4 +150,45 @@ export const NotRegisteredText = styled.span`
 
 export const RightSide = styled.div`
   width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+`;
+
+export const Top = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: 0 auto;
+`;
+
+export const LogoContainer = styled.div`
+  width: 40%;
+`;
+
+export const Subtitle = styled.div`
+  font-size: 1.4rem;
+  font-weight: bold;
+  position: relative;
+  top: -75px;
+  color: ${colors.greyNavy};
+`;
+
+export const ImageContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Image = styled.img`
+  width: 90%;
+  position: relative;
+  top: -20px;
+  pointer-events: none;
+  user-select: none;
+  user-zoom: none;
+  -webkit-user-drag: none;
 `;

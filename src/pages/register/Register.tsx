@@ -10,6 +10,11 @@ import {
   LeftSide,
   RightSide,
   Title,
+  Top,
+  LogoContainer,
+  Subtitle,
+  ImageContainer,
+  Image
 } from "../login/styles";
 import { ImArrowRight } from "react-icons/im";
 import { registerSchema } from "./schemas/registerSchema";
@@ -19,6 +24,7 @@ import { NewUserDTO } from "../../shared/dtos/user/NewUserDTO";
 import { notifyError, notifySuccess, notifyWarning } from "../../shared/helpers/notificationHelpers";
 import { useNavigate } from "react-router-dom";
 import routes from "../../routes/routes";
+import { Logo } from "../../shared/components/logo/Logo";
 
 
 export type RegisterFormValues = {
@@ -157,7 +163,17 @@ export const Register = () => {
           </Button>
         </Form>
       </LeftSide>
-      <RightSide>Right Side</RightSide>
+      <RightSide>
+        <Top>
+          <LogoContainer>
+            <Logo theme={"dark"} pointerEvents={false}/>
+          </LogoContainer>
+          <Subtitle>Gerenciador de tarefas para equipes de robótica</Subtitle>
+        </Top>
+        <ImageContainer>
+          <Image src="login.svg"/>
+        </ImageContainer>
+      </RightSide>
     </Container>
   );
 };
