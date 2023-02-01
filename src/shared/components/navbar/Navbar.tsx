@@ -18,7 +18,7 @@ export const Navbar = () => {
     <Container>
       <Sidebar openButtonSize={30} position={sidebarPosition}/>
       <LogoContainer>
-        <Logo theme={"white"}/>
+        <Logo pointerEvents={true} theme={"white"}/>
       </LogoContainer>
 
       <AccountDropdown />

@@ -20,26 +20,26 @@ import { CheckIsTeamLeader } from "../shared/components/privateRoutes/checkIsTea
 import { CheckUserTeams } from "../shared/components/privateRoutes/checkUserTeams/CheckUserTeams";
 
 export const AppRoutes = () => {
-  return(
+  return (
     <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/>
-            <Route path="/" element={<CheckIsLoggedIn><TeamSelector/></CheckIsLoggedIn>}/>
-            <Route path="/editUser" element={<CheckIsLoggedIn><EditUser/></CheckIsLoggedIn>}/>
-            <Route path="/createTeam" element={<CheckIsLoggedIn><CreateTeam/></CheckIsLoggedIn>}/>
-            <Route path="/searchTeam" element={<CheckIsLoggedIn><SearchTeam/></CheckIsLoggedIn>}/>
-            <Route path="/team/:teamId/dashboard" element={<CheckUserTeams><TeamDashboard/></CheckUserTeams>}/>
-            <Route path="/team/:teamId/createArea" element={<CheckUserTeams><CreateArea/></CheckUserTeams>}/>
-            <Route path="/team/:teamId/configurations" element={<CheckIsTeamLeader><TeamConfigurations/></CheckIsTeamLeader>}/>
-            <Route path="/team/:teamId/configurations/edit" element={<CheckUserTeams><EditTeam/></CheckUserTeams>}/>
-            <Route path="/team/:teamId/configurations/members" element={<CheckUserTeams><TeamMembers/></CheckUserTeams>}/>
-            <Route path="/team/:teamId/configurations/joinRequests" element={<CheckIsTeamLeader><JoinRequests/></CheckIsTeamLeader>}/>
-            <Route path="/team/:teamId/configurations/areasSettings" element={<CheckIsTeamLeader><AreaSettings/></CheckIsTeamLeader>}/>
-            <Route path="/team/:teamId/area/:areaId/board" element={<CheckUserTeams><TeamAreaBoard/></CheckUserTeams>}/>
-            <Route path="/prohibited" element={<ProhibitedPage/>}/>
-            <Route path="/notLogged" element={<NotLoggedPage/>}/>
-          </Routes>
-        </BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
+        <Route path="/" element={<CheckIsLoggedIn><TeamSelector/></CheckIsLoggedIn>}/>
+        <Route path="/editUser" element={<CheckIsLoggedIn><EditUser/></CheckIsLoggedIn>}/>
+        <Route path="/createTeam" element={<CheckIsLoggedIn><CreateTeam/></CheckIsLoggedIn>}/>
+        <Route path="/searchTeam" element={<CheckIsLoggedIn><SearchTeam/></CheckIsLoggedIn>}/>
+        <Route path="/team/:teamId/dashboard" element={<CheckUserTeams><TeamDashboard/></CheckUserTeams>}/>
+        <Route path="/team/:teamId/createArea" element={<CheckUserTeams><CreateArea/></CheckUserTeams>}/>
+        <Route path="/team/:teamId/configurations" element={<CheckIsTeamLeader><TeamConfigurations/></CheckIsTeamLeader>}/>
+        <Route path="/team/:teamId/configurations/edit" element={<CheckUserTeams><EditTeam/></CheckUserTeams>}/>
+        <Route path="/team/:teamId/configurations/members" element={<CheckUserTeams><TeamMembers/></CheckUserTeams>}/>
+        <Route path="/team/:teamId/configurations/joinRequests" element={<CheckIsTeamLeader><JoinRequests/></CheckIsTeamLeader>}/>
+        <Route path="/team/:teamId/configurations/areasSettings" element={<CheckIsTeamLeader><AreaSettings/></CheckIsTeamLeader>}/>
+        <Route path="/team/:teamId/area/:areaId/board" element={<CheckUserTeams><TeamAreaBoard/></CheckUserTeams>}/>
+        <Route path="/prohibited" element={<ProhibitedPage/>}/>
+        <Route path="/notLogged" element={<NotLoggedPage/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 }

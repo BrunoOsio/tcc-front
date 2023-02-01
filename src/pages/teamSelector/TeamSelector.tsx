@@ -64,7 +64,7 @@ export const TeamSelector = () => {
       
       <Body>
         <TitleContainer>
-          <Title>Seus times</Title>
+          <Title>Suas equipes</Title>
           <NewTeamButton/>
         </TitleContainer>
         
@@ -82,7 +82,7 @@ export const TeamSelector = () => {
 
           {
             (isTeamSuccess && teams.length === 0) && (
-              <NoItemsFound message="Você não está em nenhum time ainda"/>
+              <NoItemsFound message="Você não está em nenhuma equipe ainda"/>
             )
           }
         </Teams>

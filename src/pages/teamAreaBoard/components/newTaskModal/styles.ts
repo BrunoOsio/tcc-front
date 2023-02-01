@@ -83,7 +83,7 @@ export const TextArea = styled.textarea<InputProps>`
   background: transparent;
   border: 3px solid ${colors.lightGreyAlmostTransparent};
   border: ${({isError}) => isError && "3px solid #FF5757"};
-  color: ${colors.greyDarker};
+  color: ${colors.darkGreyText};
   padding: 10px 20px;
   margin-top: 5px;
   font-size: 1rem;

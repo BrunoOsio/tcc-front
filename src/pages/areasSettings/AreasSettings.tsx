@@ -47,7 +47,7 @@ export const AreaSettings = () => {
   }
 
   const teamJoinRequestsLength = team?.joinRequests ? team.joinRequests?.length : 0;
-
+  localStorage.setItem("isDark", "t")
   return (
     <>
       <Navbar/>

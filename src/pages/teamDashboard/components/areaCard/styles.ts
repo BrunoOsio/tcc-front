@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../../../shared/globalStyles/globalValues";
 
-export const Container = styled.div`
+type ContainerProps = {
+  hoverColor: string | undefined;
+}
+
+export const Container = styled.div<ContainerProps>`
   width: 230px;
   height: 270px;
   display: flex;
@@ -12,14 +15,16 @@ export const Container = styled.div`
   border-radius: 20px;
   padding: 30px;
   align-items: center;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.4s ease-in-out;
   cursor: pointer;
 
   &:hover {
-    transform: scale(1.01);
-    border-color: ${colors.purpleDarkBlue};
+    transform: scale(1.03);
+    border-color: ${({hoverColor}) => hoverColor && `${hoverColor}`};
+    color: ${colors.white};
+    background-color: ${({hoverColor}) => hoverColor && `${hoverColor}`};
     span {
-      color: ${colors.purpleDarkBlue};
+      color: ${colors.white};
     }
   }
 `;

@@ -6,11 +6,12 @@ import { Container, Specialization, Title } from "./styles";
 
 type AreaCardProps = {
   area: Area;
+  hoverColor: string; 
 }
 
-export const AreaCard: React.FC<AreaCardProps> = ({area}) => {
+export const AreaCard: React.FC<AreaCardProps> = ({area, hoverColor}) => {
   const navigate = useNavigate();
-
+  console.log(`${area.name} ${hoverColor}`);
   const { teamId } = useParams();
   const teamIdNumber = Number(teamId);
 
@@ -25,7 +26,7 @@ export const AreaCard: React.FC<AreaCardProps> = ({area}) => {
   }
 
   return (
-    <Container onClick={goToAreaBoard}>
+    <Container onClick={goToAreaBoard} hoverColor={hoverColor}>
         <Title>{area.name}</Title>
 
         <Specialization><span>{getIcon(area.specialization)}</span></Specialization>

@@ -34,8 +34,8 @@ export const List = styled.span`
 
 export const OptionalList = styled.span`
   padding: 10px;
-  background-color: ${colors.lightGreyAlmostTransparent};
-  color: ${colors.grey};
+  background-color: ${colors.purpleDarkBlue};
+  color: ${colors.white};
   border-radius: 10px;
   width: 32%;
   gap: 30px;

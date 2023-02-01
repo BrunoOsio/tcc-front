@@ -68,6 +68,7 @@ export const Teams = styled.section<TeamsProps>`
   flex-direction: column;
   margin: 0 auto;
   gap: 10px;
+  margin-bottom: 40px;
 `;
 
 export const GridWrapper = styled.div`

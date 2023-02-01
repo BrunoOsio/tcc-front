@@ -83,7 +83,8 @@ export const SearchBar = styled.input`
 
 export const Body = styled.div<BodyProps>`
   width: 75%;
-  margin: 50px auto 0px auto;
+  margin: 90px auto 0px auto;
+  padding: 5px 0px;
 
   display: grid;
   grid-template-columns: repeat(4, auto);

@@ -41,7 +41,7 @@ export const RightTop = styled.div<RightTopProps>`
   padding: 10px;
   height: 100%;
   height: ${({isMemberLeadsArea}) => !isMemberLeadsArea && "auto"};
-  width: 200px;
+  max-width: 200px;
   margin: 10px;
   border: 3px solid ${colors.lightBlue};
   display: flex;

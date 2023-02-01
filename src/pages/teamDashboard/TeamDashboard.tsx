@@ -18,6 +18,7 @@ import routes from "../../routes/routes";
 import { MdSettings } from "react-icons/md";
 import { NoItemsFound } from "../../shared/components/noItemsFound/NoItemsFound";
 import { Loading } from "../../shared/components/loading/Loading";
+import { setHoverColor } from "./helpers/setHoverColor";
 
 export const TeamDashboard = () => {
   const navigate = useNavigate();
@@ -69,6 +70,8 @@ export const TeamDashboard = () => {
 
   const isTeamLeader = team ? isUserTeamLeader(team.id) : false;
 
+  const isMediumScreen = screenWidth < 1330;
+  console.log(isMediumScreen)
   return (
     
     <Container>
@@ -121,14 +124,14 @@ export const TeamDashboard = () => {
         }
       </Header>
     
-      <Areas listSize={listSize}>
+      <Areas listSize={listSize} isMediumScreen={isMediumScreen}>
 
         {isAreaLoading && (
           <Loading size={100}/>
         )}
 
         {isAreaSuccess && (
-          areas.map(area => <AreaCard key={area.id} area={area}/>)
+          areas.map((area, index) => <AreaCard key={area.id} area={area} hoverColor={setHoverColor(index, isMediumScreen)}/>)
         )}
 
         {(!isAreaLoading && isAreaSuccess && areas.length === 0) && (

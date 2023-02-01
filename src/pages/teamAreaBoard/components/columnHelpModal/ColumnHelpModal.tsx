@@ -52,8 +52,8 @@ export const ColumnHelpModal: React.FC<BaseModalWrapperProps> = ({ area, isModal
         <Text>
           O uso de listas para o controle de tarefas melhora
           a visibilidade do time no dia a dia, por isso, 
-          é fundamental seu uso. Caso haja alguma dúvida sobre o uso da ferramente,
-          contate o líder da área;
+          é fundamental seu uso. Caso haja alguma dúvida sobre o uso da ferramenta,
+          contate o líder da área.
         </Text>
       <CloseButton onClick={onBackDropClick}>Entendido</CloseButton>
       </Container>

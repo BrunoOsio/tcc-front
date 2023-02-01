@@ -88,7 +88,7 @@ export const Sidebar: React.FC<SidebarProps> = ({openButtonSize, position}) => {
       <SidebarWrap>
         <Header>
           <span onClick={goHistoryBack}><TbArrowBackUp/></span>
-          <Logo theme={'white'}/>
+          <Logo pointerEvents={true} theme={'white'}/>
         </Header>
 
         {sidebarTeams()?.map((item, index) => <Submenu item={item} key={index} />)}

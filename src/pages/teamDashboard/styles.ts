@@ -3,6 +3,7 @@ import { appGradient, colors } from "../../shared/globalStyles/globalValues";
 
 type AreasProps = {
   listSize: number;
+  isMediumScreen: boolean;
 }
 
 type SettingsIconProps = {
@@ -21,7 +22,8 @@ export const Areas = styled.div<AreasProps>`
   margin: 0 auto;
   gap: 25px;
   grid-template-columns: ${({listSize}) => `repeat(${listSize}, auto);`};
-  grid-template-columns: ${({listSize}) => listSize > 5 && `repeat(5, auto);`};
+  grid-template-columns: ${({listSize, isMediumScreen}) => (!isMediumScreen && listSize > 5) && `repeat(5, auto);`};
+  grid-template-columns: ${({listSize, isMediumScreen}) => (isMediumScreen && listSize > 3) && `repeat(3, auto);`};
   justify-content: center;
   padding: 40px;
 `;

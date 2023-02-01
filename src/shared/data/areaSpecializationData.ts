@@ -1,8 +1,8 @@
 import { BsCalendar2EventFill, BsFillAwardFill, BsGearFill } from "react-icons/bs";
-import { MdOutlineAir, MdPhotoCamera } from "react-icons/md";
+import { MdCable, MdPhotoCamera } from "react-icons/md";
 import { AiFillCode } from "react-icons/ai";
 import { HiChip } from "react-icons/hi";
-import { FaChessKnight, FaCube, FaDraftingCompass, FaHandsHelping } from "react-icons/fa";
+import { FaChessKnight, FaCube, FaHandsHelping } from "react-icons/fa";
 
 export const areaSpecializationData = [
   {
@@ -28,7 +28,7 @@ export const areaSpecializationData = [
   {
     type: "pneumatics",
     value: "Pneumática",
-    icon: MdOutlineAir
+    icon: MdCable
   },
   {
     type: "programming",

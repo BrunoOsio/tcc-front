@@ -53,7 +53,7 @@ export const ColumnContainer: React.FC<ColumnContainerProps> = ({ column, index 
           { !column.isForDoneTasks &&
           <>
             <AddTaskButton onClick={toggleNewTaskModal}><span><GoPlus /></span></AddTaskButton>
-            <NewTaskModal columnId={column.id} isModalVisible={isNewTaskModalVisible} onBackDropClick={toggleNewTaskModal}/>
+            <NewTaskModal column={column} isModalVisible={isNewTaskModalVisible} onBackDropClick={toggleNewTaskModal}/>
             <Divider/>
           </>
           }

@@ -14,7 +14,11 @@ import {
   LogoContainer,
   Subtitle,
   ImageContainer,
-  Image
+  Image,
+  NotRegisteredText,
+  DividerContainer,
+  Line,
+  TextDivider
 } from "../login/styles";
 import { ImArrowRight } from "react-icons/im";
 import { registerSchema } from "./schemas/registerSchema";
@@ -162,6 +166,13 @@ export const Register = () => {
             </span>
           </Button>
         </Form>
+
+        <DividerContainer>
+          <Line/>
+          <TextDivider>OU</TextDivider>
+        </DividerContainer>
+
+        <NotRegisteredText onClick={() => navigate(routes.login())}>Já tenho um login</NotRegisteredText>
       </LeftSide>
       <RightSide>
         <Top>

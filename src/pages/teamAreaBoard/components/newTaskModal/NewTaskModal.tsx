@@ -12,14 +12,15 @@ import { Button, CheckboxContainer, CheckboxLabel, DateTimeFormGroup, DateTimeIn
 import { trimmed } from "../../../../shared/helpers/stringHelpers";
 import { ImArrowRight } from "react-icons/im";
 import { Loading } from "../../../../shared/components/loading/Loading";
+import { Column } from "../../../../shared/types";
 
 type BaseModalWrapperProps = {
-  columnId: number;
+  column: Column;
   isModalVisible: boolean;
   onBackDropClick: () => void;
 }
 
-export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModalVisible, onBackDropClick}) => {
+export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({column, isModalVisible, onBackDropClick}) => {
   const dispatch = useAppDispatch();
 
   const defaultState = {
@@ -127,7 +128,7 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
       <Form isLoading={loading}>
         {loading && (<Loading size={100}/>)}
         <ExitButton onClick={onBackDropClick}><MdClose color="#6a6a6a"/></ExitButton>        
-        <Header>Adicionar nova tarefa</Header>
+        <Header>Nova tarefa na lista "{column.title}"</Header>
 
         <FormGroup>
             <Label htmlFor="title">Título</Label>
@@ -163,7 +164,7 @@ export const NewTaskModal: React.FC<BaseModalWrapperProps> = ({columnId, isModal
         </DateTimeFormGroup>
 
         <ButtonGroup>
-          <ConfirmButton onClick={() => handleSubmit(columnId)} isEnableSend={isEnableSend}><span><ImArrowRight/></span></ConfirmButton>
+          <ConfirmButton onClick={() => handleSubmit(column.id)} isEnableSend={isEnableSend}><span><ImArrowRight/></span></ConfirmButton>
         </ButtonGroup>
       </Form>
     </BaseModal>
